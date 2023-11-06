@@ -6,7 +6,7 @@ function love.load()
     focus = " "
     focusTimer = 0
     focusTimerTrigger = false
-    love.window.setTitle("rougelike")
+    love.window.setTitle("roguelike")
  end
 
 
@@ -66,10 +66,10 @@ end
 function love.focus(f)
     if not f then
       focus = "LOST FOCUS"
-      love.window.setTitle("rougelike (FOCUS LOST)")
+      love.window.setTitle("roguelike (FOCUS LOST)")
     else
       focus = "GAINED FOCUS"
-      love.window.setTitle("rougelike")
+      love.window.setTitle("roguelike")
       focusTimerTrigger = true
     end
 end
