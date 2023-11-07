@@ -1,49 +1,120 @@
+-- love 'C:\Users\decla\github\love2dgame'
 
 
 function love.load()
-    x = 0
-    y = 0
+
+    -- define variables and arrays
+    window = {}
+    window.width, window.height = love.graphics.getDimensions()
     focus = " "
     focusTimer = 0
     focusTimerTrigger = false
+    bullets = {}
+    bulletcooldown = true
+    bulletTimer = 0
+
+    -- player variables
+    player = {}
+    player.x =  window.width/2 
+    player.y =  window.height/2 - 50
+
+    -- set window title
     love.window.setTitle("roguelike")
+
+
+
+
+
+    bullet1 = {}
+    bullet1.x = player.x
+    bullet1.y = player.y
+
  end
 
 
 
+function createBullet(x, y, speed, dir)
+
+    local bullet = {}
+    bullet.x = x
+    bullet.y = y
+    bullet.width = 10
+    bullet.height = 10
+    bullet.txt = "#"
+    bullet.speed = speed
+    bullet.direction = dir
+    bullet.damage = 1
+    bullet.active = true
+
+    
+
+    if bullet.y < 0 then
+        bullet.active = false
+    end
+
+    if bullet.active == false then
+        bullet.txt = " "
+    end
+
+    bullet.i = 0
+    while bullet.i < 80 do
+        bullet.i = bullet.i + 1
+        bullet.y = bullet.y - bullet.speed
+
+
+    end
+
+    return bullet
+
+end
+
+
 function love.update(dt)
 
-    width, height = love.graphics.getDimensions()
+    window.width, window.height = love.graphics.getDimensions()
 
-    if love.keyboard.isDown("down") then
-        y = y + 1
+
+    if love.keyboard.isDown("w") then
+        player.y = player.y - 1
     end
+    if love.keyboard.isDown("s") then
+        player.y = player.y + 1
+    end
+    if love.keyboard.isDown("a") then
+        player.x = player.x - 1
+    end
+    if love.keyboard.isDown("d") then
+        player.x = player.x + 1
+    end
+
     if love.keyboard.isDown("up") then
-        y = y - 1
-    end
-    if love.keyboard.isDown("left") then
-        x = x - 1
-    end
-    if love.keyboard.isDown("right") then
-        x = x + 1
+
+        if bulletcooldown == false then
+            local bullet = createBullet(player.x, player.y - 10, 10, "up")
+            bullets[#bullets+1] = bullet
+            bulletcooldown = true
+        end
     end
 
 
-    if x > width - 10 then
-        x = width - 10
+
+
+    if player.x > window.width - 10 then
+        player.x = window.width - 10
     end
 
-    if x < 0 then
-        x = 0
+    if player.x < 0 then
+        player.x = 0
     end
 
-    if y > height - 12 then
-        y = height - 12
+    if player.y > window.height - 12 then
+        player.y = window.height - 12
     end
 
-    if y < 0 then
-        y = 0
+    if player.y < 0 then
+        player.y = 0
     end
+
 
 
 
@@ -60,6 +131,17 @@ function love.update(dt)
     end
     
 
+    if bulletcooldown == true then
+        bulletTimer = bulletTimer + dt
+
+        if bulletTimer > 0.2 then
+
+            bulletTimer = 0
+            bulletcooldown = false
+
+        end
+    end
+
 end
 
 
@@ -75,7 +157,10 @@ function love.focus(f)
 end
 
 function love.draw()
-    love.graphics.print('P', x, y)
-    love.graphics.print(focus, width/2 - 50, height/2 - 50)
+    love.graphics.print('O', player.x, player.y)
+    love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50)
+    for k,v in ipairs(bullets) do
+            love.graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y)
+    end
 end
 

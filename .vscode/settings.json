@@ -13,6 +13,14 @@
         "focusTimer",
         "focusTimerTrigger",
         "width",
-        "height"
+        "height",
+        "createBullet",
+        "player",
+        "window",
+        "bullets",
+        "bulletcooldown",
+        "bulletTimer",
+        "bullet1",
+        "i"
     ]
 }
