@@ -1,4 +1,5 @@
--- love 'C:\Users\decla\github\love2dgame'
+-- love 'C:\Users\decla\github\love2droguelike'
+
 
 
 function love.load()
@@ -32,6 +33,31 @@ function love.load()
  end
 
 
+ function lengthdir_x(len, dir)
+
+    dir = degtorad(dir)
+
+    return math.cos(dir) * len
+
+end
+
+
+
+--Returns the y vector from {len} and {dir}
+
+function lengthdir_y(len, dir)
+
+    dir = degtorad(dir)
+
+    return -math.sin(dir) * len
+
+end
+
+function degtorad( d )
+
+    return d * math.pi / 180
+
+end
 
 function createBullet(x, y, speed, dir)
 
@@ -45,24 +71,14 @@ function createBullet(x, y, speed, dir)
     bullet.direction = dir
     bullet.damage = 1
     bullet.active = true
-
-    
-
-    if bullet.y < 0 then
-        bullet.active = false
+    function bullet.update(dt)
+        bullet.y = bullet.y + lengthdir_y(bullet.speed * dt, dir)
+        bullet.x = bullet.x + lengthdir_x(bullet.speed * dt, dir)
     end
 
-    if bullet.active == false then
-        bullet.txt = " "
-    end
 
-    bullet.i = 0
-    while bullet.i < 80 do
-        bullet.i = bullet.i + 1
-        bullet.y = bullet.y - bullet.speed
-
-
-    end
+ 
+    print("bullet created")
 
     return bullet
 
@@ -71,32 +87,73 @@ end
 
 function love.update(dt)
 
+    local deltatime = love.timer.getDelta() * 60
+
+
     window.width, window.height = love.graphics.getDimensions()
 
 
     if love.keyboard.isDown("w") then
-        player.y = player.y - 1
+        player.y = player.y - 2 * deltatime
     end
     if love.keyboard.isDown("s") then
-        player.y = player.y + 1
+        player.y = player.y + 2 * deltatime
     end
     if love.keyboard.isDown("a") then
-        player.x = player.x - 1
+        player.x = player.x - 2 * deltatime
     end
     if love.keyboard.isDown("d") then
-        player.x = player.x + 1
+        player.x = player.x + 2 * deltatime
     end
 
     if love.keyboard.isDown("up") then
 
-        if bulletcooldown == false then
-            local bullet = createBullet(player.x, player.y - 10, 10, "up")
+        if not bulletcooldown then
+            local bullet = createBullet(player.x, player.y, 10, 90)
             bullets[#bullets+1] = bullet
             bulletcooldown = true
         end
     end
+    if love.keyboard.isDown("left") then
 
+        if not bulletcooldown then
+            local bullet = createBullet(player.x, player.y, 10, 180)
+            bullets[#bullets+1] = bullet
+            bulletcooldown = true
+        end
+    end
+    if love.keyboard.isDown("right") then
 
+        if not bulletcooldown then
+            local bullet = createBullet(player.x, player.y, 10, 0)
+            bullets[#bullets+1] = bullet
+            bulletcooldown = true
+        end
+    end
+    if love.keyboard.isDown("down") then
+
+        if not bulletcooldown then
+            local bullet = createBullet(player.x, player.y, 10, 270)
+            bullets[#bullets+1] = bullet
+            bulletcooldown = true
+        end
+    end
+    
+
+    
+
+    for k,v in ipairs(bullets) do
+        bullets[k].update(deltatime)
+
+        if bullets[k].y < 0 or bullets[k].y > window.height or bullets[k].x < 0 or bullets[k].x > window.width then
+            bullets[k].active = false
+        end
+
+        if not bullets[k].active then
+            table.remove(bullets, k)
+            print("bullet destroyed")
+          end
+    end
 
 
     if player.x > window.width - 10 then
@@ -114,11 +171,10 @@ function love.update(dt)
     if player.y < 0 then
         player.y = 0
     end
+    
 
 
-
-
-    if focusTimerTrigger == true then
+    if focusTimerTrigger then
         focusTimer = focusTimer + dt
 
         if focusTimer > 0.4 then
@@ -131,7 +187,7 @@ function love.update(dt)
     end
     
 
-    if bulletcooldown == true then
+    if bulletcooldown then
         bulletTimer = bulletTimer + dt
 
         if bulletTimer > 0.2 then

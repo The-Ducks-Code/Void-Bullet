@@ -21,6 +21,11 @@
         "bulletcooldown",
         "bulletTimer",
         "bullet1",
-        "i"
+        "i",
+        "deltatime",
+        "lengthdir_x",
+        "lengthdir_y",
+        "degtorad",
+        "test"
     ]
 }
