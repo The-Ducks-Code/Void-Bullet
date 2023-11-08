@@ -1,93 +1,37 @@
--- love 'C:\Users\decla\github\love2droguelike'
+-- lovec 'C:\Users\decla\github\love2droguelike'
 
+require("xtramath")
+require("bullet")
+require("betterdrawing")
 
+function love.load() -- ran before the first frame
 
-function love.load()
-
+    love.window.setMode(800, 800) -- set the window width and height to 800x800
     -- define variables and arrays
-    window = {}
-    window.width, window.height = love.graphics.getDimensions()
-    focus = " "
-    focusTimer = 0
-    focusTimerTrigger = false
-    bullets = {}
-    bulletcooldown = true
-    bulletTimer = 0
+    window = {} -- window object
+    window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
+    focus = " " -- set the focus text to nothing so it is hidden
+    focusTimer = 0 -- reset the focus timer
+    focusTimerTrigger = false -- reset the focus timer trigger
+
+
 
     -- player variables
-    player = {}
-    player.x =  window.width/2 
-    player.y =  window.height/2 - 50
+    player = {} -- create the player object
+    player.x =  window.width/2 -- set the players x postition to about the middle of the screen
+    player.y =  window.height/2 -- set the players y postition to about the middle of the screen
 
     -- set window title
     love.window.setTitle("roguelike")
 
-
-
-
-
-    bullet1 = {}
-    bullet1.x = player.x
-    bullet1.y = player.y
-
- end
-
-
- function lengthdir_x(len, dir)
-
-    dir = degtorad(dir)
-
-    return math.cos(dir) * len
-
 end
-
-
-
---Returns the y vector from {len} and {dir}
-
-function lengthdir_y(len, dir)
-
-    dir = degtorad(dir)
-
-    return -math.sin(dir) * len
-
-end
-
-function degtorad( d )
-
-    return d * math.pi / 180
-
-end
-
-function createBullet(x, y, speed, dir)
-
-    local bullet = {}
-    bullet.x = x
-    bullet.y = y
-    bullet.width = 10
-    bullet.height = 10
-    bullet.txt = "#"
-    bullet.speed = speed
-    bullet.direction = dir
-    bullet.damage = 1
-    bullet.active = true
-    function bullet.update(dt)
-        bullet.y = bullet.y + lengthdir_y(bullet.speed * dt, dir)
-        bullet.x = bullet.x + lengthdir_x(bullet.speed * dt, dir)
-    end
-
-
- 
-    print("bullet created")
-
-    return bullet
-
-end
-
 
 function love.update(dt)
 
+    fps = love.timer.getFPS()
+    strFPS = tostring(love.timer.getFPS())
     local deltatime = love.timer.getDelta() * 60
+
 
 
     window.width, window.height = love.graphics.getDimensions()
@@ -138,14 +82,11 @@ function love.update(dt)
             bulletcooldown = true
         end
     end
-    
-
-    
 
     for k,v in ipairs(bullets) do
         bullets[k].update(deltatime)
 
-        if bullets[k].y < 0 or bullets[k].y > window.height or bullets[k].x < 0 or bullets[k].x > window.width then
+        if bullets[k].y < -5 or bullets[k].y > window.height or bullets[k].x < -5 or bullets[k].x > window.width then
             bullets[k].active = false
         end
 
@@ -203,20 +144,29 @@ end
 
 function love.focus(f)
     if not f then
-      focus = "LOST FOCUS"
-      love.window.setTitle("roguelike (FOCUS LOST)")
+      focus = "LOST FOCUS" -- change the on screen lost and gained focus text to 'LOST FOCUS'
+      love.window.setTitle("roguelike (FOCUS LOST)") -- set the program window to 'roguelike (FOCUS LOST)'
     else
-      focus = "GAINED FOCUS"
-      love.window.setTitle("roguelike")
+      focus = "GAINED FOCUS" -- change the on screen lost and gained focus text to 'GAINED FOCUS'
+      love.window.setTitle("roguelike") -- set the program window to 'roguelike'
       focusTimerTrigger = true
     end
 end
 
 function love.draw()
-    love.graphics.print('O', player.x, player.y)
-    love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50)
+
+    love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50) -- print the lost and gained focus text when needed
+
+    love.graphics.print('O', player.x, player.y) -- print player every frame
     for k,v in ipairs(bullets) do
-            love.graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y)
+            love.graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y) -- print bullets every frame they are on screen
     end
+
+    drawRect(0, 0, 0, 155, "fill", 0, 0, 45, 20)
+
+    love.graphics.setColor(255, 255, 255, 155)
+
+    love.graphics.print(strFPS .. ' FPS', 0, 0)
+
 end
 

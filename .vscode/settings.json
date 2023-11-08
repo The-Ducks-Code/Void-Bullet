@@ -26,6 +26,26 @@
         "lengthdir_x",
         "lengthdir_y",
         "degtorad",
-        "test"
+        "test",
+        "fps",
+        "strFPS",
+        "drawrect",
+        "red",
+        "green",
+        "white",
+        "blue",
+        "black",
+        "purple",
+        "brown",
+        "grey",
+        "gray",
+        "orange",
+        "pink",
+        "darkblue",
+        "rbga",
+        "rgba",
+        "drawtext",
+        "drawRect",
+        "drawText"
     ]
 }
