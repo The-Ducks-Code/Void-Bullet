@@ -4,8 +4,6 @@ This has all custom made math and calculation functions
 
 ]]--
 
-
-
 --Returns the x vector from {len} and {dir}
 
 function lengthdir_x(len, dir)
@@ -26,7 +24,7 @@ function lengthdir_y(len, dir)
 
 end
 
-function degtorad( d )
+function degtorad(d)
 
     return d * math.pi / 180
 

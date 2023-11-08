@@ -46,6 +46,8 @@
         "rgba",
         "drawtext",
         "drawRect",
-        "drawText"
+        "drawText",
+        "enemies",
+        "createEnemy"
     ]
 }

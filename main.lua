@@ -2,6 +2,7 @@
 
 require("xtramath")
 require("bullet")
+require("enemy")
 require("betterdrawing")
 
 function love.load() -- ran before the first frame
@@ -20,9 +21,13 @@ function love.load() -- ran before the first frame
     player = {} -- create the player object
     player.x =  window.width/2 -- set the players x postition to about the middle of the screen
     player.y =  window.height/2 -- set the players y postition to about the middle of the screen
+    player.hp = 100
 
     -- set window title
     love.window.setTitle("roguelike")
+
+    enemies[#enemies+1] = createEnemy(love.math.random(10, window.width - 10), love.math.random(10, window.height + 10), "normal", 40) -- create one enemy
+
 
 end
 
@@ -96,6 +101,41 @@ function love.update(dt)
           end
     end
 
+    for k,v in ipairs(enemies) do
+        enemies[k].update(deltatime)
+
+        if enemies[k].x > window.width - 10 then
+            enemies[k].x = window.width - 10
+        end
+    
+        if enemies[k].x < 0 then
+            enemies[k].x = 0
+        end
+    
+        if enemies[k].y > window.height - 12 then
+            enemies[k].y = window.height - 12
+        end
+    
+        if enemies[k].y < 0 then
+            enemies[k].y = 0
+        end
+
+
+        for b,l in ipairs(bullets) do
+
+            if enemies[k].x + 10 > bullets[b].x and enemies[k].x - 10 < bullets[b].x and enemies[k].y - 10 < bullets[b].y and enemies[k].y + 10 > bullets[b].y then
+                print("bullet hit enemy")
+                enemies[k].active = false
+                bullets[b].active = false
+            end
+
+        end
+
+        if not enemies[k].active then
+            table.remove(enemies, k)
+            print("enemy destroyed")
+          end
+    end
 
     if player.x > window.width - 10 then
         player.x = window.width - 10
@@ -158,9 +198,16 @@ function love.draw()
     love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50) -- print the lost and gained focus text when needed
 
     love.graphics.print('O', player.x, player.y) -- print player every frame
+
     for k,v in ipairs(bullets) do
             love.graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y) -- print bullets every frame they are on screen
     end
+
+    for k,v in ipairs(enemies) do
+        love.graphics.print(enemies[k].txt, enemies[k].x, enemies[k].y) -- print enemies every frame they are on screen
+    end
+
+
 
     drawRect(0, 0, 0, 155, "fill", 0, 0, 45, 20)
 
