@@ -3,6 +3,7 @@
 This handles all of the enemy creation outside of the update and draw functions
 
 ]]--
+
 enemies = {} -- create the array of enemy objects
 
 function createEnemy(x, y, type, damage)
@@ -44,4 +45,11 @@ function createEnemy(x, y, type, damage)
 
     return enemy
 
+end
+
+
+function enemies.draw()
+    for k,v in ipairs(enemies) do
+        love.graphics.print(enemies[k].txt, enemies[k].x, enemies[k].y) -- print enemies every frame they are on screen
+    end
 end

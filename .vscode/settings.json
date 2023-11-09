@@ -48,6 +48,10 @@
         "drawRect",
         "drawText",
         "enemies",
-        "createEnemy"
+        "createEnemy",
+        "gameover",
+        "damageTimer",
+        "damagecooldown",
+        "input"
     ]
 }
