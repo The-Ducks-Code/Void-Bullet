@@ -42,7 +42,7 @@ function love.update(dt)
 
     if player.isAlive then
         
-        input.player()
+        input.player(deltatime)
 
         for k,v in ipairs(bullets) do
             bullets[k].update(deltatime)

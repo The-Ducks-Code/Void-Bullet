@@ -1,18 +1,18 @@
 
 input = {}
 
-function input.player()
+function input.player(dt)
     if love.keyboard.isDown("w") then
-        player.y = player.y - 2 * deltatime
+        player.y = player.y - 2 * dt
     end
     if love.keyboard.isDown("s") then
-        player.y = player.y + 2 * deltatime
+        player.y = player.y + 2 * dt
     end
     if love.keyboard.isDown("a") then
-        player.x = player.x - 2 * deltatime
+        player.x = player.x - 2 * dt
     end
     if love.keyboard.isDown("d") then
-        player.x = player.x + 2 * deltatime
+        player.x = player.x + 2 * dt
     end
 
     if love.keyboard.isDown("up") then
