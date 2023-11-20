@@ -11,7 +11,9 @@ player.y =  window.height/2 -- set the players y postition to about the middle o
 player.hp = 100
 player.score = 0
 player.isAlive = true
+player.abilities = {}
 gameover = {}
+player.bType = "fireball"
 
 damageTimer = 0 -- reset the damage timer
 damagecooldown = false -- reset the damage cooldown
@@ -20,12 +22,26 @@ function player.update(dt)
     if player.hp <= 0 then
         player.isAlive = false
     end
+
+
+    for k,v in ipairs(player.abilities) do
+
+        if player.abilities[k] == "fireball" then
+            player.bType = "fireball"
+        elseif player.abilities[k] == "laser" then
+            player.bType = "laser"
+        end
+
+    end
 end
 
 
 function player.draw()
     love.graphics.print('O', player.x, player.y) -- print player every frame
 end
+
+
+
 
 
 function gameover.draw()

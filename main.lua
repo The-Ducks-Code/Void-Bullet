@@ -1,4 +1,6 @@
--- MAIN CODEBASE
+-- MAIN CODEBASE 
+
+-- lovec "C:\Users\decla\github\love2droguelike"
 
 require("xtramath")
 require("bullet")
@@ -15,6 +17,7 @@ function love.load() -- ran before the first frame
     focus = " " -- set the focus text to nothing so it is hidden
     focusTimer = 0 -- reset the focus timer
     focusTimerTrigger = false -- reset the focus timer trigger
+    btTime = 0.2
 
     require("player") -- moved it here because it needed to be ran after the width and height variables were assigned
 
@@ -22,7 +25,7 @@ function love.load() -- ran before the first frame
     love.window.setTitle("roguelike")
 
     local i = 0
-    while i < 100 do
+    while i < 10 do
         enemies[#enemies+1] = createEnemy(love.math.random(10, window.width - 10), love.math.random(10, window.height + 10), "normal", 40) -- create one enemy
         i = i + 1
     end
@@ -130,7 +133,7 @@ function love.update(dt)
 
     if bulletcooldown then
         bulletTimer = bulletTimer + dt
-        if bulletTimer > 0.2 then
+        if bulletTimer > btTime then
             bulletTimer = 0
             bulletcooldown = false
         end

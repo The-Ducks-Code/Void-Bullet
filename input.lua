@@ -17,28 +17,28 @@ function input.player(dt)
 
     if love.keyboard.isDown("up") then
         if not bulletcooldown then
-            local bullet = createBullet(player.x, player.y, 10, 90)
+            local bullet = createBullet(player.x, player.y, 90)
             bullets[#bullets+1] = bullet
             bulletcooldown = true
         end
     end
     if love.keyboard.isDown("left") then
         if not bulletcooldown then
-            local bullet = createBullet(player.x, player.y, 10, 180)
+            local bullet = createBullet(player.x, player.y, 180)
             bullets[#bullets+1] = bullet
             bulletcooldown = true
         end
     end
     if love.keyboard.isDown("right") then
         if not bulletcooldown then
-            local bullet = createBullet(player.x, player.y, 10, 0)
+            local bullet = createBullet(player.x, player.y, 0)
             bullets[#bullets+1] = bullet
             bulletcooldown = true
         end
     end
     if love.keyboard.isDown("down") then
         if not bulletcooldown then
-            local bullet = createBullet(player.x, player.y, 10, 270)
+            local bullet = createBullet(player.x, player.y, 270)
             bullets[#bullets+1] = bullet
             bulletcooldown = true
         end
