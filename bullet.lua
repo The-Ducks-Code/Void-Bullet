@@ -18,6 +18,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
     bullet.color = {255, 255, 255, 255}
 
     if player.bType == "normal" then
+
         bullet.damage = 1
         bullet.txt = "+"
         bullet.width = 10
@@ -27,13 +28,16 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         btTime = 0.2
 
     elseif player.bType == "fireball" then
+
         bullet.damage = 5
         bullet.txt = "@"
         bullet.width = 25
         bullet.height = 25
         bullet.speed = 5
         btTime = 0.4
+        
     elseif player.bType == "laser" then
+
         bullet.damage = 5
         bullet.txt = "#"
         bullet.width = 25
@@ -41,6 +45,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.speed = 5
         bullet.color = {255, 0, 0, 255}
         btTime = 0.001
+
     end
     local b = 0
     local c = 0
@@ -53,6 +58,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
             if player.bType == "fireball" then
                 
                 if b < 12 then
+
                     bullet.color = {254, 100, 4, 255}
                     bullet.txt = "a"
                     b = b + 1 * dt
@@ -63,8 +69,10 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
                     bullet.txt = "@"
                     c = c + 1 * dt
                 else
+
                     b = 0
                     c = 0
+
                 end
             end
     end
@@ -76,11 +84,14 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
 end
 
 function bullets.draw()
+
     for k,v in ipairs(bullets) do
+
         love.graphics.setColor(love.math.colorFromBytes(bullets[k].color[1], bullets[k].color[2], bullets[k].color[3], bullets[k].color[4]))
         love.graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y) -- print bullets every frame they are on screen
         love.graphics.setColor(1, 1, 1, 1)
 
     end
+
 end
 

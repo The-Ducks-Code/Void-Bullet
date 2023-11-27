@@ -7,6 +7,8 @@ require("bullet")
 require("enemy")
 require("betterdrawing")
 require("input")
+require("levels")
+require("items")
 
 function love.load() -- ran before the first frame
 
@@ -24,11 +26,7 @@ function love.load() -- ran before the first frame
     -- set window title
     love.window.setTitle("roguelike")
 
-    local i = 0
-    while i < 10 do
-        enemies[#enemies+1] = createEnemy(love.math.random(10, window.width - 10), love.math.random(10, window.height + 10), "normal", 40) -- create one enemy
-        i = i + 1
-    end
+    roundStart()
 
 end
 
@@ -48,115 +46,180 @@ function love.update(dt)
         input.player(deltatime)
 
         for k,v in ipairs(bullets) do
+
             bullets[k].update(deltatime)
 
-            if bullets[k].y < -5 or bullets[k].y > window.height or bullets[k].x < -5 or bullets[k].x > window.width then
+            if bullets[k].y < - 10 or bullets[k].y > window.height or bullets[k].x < - 10 or bullets[k].x > window.width then
+
                 bullets[k].active = false
+
             end
 
-            if not bullets[k].active then
+            if bullets[k].active == false then
+
                 table.remove(bullets, k)
                 print("bullet destroyed")
             end
         end
 
         for k,v in ipairs(enemies) do
+
             enemies[k].update(deltatime)
 
             if enemies[k].x > window.width - 10 then
+
                 enemies[k].x = window.width - 10
+
             end
         
             if enemies[k].x < 0 then
+
                 enemies[k].x = 0
+
             end
         
             if enemies[k].y > window.height - 12 then
+
                 enemies[k].y = window.height - 12
+
             end
         
             if enemies[k].y < 0 then
+
                 enemies[k].y = 0
+
             end
 
+
+
             if enemies[k].x + 10 > player.x and enemies[k].x - 10 < player.x and enemies[k].y - 10 < player.y and enemies[k].y + 10 > player.y then
+
                 if not damagecooldown then
+
                     player.hp = player.hp - 20
                     print("player took " .. 20 ..  " damage")
                     print("player has " .. player.hp .. "hp left")
                     damagecooldown = true
+
                 end
             end
 
             for b,l in ipairs(bullets) do
 
-                if enemies[k].x + 10 > bullets[b].x and enemies[k].x - 10 < bullets[b].x and enemies[k].y - 10 < bullets[b].y and enemies[k].y + 10 > bullets[b].y then
+                if enemies[k].x + 10 > bullets[b].x and enemies[k].x - 10 < bullets[b].x and enemies[k].y - 15 < bullets[b].y and enemies[k].y + 15 > bullets[b].y then
+
                     print("bullet hit enemy")
                     enemies[k].active = false
                     bullets[b].active = false
                     player.score = player.score + 10
+
                 end
 
             end
 
-            if not enemies[k].active then
+            if enemies[k].active == false then
                 table.remove(enemies, k)
                 print("enemy destroyed")
             end
         end
     end
 
+    for z,x in ipairs(items) do
+
+        items[z].update(deltatime)
+
+        
+        if items[z].x + 20 > player.x and items[z].x - 10 < player.x and items[z].y - 10 < player.y and items[z].y + 10 > player.y then
+
+            print(items[z].type .. " aquired")
+            player.abilities[#player.abilities+1] = items[z].type
+
+            if player.roundactive == false then
+                table.remove(items, 3)
+                table.remove(items, 2)
+                table.remove(items, 1)
+                roundStart()
+            else
+                table.remove(items, z)
+            end
+        end
+    end
+
+
+
+
     if player.x > window.width - 10 then
+
         player.x = window.width - 10
+
     end
 
     if player.x < 0 then
+
         player.x = 0
+
     end
 
     if player.y > window.height - 12 then
+
         player.y = window.height - 12
+
     end
 
     if player.y < 0 then
+
         player.y = 0
+
     end
 
     if focusTimerTrigger then
+
         focusTimer = focusTimer + dt
         if focusTimer > 0.4 then
+
             focusTimer = 0
             focusTimerTrigger = false
             focus = " "
+
         end
     end
 
     if bulletcooldown then
+
         bulletTimer = bulletTimer + dt
         if bulletTimer > btTime then
+
             bulletTimer = 0
             bulletcooldown = false
+
         end
     end
 
     if damagecooldown then
+
         damageTimer = damageTimer + dt
         if damageTimer > 1 then
+
             damageTimer = 0
             damagecooldown = false
+            
         end
     end
-
 end
 
 function love.focus(f)
+
     if not f then
+
       focus = "LOST FOCUS" -- change the on screen lost and gained focus text to 'LOST FOCUS'
       love.window.setTitle("roguelike (FOCUS LOST)") -- set the program window to 'roguelike (FOCUS LOST)'
+
     else
+
       focus = "GAINED FOCUS" -- change the on screen lost and gained focus text to 'GAINED FOCUS'
       love.window.setTitle("roguelike") -- set the program window to 'roguelike'
       focusTimerTrigger = true
+      
     end
 end
 
@@ -167,6 +230,7 @@ function love.draw()
     player.draw()
     bullets.draw()
     enemies.draw()
+    items.draw()
 
     drawRect(0, 0, 0, 155, "fill", 0, 0, 75, 30)
 

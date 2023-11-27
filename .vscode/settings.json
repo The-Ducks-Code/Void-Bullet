@@ -53,6 +53,11 @@
         "damageTimer",
         "damagecooldown",
         "input",
-        "btTime"
+        "btTime",
+        "level",
+        "spawnItem",
+        "items",
+        "createItem",
+        "roundStart"
     ]
 }

@@ -24,8 +24,10 @@ function createEnemy(x, y, type, damage)
     end
 
     if enemy.type == "normal" then
+
         enemy.txt = "E"
         enemy.speed = 1
+
     end
  
     print("enemy created")
@@ -36,7 +38,11 @@ end
 
 
 function enemies.draw()
+
     for k,v in ipairs(enemies) do
+
         love.graphics.print(enemies[k].txt, enemies[k].x, enemies[k].y) -- print enemies every frame they are on screen
+
     end
+
 end
