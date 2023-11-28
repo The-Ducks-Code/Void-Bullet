@@ -9,6 +9,7 @@ require("betterdrawing")
 require("input")
 require("levels")
 require("items")
+require("ui")
 
 function love.load() -- ran before the first frame
 
@@ -16,6 +17,12 @@ function love.load() -- ran before the first frame
     -- define variables and arrays
     window = {} -- window object
     window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
+
+    fonts = {}
+
+    fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 15 * (window.width / 800), 'normal')
+    fonts.ui = love.graphics.newFont( 'fonts/joystixmono.ttf', 25 * (window.width / 800), 'normal')
+
     focus = " " -- set the focus text to nothing so it is hidden
     focusTimer = 0 -- reset the focus timer
     focusTimerTrigger = false -- reset the focus timer trigger
@@ -27,7 +34,7 @@ function love.load() -- ran before the first frame
     love.window.setTitle("roguelike")
 
     roundStart()
-
+    
 end
 
 function love.update(dt)
@@ -225,21 +232,15 @@ end
 
 function love.draw()
 
+    love.graphics.setFont(fonts.entities)
+
     love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50) -- print the lost and gained focus text when needed
 
     player.draw()
     bullets.draw()
     enemies.draw()
     items.draw()
-
-    drawRect(0, 0, 0, 155, "fill", 0, 0, 75, 30)
-
-    love.graphics.setColor(255, 255, 255, 155)
-
-    love.graphics.print(strFPS .. ' FPS', 0, 0)
-
-    love.graphics.print('SCORE: '.. player.score, 0, 15)
-
+    uiDraw()
     gameover.draw()
 
 end

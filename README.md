@@ -9,7 +9,7 @@ run the *ENTIRE* directory with your LOVE2D 'LOVE.EXE' file *AND* make sure you 
 
 
 
-FEATURES/SYSTEMS:
+TIMELINE OF FEATURES ADDED OR THINGS DONE:
 11/5/23:<br>
 PLAYER MOVEMENT<br>
 PLAYER COLLISION WITH WINDOW BOUNDARIES<br>
@@ -30,3 +30,5 @@ FIREBALL AND LASER POWERUPS<br>
 SPEED POWERUP<br>
 ROUND SYSTEM (EACH ROUND 10 MORE ENEMIES)<br>
 END OF ROUND REWARD (doesnt really matter rn lol)<br>
+11/27/23:<br>
+CHANGED MAIN FONT TO <a href="https://typodermicfonts.com/proportional-joystix/">JOYSTIX</a>

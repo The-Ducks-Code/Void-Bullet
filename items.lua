@@ -92,7 +92,7 @@ function items.draw()
     for k,v in ipairs(items) do
 
         love.graphics.setColor(love.math.colorFromBytes(items[k].color[1], items[k].color[2], items[k].color[3], items[k].color[4]))
-        love.graphics.printf(items[k].type, items[k].x - 15, items[k].y - 15, 45, "right") -- print items every frame they are on screen
+        love.graphics.print(items[k].type, items[k].x - string.len(items[k].type) * 3, items[k].y - 15) -- print items every frame they are on screen
         love.graphics.print(items[k].txt, items[k].x, items[k].y) -- print items every frame they are on screen
         love.graphics.setColor(1, 1, 1, 1)
 

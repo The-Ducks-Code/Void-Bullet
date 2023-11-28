@@ -58,6 +58,12 @@
         "spawnItem",
         "items",
         "createItem",
-        "roundStart"
+        "roundStart",
+        "round",
+        "roundDraw",
+        "roundEndDraw",
+        "fonts",
+        "ui",
+        "uiDraw"
     ]
 }

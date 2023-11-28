@@ -72,7 +72,8 @@ function gameover.draw()
     if player.isAlive == false then
 
         love.graphics.print('GAME OVER', window.width/2 - 40, window.height/2 - 10, 0, window.width/600, window.height/600)
+        love.graphics.print('MADE IT TO ROUND: ' .. player.round, window.width/2 - 40, window.height/2 + 40, 0, window.width/600, window.height/600)
         love.graphics.print('FINAL SCORE: ' .. player.score, window.width/2 - 40, window.height/2 + 40, 0, window.width/600, window.height/600)
         
     end
-end 
+end
