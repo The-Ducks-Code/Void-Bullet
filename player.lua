@@ -63,7 +63,7 @@ end
 
 function player.draw()
 
-    love.graphics.print('O', player.x, player.y) -- print player every frame
+    love.graphics.print('0', player.x, player.y) -- print player every frame
 
 end
 

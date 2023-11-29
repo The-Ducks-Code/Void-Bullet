@@ -29,3 +29,9 @@ function degtorad(d)
     return d * math.pi / 180
 
 end
+
+function radtodeg(r)
+
+    return r * 180 / math.pi
+
+end

@@ -18,6 +18,9 @@ function createEnemy(x, y, type, damage)
 
     function enemy.update(dt)
 
+
+        enemy.dir = radtodeg(math.atan2((enemy.y - player.y), (player.x - enemy.x)))
+
         enemy.y = enemy.y + lengthdir_y(enemy.speed * dt, enemy.dir)
         enemy.x = enemy.x + lengthdir_x(enemy.speed * dt, enemy.dir)
 
@@ -28,6 +31,11 @@ function createEnemy(x, y, type, damage)
         enemy.txt = "E"
         enemy.speed = 1
 
+    elseif enemy.type == "fast" then
+
+            enemy.txt = "F"
+            enemy.speed = 2
+    
     end
  
     print("enemy created")

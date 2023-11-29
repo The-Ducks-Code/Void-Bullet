@@ -64,6 +64,7 @@
         "roundEndDraw",
         "fonts",
         "ui",
-        "uiDraw"
+        "uiDraw",
+        "radtodeg"
     ]
 }

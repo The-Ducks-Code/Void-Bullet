@@ -56,7 +56,7 @@ function love.update(dt)
 
             bullets[k].update(deltatime)
 
-            if bullets[k].y < - 10 or bullets[k].y > window.height or bullets[k].x < - 10 or bullets[k].x > window.width then
+            if bullets[k].y < 35 or bullets[k].y > window.height or bullets[k].x < - 10 or bullets[k].x > window.width then
 
                 bullets[k].active = false
 
@@ -91,11 +91,13 @@ function love.update(dt)
 
             end
         
-            if enemies[k].y < 0 then
+            if enemies[k].y < 40 then
 
-                enemies[k].y = 0
+                enemies[k].y = 40
 
             end
+
+        
 
 
 
@@ -173,9 +175,9 @@ function love.update(dt)
 
     end
 
-    if player.y < 0 then
+    if player.y < 40 then
 
-        player.y = 0
+        player.y = 40
 
     end
 
