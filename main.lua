@@ -141,7 +141,11 @@ function love.update(dt)
         if items[z].x + 20 > player.x and items[z].x - 10 < player.x and items[z].y - 10 < player.y and items[z].y + 10 > player.y then
 
             print(items[z].type .. " aquired")
-            player.abilities[#player.abilities+1] = items[z].type
+            if  items[z].type == "speed" then
+                player.speed = player.speed + 1
+            else
+                player.abilities[#player.abilities+1] = items[z].type
+            end
 
             if player.roundactive == false then
                 table.remove(items, 3)
@@ -153,9 +157,6 @@ function love.update(dt)
             end
         end
     end
-
-
-
 
     if player.x > window.width - 10 then
 
@@ -243,7 +244,6 @@ function love.draw()
     enemies.draw()
     items.draw()
     uiDraw()
-    gameover.draw()
 
 end
 

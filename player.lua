@@ -40,15 +40,33 @@ function player.update(dt)
 
             player.bType = "laser"
 
-        end
-        
-        -- Player upgrades:
-        if player.abilities[k] == "speed" then
+        elseif player.abilities[k] == "firelaser" then -- laser bullet
 
-            player.speed = 3
+            player.bType = "firelaser"
 
         end
     end
+
+    function removeAbility(item)
+        for k,v in ipairs(player.abilities) do
+    
+            -- Bullet types:
+            if player.abilities[k] == item then -- fireball bullet
+    
+                table.remove(player.abilities, k)
+    
+            end
+        end
+    end
+
+    if tableContains(player.abilities, "fireball") and tableContains(player.abilities, "laser") then
+        print("firelaser")
+        removeAbility("fireball")
+        removeAbility("laser")
+        player.abilities[#player.abilities+1] = "firelaser"
+
+    end
+
 
     if #enemies == 0 and player.roundactive == true then
 
@@ -67,13 +85,4 @@ function player.draw()
 
 end
 
-function gameover.draw()
 
-    if player.isAlive == false then
-
-        love.graphics.print('GAME OVER', window.width/2 - 40, window.height/2 - 10, 0, window.width/600, window.height/600)
-        love.graphics.print('MADE IT TO ROUND: ' .. player.round, window.width/2 - 40, window.height/2 + 40, 0, window.width/600, window.height/600)
-        love.graphics.print('FINAL SCORE: ' .. player.score, window.width/2 - 40, window.height/2 + 40, 0, window.width/600, window.height/600)
-        
-    end
-end

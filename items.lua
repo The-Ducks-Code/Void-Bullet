@@ -23,13 +23,13 @@ function createItem(itemType, x, y)
             if b < 12 then
 
                 item.color = {254, 100, 4, 255}
-                item.txt = "|a|"
+                item.txt = "|#|"
                 b = b + 1 * dt
 
             elseif c < 12 then
 
                 item.color = {254, 222, 23, 255}
-                item.txt = "|@|"
+                item.txt = "|*|"
                 c = c + 1 * dt
 
             else

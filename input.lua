@@ -32,6 +32,7 @@ function input.player(dt)
             bullets[#bullets+1] = bullet
             bulletcooldown = true
 
+        
         end
 
     end

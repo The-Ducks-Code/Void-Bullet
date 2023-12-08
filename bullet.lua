@@ -30,7 +30,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
     elseif player.bType == "fireball" then
 
         bullet.damage = 5
-        bullet.txt = "@"
+        bullet.txt = "+"
         bullet.width = 25
         bullet.height = 25
         bullet.speed = 5
@@ -38,35 +38,66 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         
     elseif player.bType == "laser" then
 
-        bullet.damage = 5
+        bullet.damage = 7
         bullet.txt = "#"
-        bullet.width = 25
-        bullet.height = 25
+        bullet.width = 7
+        bullet.height = 7
+        bullet.speed = 7
+        bullet.color = {255, 0, 0, 255}
+        btTime = 0.02
+
+    elseif player.bType == "firelaser" then
+
+        bullet.damage = 9
+        bullet.txt = "#"
+        bullet.width = 30
+        bullet.height = 30
         bullet.speed = 5
         bullet.color = {255, 0, 0, 255}
-        btTime = 0.001
+        btTime = 0.01
 
     end
+
     local b = 0
     local c = 0
 
     function bullet.update(dt)
 
-            bullet.y = bullet.y + lengthdir_y(bullet.speed * dt, dir)
-            bullet.x = bullet.x + lengthdir_x(bullet.speed * dt, dir)
+                bullet.y = bullet.y + lengthdir_y(bullet.speed * dt, dir)
+                bullet.x = bullet.x + lengthdir_x(bullet.speed * dt, dir)
+
 
             if player.bType == "fireball" then
                 
                 if b < 12 then
 
                     bullet.color = {254, 100, 4, 255}
-                    bullet.txt = "a"
+                    bullet.txt = "#"
                     b = b + 1 * dt
 
                 elseif c < 12 then
 
                     bullet.color = {254, 222, 23, 255}
-                    bullet.txt = "@"
+                    bullet.txt = "*"
+                    c = c + 1 * dt
+                else
+
+                    b = 0
+                    c = 0
+
+                end
+            elseif player.bType == "firelaser" then
+                
+                if b < 12 then
+
+                    bullet.color = {254, 100, 4, 255}
+                    bullet.txt = "#"
+                    b = b + 1 * dt
+
+                elseif c < 12 then
+
+                    bullet.color = {254, 222, 23, 255}
+                    bullet.txt = "*"
                     c = c + 1 * dt
                 else
 

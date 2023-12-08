@@ -65,6 +65,9 @@
         "fonts",
         "ui",
         "uiDraw",
-        "radtodeg"
+        "radtodeg",
+        "tableContains",
+        "removeItem",
+        "removeAbility"
     ]
 }
