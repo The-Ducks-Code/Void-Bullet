@@ -5,16 +5,21 @@ This handles all of the enemy creation outside of the update and draw functions
 ]]--
 
 enemies = {} -- create the array of enemy objects
+enemies.isEnemy = true
 
 function createEnemy(x, y, type, damage)
 
     local enemy = {}
+    enemy.isEnemy = true
     enemy.x = x
     enemy.y = y
     enemy.damage = damage
     enemy.active = true
     enemy.type = type
     enemy.dir = 90
+    enemy.w = 15
+    enemy.h = 15
+    enemyWorld:add(enemy, enemy.x, enemy.y, enemy.w, enemy.h)
 
     function enemy.update(dt)
 
@@ -23,7 +28,10 @@ function createEnemy(x, y, type, damage)
 
         enemy.y = enemy.y + lengthdir_y(enemy.speed * dt, enemy.dir)
         enemy.x = enemy.x + lengthdir_x(enemy.speed * dt, enemy.dir)
-
+        if enemy.active == true then
+            local newX, newY, cols, len = enemyWorld:move(enemy, enemy.x, enemy.y)
+            enemy.x, enemy.y = newX, newY
+        end
     end
 
     if enemy.type == "normal" then
@@ -33,8 +41,8 @@ function createEnemy(x, y, type, damage)
 
     elseif enemy.type == "fast" then
 
-            enemy.txt = "F"
-            enemy.speed = 2
+        enemy.txt = "F"
+        enemy.speed = 2
     
     end
  

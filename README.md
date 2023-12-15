@@ -38,3 +38,5 @@ MOVED BARRIER DOWN SO OBJECTS COULDN'T BE HIDDEN BY FPS AND SCORE COUNTERS<br>
 12/8/23<br>
 Speed upgrade now can be picked up more than once<br>
 Laser and Fireball can now be combined into a firelaser<br>
+12/14/23<br>
+COMPLETELY reworked collisions am now using <a href="https://github.com/kikito/bump.lua">bump.lua</a> for collisions instead of my poorly done implementation<br>

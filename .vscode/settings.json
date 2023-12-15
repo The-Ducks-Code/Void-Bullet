@@ -68,6 +68,19 @@
         "radtodeg",
         "tableContains",
         "removeItem",
-        "removeAbility"
+        "removeAbility",
+        "bump",
+        "world",
+        "wallL",
+        "movePlayer",
+        "addBlock",
+        "blocks",
+        "future",
+        "cols",
+        "createBlock",
+        "newX",
+        "newY",
+        "playerFilter",
+        "enemyWorld"
     ]
 }

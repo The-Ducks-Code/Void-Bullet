@@ -10,7 +10,6 @@ function uiDraw()
 
     drawRect(0, 0, 0, 155, "fill", 0, 0, 75, 30)
 
-    drawRect(255, 255, 255, 255, "fill", 0, 37, window.width, 5)
 
     love.graphics.setColor(255, 255, 255, 55)
 

@@ -8,6 +8,8 @@ This handles all the player outside of the update and draw functions
 player = {} -- create the player object
 player.x =  window.width/2 -- set the players x postition to about the middle of the screen
 player.y =  window.height/2 -- set the players y postition to about the middle of the screen
+player.w = 15
+player.h = 11.5
 player.hp = 100
 player.score = 0
 player.isAlive = true
@@ -72,7 +74,9 @@ function player.update(dt)
 
         player.round = player.round + 1
         player.roundactive = false
-        print("ROUND COMPLETE")
+        if not player.round == 0 then
+            print("ROUND COMPLETE")
+        end
         print("ROUND " .. player.round)
         level.init("roundEnd")
 
@@ -81,7 +85,7 @@ end
 
 function player.draw()
 
-    love.graphics.print('0', player.x, player.y) -- print player every frame
+    love.graphics.print('0', player.x, player.y - 3.5) -- print player every frame
 
 end
 

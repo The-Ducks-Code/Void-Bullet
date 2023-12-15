@@ -10,13 +10,17 @@ require("input")
 require("levels")
 require("items")
 require("ui")
-
+bump = require ("plugins.bump")
 function love.load() -- ran before the first frame
 
     love.window.setMode(800, 800) -- set the window width and height to 800x800
     -- define variables and arrays
     window = {} -- window object
     window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
+
+    world = bump.newWorld()
+    enemyWorld = bump.newWorld()
+
 
     fonts = {}
 
@@ -29,6 +33,13 @@ function love.load() -- ran before the first frame
     btTime = 0.2
 
     require("player") -- moved it here because it needed to be ran after the width and height variables were assigned
+    -- initiate collisions
+    world:add(player, player.x, player.y, player.w, player.h)
+    
+    createBlock(0, 37, 5, window.height - 37, "fill") -- left wall
+    createBlock(window.width - 5, 37, 5, window.height - 37, "fill") -- right wall
+    createBlock(0, 37, window.width + 2, 5, "fill") -- top wall
+    createBlock(2, window.height - 5, window.width + 2, 5, "fill") -- bottom wall
 
     -- set window title
     love.window.setTitle("roguelike")
@@ -73,33 +84,29 @@ function love.update(dt)
 
             enemies[k].update(deltatime)
 
-            if enemies[k].x > window.width - 10 then
+            if enemies[k].x > window.width - 5 then
 
-                enemies[k].x = window.width - 10
-
-            end
-        
-            if enemies[k].x < 0 then
-
-                enemies[k].x = 0
+                enemies[k].x = window.width - 5
 
             end
         
-            if enemies[k].y > window.height - 12 then
+            if enemies[k].x < 5 then
 
-                enemies[k].y = window.height - 12
+                enemies[k].x = 5
 
             end
         
-            if enemies[k].y < 40 then
+            if enemies[k].y > window.height - 5 then
 
-                enemies[k].y = 40
+                enemies[k].y = window.height - 5
 
             end
-
         
+            if enemies[k].y < 37 then
 
+                enemies[k].y = 37
 
+            end
 
             if enemies[k].x + 10 > player.x and enemies[k].x - 10 < player.x and enemies[k].y - 10 < player.y and enemies[k].y + 10 > player.y then
 
@@ -118,6 +125,7 @@ function love.update(dt)
                 if enemies[k].x + 10 > bullets[b].x and enemies[k].x - 10 < bullets[b].x and enemies[k].y - 15 < bullets[b].y and enemies[k].y + 15 > bullets[b].y then
 
                     print("bullet hit enemy")
+                    world:remove(enemies[k])
                     enemies[k].active = false
                     bullets[b].active = false
                     player.score = player.score + 10
@@ -158,29 +166,6 @@ function love.update(dt)
         end
     end
 
-    if player.x > window.width - 10 then
-
-        player.x = window.width - 10
-
-    end
-
-    if player.x < 0 then
-
-        player.x = 0
-
-    end
-
-    if player.y > window.height - 12 then
-
-        player.y = window.height - 12
-
-    end
-
-    if player.y < 40 then
-
-        player.y = 40
-
-    end
 
     if focusTimerTrigger then
 
@@ -239,6 +224,7 @@ function love.draw()
 
     love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50) -- print the lost and gained focus text when needed
 
+    blocks.draw()
     player.draw()
     bullets.draw()
     enemies.draw()

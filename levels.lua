@@ -29,3 +29,18 @@ function roundStart()
     player.roundactive = true
 
 end
+
+blocks = {}
+function createBlock(x,y,w,h,fill)
+    local block = {x=x,y=y,w=w,h=h, isWall = true}
+    blocks[#blocks + 1] = block
+    world:add(block, x,y,w,h)
+    block.fill = fill
+end
+
+function blocks.draw()
+    for i=1, #blocks do
+        local b = blocks[i]
+        love.graphics.rectangle(blocks[i].fill, b.x, b.y, b.w, b.h)
+      end
+end
