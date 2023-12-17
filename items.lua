@@ -39,9 +39,9 @@ function createItem(itemType, x, y)
 
             end
 
-        elseif item.type == "laser" then
+        elseif item.type == "lasergun" then
 
-            item.txt = "/=='"
+            item.txt = "/=="
 
             if b < 12 then
 
@@ -60,9 +60,9 @@ function createItem(itemType, x, y)
 
             end
 
-        elseif item.type == "speed" then
+        elseif item.type == "speed up" then
 
-            item.txt = ">>"
+            item.txt = ">>>"
 
             if b < 12 then
 
@@ -92,8 +92,8 @@ function items.draw()
     for k,v in ipairs(items) do
 
         love.graphics.setColor(love.math.colorFromBytes(items[k].color[1], items[k].color[2], items[k].color[3], items[k].color[4]))
-        love.graphics.print(items[k].type, items[k].x - string.len(items[k].type) * 3, items[k].y - 15) -- print items every frame they are on screen
-        love.graphics.print(items[k].txt, items[k].x, items[k].y) -- print items every frame they are on screen
+        love.graphics.print(items[k].type, items[k].x - fonts.ui:getWidth(items[k].type) / 3.4, items[k].y - 15) -- print items every frame they are on screen
+        love.graphics.print(items[k].txt, items[k].x - fonts.ui:getWidth(items[k].txt) / 3, items[k].y) -- print items every frame they are on screen
         love.graphics.setColor(1, 1, 1, 1)
 
     end

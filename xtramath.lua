@@ -43,4 +43,4 @@ function tableContains(table, value)
       end
     end
     return false
-  end
+end

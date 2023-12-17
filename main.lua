@@ -1,7 +1,7 @@
 -- MAIN CODEBASE 
 
 -- lovec "C:\Users\decla\github\love2droguelike"
-
+require("windowlock")
 require("xtramath")
 require("bullet")
 require("enemy")
@@ -13,7 +13,6 @@ require("ui")
 bump = require ("plugins.bump")
 function love.load() -- ran before the first frame
 
-    love.window.setMode(800, 800) -- set the window width and height to 800x800
     -- define variables and arrays
     window = {} -- window object
     window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
@@ -24,8 +23,8 @@ function love.load() -- ran before the first frame
 
     fonts = {}
 
-    fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 15 * (window.width / 800), 'normal')
-    fonts.ui = love.graphics.newFont( 'fonts/joystixmono.ttf', 25 * (window.width / 800), 'normal')
+    fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 15 * (gameWidth / 800), 'normal')
+    fonts.ui = love.graphics.newFont( 'fonts/joystixmono.ttf', 25 * (gameWidth / 800), 'normal')
 
     focus = " " -- set the focus text to nothing so it is hidden
     focusTimer = 0 -- reset the focus timer
@@ -36,10 +35,10 @@ function love.load() -- ran before the first frame
     -- initiate collisions
     world:add(player, player.x, player.y, player.w, player.h)
     
-    createBlock(0, 37, 5, window.height - 37, "fill") -- left wall
-    createBlock(window.width - 5, 37, 5, window.height - 37, "fill") -- right wall
-    createBlock(0, 37, window.width + 2, 5, "fill") -- top wall
-    createBlock(2, window.height - 5, window.width + 2, 5, "fill") -- bottom wall
+    createBlock(0, 37, 5, gameHeight - 37, "fill") -- left wall
+    createBlock(gameWidth - 5, 37, 5, gameHeight - 37, "fill") -- right wall
+    createBlock(0, 37, gameWidth, 5, "fill") -- top wall
+    createBlock(0, gameHeight - 5, gameWidth, 5, "fill") -- bottom wall
 
     -- set window title
     love.window.setTitle("roguelike")
@@ -50,14 +49,14 @@ end
 
 function love.update(dt)
 
+    window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
+
     fps = love.timer.getFPS()
     strFPS = tostring(love.timer.getFPS())
     local deltatime = love.timer.getDelta() * 60
 
     player.update(deltatime)
     input.general()
-
-    window.width, window.height = love.graphics.getDimensions()
 
     if player.isAlive then
         
@@ -67,7 +66,7 @@ function love.update(dt)
 
             bullets[k].update(deltatime)
 
-            if bullets[k].y < 35 or bullets[k].y > window.height or bullets[k].x < - 10 or bullets[k].x > window.width then
+            if bullets[k].y < 35 or bullets[k].y > gameHeight or bullets[k].x < - 10 or bullets[k].x > gameWidth - 8 then
 
                 bullets[k].active = false
 
@@ -84,49 +83,16 @@ function love.update(dt)
 
             enemies[k].update(deltatime)
 
-            if enemies[k].x > window.width - 5 then
-
-                enemies[k].x = window.width - 5
-
-            end
-        
-            if enemies[k].x < 5 then
-
-                enemies[k].x = 5
-
-            end
-        
-            if enemies[k].y > window.height - 5 then
-
-                enemies[k].y = window.height - 5
-
-            end
-        
-            if enemies[k].y < 37 then
-
-                enemies[k].y = 37
-
-            end
-
             if enemies[k].x + 10 > player.x and enemies[k].x - 10 < player.x and enemies[k].y - 10 < player.y and enemies[k].y + 10 > player.y then
 
-                if not damagecooldown then
-
-                    player.hp = player.hp - 20
-                    print("player took " .. 20 ..  " damage")
-                    print("player has " .. player.hp .. "hp left")
-                    damagecooldown = true
-
-                end
+                player.takeDamage(20, enemies[k].type, enemies[k].dir)
             end
 
             for b,l in ipairs(bullets) do
 
                 if enemies[k].x + 10 > bullets[b].x and enemies[k].x - 10 < bullets[b].x and enemies[k].y - 15 < bullets[b].y and enemies[k].y + 15 > bullets[b].y then
-
-                    print("bullet hit enemy")
-                    world:remove(enemies[k])
                     enemies[k].active = false
+                    print("bullet hit enemy")
                     bullets[b].active = false
                     player.score = player.score + 10
 
@@ -135,8 +101,9 @@ function love.update(dt)
             end
 
             if enemies[k].active == false then
-                table.remove(enemies, k)
                 print("enemy destroyed")
+                enemyWorld:remove(enemies[k])
+                table.remove(enemies, k)
             end
         end
     end
@@ -146,10 +113,10 @@ function love.update(dt)
         items[z].update(deltatime)
 
         
-        if items[z].x + 20 > player.x and items[z].x - 10 < player.x and items[z].y - 10 < player.y and items[z].y + 10 > player.y then
+        if items[z].x + 10 > player.x and items[z].x - 30 < player.x and items[z].y - 10 < player.y and items[z].y + 10 > player.y then
 
             print(items[z].type .. " aquired")
-            if  items[z].type == "speed" then
+            if  items[z].type == "speed up" then
                 player.speed = player.speed + 1
             else
                 player.abilities[#player.abilities+1] = items[z].type
@@ -193,11 +160,11 @@ function love.update(dt)
     if damagecooldown then
 
         damageTimer = damageTimer + dt
-        if damageTimer > 1 then
+        if damageTimer > 0.5 then
 
             damageTimer = 0
             damagecooldown = false
-            
+            player.color = {255, 255, 255, 255}
         end
     end
 end
@@ -219,17 +186,28 @@ function love.focus(f)
 end
 
 function love.draw()
+    
+    love.graphics.setCanvas(gameCanvas)
+    love.graphics.clear()
+        love.graphics.setFont(fonts.entities)
 
-    love.graphics.setFont(fonts.entities)
+        love.graphics.print(focus, gameWidth/2 - fonts.ui:getWidth(focus) / 3.4, gameHeight/2 - fonts.ui:getHeight()) -- print the lost and gained focus text when needed
 
-    love.graphics.print(focus, window.width/2 - 50, window.height/2 - 50) -- print the lost and gained focus text when needed
+        blocks.draw()
+        player.draw()
+        bullets.draw()
+        enemies.draw()
+        items.draw()
+        uiDraw()
+    love.graphics.setCanvas()
 
-    blocks.draw()
-    player.draw()
-    bullets.draw()
-    enemies.draw()
-    items.draw()
-    uiDraw()
+    local windowWidth, windowHeight = love.graphics.getDimensions()
+    
+    local scaleAmount = scaleCanvasToFit(windowWidth, windowHeight)
 
+    local horizontalPadding = ((windowWidth - (gameWidth * scaleAmount)) / 2) / scaleAmount
+    local verticalPadding = ((windowHeight - (gameHeight * scaleAmount)) / 2) / scaleAmount
+
+    love.graphics.draw(gameCanvas, horizontalPadding, verticalPadding)
 end
 

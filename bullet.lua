@@ -36,7 +36,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.speed = 5
         btTime = 0.4
         
-    elseif player.bType == "laser" then
+    elseif player.bType == "lasergun" then
 
         bullet.damage = 7
         bullet.txt = "#"
@@ -46,7 +46,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.color = {255, 0, 0, 255}
         btTime = 0.02
 
-    elseif player.bType == "firelaser" then
+    elseif player.bType == "firelasr" then
 
         bullet.damage = 9
         bullet.txt = "#"
@@ -86,7 +86,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
                     c = 0
 
                 end
-            elseif player.bType == "firelaser" then
+            elseif player.bType == "firelsergun" then
                 
                 if b < 12 then
 

@@ -23,7 +23,6 @@ function createEnemy(x, y, type, damage)
 
     function enemy.update(dt)
 
-
         enemy.dir = radtodeg(math.atan2((enemy.y - player.y), (player.x - enemy.x)))
 
         enemy.y = enemy.y + lengthdir_y(enemy.speed * dt, enemy.dir)

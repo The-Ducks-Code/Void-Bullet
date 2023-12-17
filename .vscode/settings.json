@@ -81,6 +81,12 @@
         "newX",
         "newY",
         "playerFilter",
-        "enemyWorld"
+        "enemyWorld",
+        "windowlockDraw",
+        "gameWidth",
+        "gameHeight",
+        "gameCanvas",
+        "scaleCanvasToFit",
+        "wait"
     ]
 }
