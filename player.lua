@@ -6,11 +6,12 @@ This handles all the player outside of the update and draw functions
 
 -- player variables
 player = {} -- create the player object
-player.x =  gameWidth/2 - fonts.ui:getWidth("O") / 2 -- set the players x postition to about the middle of the screen
-player.y =  gameHeight/2 -- set the players y postition to about the middle of the screen
-player.w = 11.5
-player.h = 11.5
-player.hp = 100
+player.x =  gameWidth/2 - fonts.ui:getWidth("O") / 2 + 8 -- set the players x postition to about the middle of the screen
+player.y =  gameHeight/2 + 21 -- set the players y postition to about the middle of the screen
+player.w = 24
+player.h = 20
+player.totalHp = 3
+player.hp = 3
 player.score = 0
 player.isAlive = true
 player.abilities = {}
@@ -21,6 +22,7 @@ player.round = 0
 player.roundactive = true
 player.color = {255, 255, 255, 255}
 player.txt = '0'
+player.bulletAmount = 1
 
 
 local b = 0
@@ -103,14 +105,11 @@ function player.update(dt)
         end
     end
 
-function player.draw()
+    function player.draw()
+        love.graphics.setFont(fonts.entities)
+        love.graphics.setColor(love.math.colorFromBytes(player.color[1], player.color[2], player.color[3], player.color[4]))
+        love.graphics.print(player.txt, player.x, player.y - 10) -- print player every frame
+        love.graphics.setColor(1, 1, 1, 1)
 
-    love.graphics.setColor(love.math.colorFromBytes(player.color[1], player.color[2], player.color[3], player.color[4]))
-    love.graphics.print(player.txt, player.x, player.y - 3.5) -- print player every frame
-    love.graphics.setColor(1, 1, 1, 1)
-
-end
-
-
-
+    end
 end

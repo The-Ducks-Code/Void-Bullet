@@ -19,7 +19,7 @@ function createItem(itemType, x, y)
     function item.update(dt)
 
 
-        if item.type == "fireball" then
+        if item.type == "fireball" or item.type == 1 then
             if b < 12 then
 
                 item.color = {254, 100, 4, 255}
@@ -38,8 +38,8 @@ function createItem(itemType, x, y)
                 c = 0
 
             end
-
-        elseif item.type == "lasergun" then
+            item.type = "fireball"
+        elseif item.type == "lasergun" or item.type == 2 then
 
             item.txt = "/=="
 
@@ -59,8 +59,8 @@ function createItem(itemType, x, y)
                 c = 0
 
             end
-
-        elseif item.type == "speed up" then
+            item.type = "lasergun"
+        elseif item.type == "speed up" or item.type == 3 then
 
             item.txt = ">>>"
 
@@ -80,6 +80,28 @@ function createItem(itemType, x, y)
                 c = 0
 
             end
+            item.type = "speed up"
+        elseif item.type == "bulletup" or item.type == 4 then
+
+            item.txt = '|||'
+
+            if b < 12 then
+
+                item.color = {50, 209, 4, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {50, 183, 0, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "bulletup"
         end
     end
 
@@ -92,9 +114,8 @@ function items.draw()
     for k,v in ipairs(items) do
 
         love.graphics.setColor(love.math.colorFromBytes(items[k].color[1], items[k].color[2], items[k].color[3], items[k].color[4]))
-        love.graphics.print(items[k].type, items[k].x - fonts.ui:getWidth(items[k].type) / 3.4, items[k].y - 15) -- print items every frame they are on screen
+        love.graphics.print(items[k].type, items[k].x - 164 / 1.57, items[k].y - 30) -- print items every frame they are on screen
         love.graphics.print(items[k].txt, items[k].x - fonts.ui:getWidth(items[k].txt) / 3, items[k].y) -- print items every frame they are on screen
         love.graphics.setColor(1, 1, 1, 1)
-
     end
 end

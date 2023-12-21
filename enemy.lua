@@ -17,8 +17,9 @@ function createEnemy(x, y, type, damage)
     enemy.active = true
     enemy.type = type
     enemy.dir = 90
-    enemy.w = 15
-    enemy.h = 15
+    enemy.w = 25
+    enemy.h = 25
+    enemy.color = {255, 255, 255, 255}
     enemyWorld:add(enemy, enemy.x, enemy.y, enemy.w, enemy.h)
 
     function enemy.update(dt)
@@ -37,11 +38,22 @@ function createEnemy(x, y, type, damage)
 
         enemy.txt = "E"
         enemy.speed = 1
+        enemy.hp = 2
+        enemy.pts = 10
 
     elseif enemy.type == "fast" then
 
         enemy.txt = "F"
         enemy.speed = 2
+        enemy.hp = 1
+        enemy.pts = 15
+    
+    elseif enemy.type == "heavy" then
+
+        enemy.txt = "H"
+        enemy.speed = 0.5
+        enemy.hp = 4
+        enemy.pts = 20
     
     end
  
@@ -55,9 +67,9 @@ end
 function enemies.draw()
 
     for k,v in ipairs(enemies) do
-
+        love.graphics.setColor(love.math.colorFromBytes(enemies[k].color[1], enemies[k].color[2], enemies[k].color[3], enemies[k].color[4]))
         love.graphics.print(enemies[k].txt, enemies[k].x, enemies[k].y) -- print enemies every frame they are on screen
-
+        love.graphics.setColor(255, 255, 255, 255)
     end
 
 end

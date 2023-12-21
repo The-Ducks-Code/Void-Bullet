@@ -23,8 +23,9 @@ function love.load() -- ran before the first frame
 
     fonts = {}
 
-    fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 15 * (gameWidth / 800), 'normal')
-    fonts.ui = love.graphics.newFont( 'fonts/joystixmono.ttf', 25 * (gameWidth / 800), 'normal')
+    fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 30 * (gameWidth / 800), 'normal')
+    fonts.ui = love.graphics.newFont( 'fonts/joystixmono.ttf', 50 * (gameWidth / 800), 'normal')
+    fonts.score = love.graphics.newFont( 'fonts/joystixmono.ttf', 20 * (gameWidth / 800), 'normal')
 
     focus = " " -- set the focus text to nothing so it is hidden
     focusTimer = 0 -- reset the focus timer
@@ -66,7 +67,7 @@ function love.update(dt)
 
             bullets[k].update(deltatime)
 
-            if bullets[k].y < 35 or bullets[k].y > gameHeight or bullets[k].x < - 10 or bullets[k].x > gameWidth - 8 then
+            if bullets[k].y < 30 or bullets[k].y > gameHeight or bullets[k].x < - 10 or bullets[k].x > gameWidth - 8 then
 
                 bullets[k].active = false
 
@@ -83,21 +84,24 @@ function love.update(dt)
 
             enemies[k].update(deltatime)
 
-            if enemies[k].x + 10 > player.x and enemies[k].x - 10 < player.x and enemies[k].y - 10 < player.y and enemies[k].y + 10 > player.y then
+            if enemies[k].x + 20 > player.x - 1 and enemies[k].x - 20 < player.x - 1 and enemies[k].y - 15 < player.y - 5 and enemies[k].y + 25 > player.y - 5 then
 
-                player.takeDamage(20, enemies[k].type, enemies[k].dir)
+                player.takeDamage(1, enemies[k].type, enemies[k].dir)
             end
 
             for b,l in ipairs(bullets) do
 
-                if enemies[k].x + 10 > bullets[b].x and enemies[k].x - 10 < bullets[b].x and enemies[k].y - 15 < bullets[b].y and enemies[k].y + 15 > bullets[b].y then
-                    enemies[k].active = false
+                if enemies[k].x + 22 > bullets[b].x and enemies[k].x - 20 < bullets[b].x and enemies[k].y - 25 < bullets[b].y and enemies[k].y + 25 > bullets[b].y then
+                    enemies[k].hp = enemies[k].hp - bullets[b].damage
                     print("bullet hit enemy")
                     bullets[b].active = false
-                    player.score = player.score + 10
-
+                    player.score = player.score + enemies[k].pts
+                    enemies[k].color = {255, 0, 0, 255}
                 end
+            end
 
+            if enemies[k].hp <= 0 then
+                enemies[k].active = false
             end
 
             if enemies[k].active == false then
@@ -113,11 +117,16 @@ function love.update(dt)
         items[z].update(deltatime)
 
         
-        if items[z].x + 10 > player.x and items[z].x - 30 < player.x and items[z].y - 10 < player.y and items[z].y + 10 > player.y then
+        if items[z].x + 10 > player.x - 1 and items[z].x - 50 < player.x - 1 and items[z].y - 10 < player.y - 5 and items[z].y + 25 > player.y - 5  then
 
             print(items[z].type .. " aquired")
             if  items[z].type == "speed up" then
                 player.speed = player.speed + 1
+            elseif  items[z].type == "bulletup" then
+                player.bulletAmount = player.bulletAmount + 1
+                if player.bulletAmount > 6 then
+                    player.bulletAmount = 6
+                end
             else
                 player.abilities[#player.abilities+1] = items[z].type
             end
@@ -160,7 +169,7 @@ function love.update(dt)
     if damagecooldown then
 
         damageTimer = damageTimer + dt
-        if damageTimer > 0.5 then
+        if damageTimer > 0.75 then
 
             damageTimer = 0
             damagecooldown = false
@@ -209,5 +218,7 @@ function love.draw()
     local verticalPadding = ((windowHeight - (gameHeight * scaleAmount)) / 2) / scaleAmount
 
     love.graphics.draw(gameCanvas, horizontalPadding, verticalPadding)
+
+    
 end
 

@@ -10,24 +10,38 @@ level = {}
 function level.init(levelName)
 
     if levelName == "roundEnd" then
-        items[#items+1] = createItem("speed up", 200, 200)
-        items[#items+1] = createItem("fireball", 400, 200)
-        items[#items+1] = createItem("lasergun", 600, 200)
+        math.randomseed(os.time())  -- Seed with the current system time
+        items[#items+1] = createItem(math.random(3, 4), gameWidth / 5, 200)
+        items[#items+1] = createItem(math.random(1, 2), gameWidth / 2 + 5, 200)
+        items[#items+1] = createItem(math.random(1, 2), gameWidth - 160, 200)
     end
-
 end
 
 function roundStart()
 
-    local i = 0
-    while i < player.round * 10 do
 
-        enemies[#enemies+1] = createEnemy(love.math.random(50, gameWidth - 40), love.math.random(50, gameHeight - 40), "normal", 40) -- create one enemy
-        i = i + 1
+    if player.round < 5 then
+        local i = 0
+        while i < player.round * 10 do
 
+            enemies[#enemies+1] = createEnemy(love.math.random(90, gameWidth - 100), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
+            i = i + 1
+
+        end
+    else
+        local i = 0
+        local d = math.random(1, 10)
+        while i < player.round * d do
+            enemies[#enemies+1] = createEnemy(love.math.random(90, gameWidth - 100), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
+            i = i + 1
+        end
+        i = 0
+        while i < player.round * (10 - d) do
+            enemies[#enemies+1] = createEnemy(love.math.random(90, gameWidth - 100), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
+            i = i + 1
+        end 
     end
     player.roundactive = true
-
 end
 
 blocks = {}
