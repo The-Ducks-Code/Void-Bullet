@@ -18,6 +18,10 @@ you fire a bullet from your hands<br>
 # INFO
 this project is kinda not much rn, I'm still learning LOVE2D<br>
 
+# CONTROLS:
+
+WASD to move, Arrows to Shoot, ESC to quit
+
 #### TO RUN FROM BUILD:<br>
 
 DOWNLOAD THE NEWEST RELEASE IN THE RELEASES SECTION<br>
