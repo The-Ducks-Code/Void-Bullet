@@ -20,7 +20,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
 
     if player.bType == "normal" then
 
-        bullet.damage = 1
+        bullet.damage = 0.5
         bullet.txt = "+"
         bullet.speed = 7
         bullet.color = {255, 255, 255, 255}
@@ -28,14 +28,14 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
 
     elseif player.bType == "fireball" then
 
-        bullet.damage = 2
+        bullet.damage = 1
         bullet.txt = "+"
         bullet.speed = 3
         btTime = 0.4
         
     elseif player.bType == "lasergun" then
 
-        bullet.damage = 0.5
+        bullet.damage = 0.2
         bullet.txt = "#"
         bullet.speed = 5
         bullet.color = {255, 0, 0, 255}
@@ -43,7 +43,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
 
     elseif player.bType == "firelser" then
 
-        bullet.damage = 1
+        bullet.damage = 0.7
         bullet.txt = "#"
         bullet.speed = 6
         bullet.color = {255, 0, 0, 255}

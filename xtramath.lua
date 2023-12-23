@@ -44,3 +44,9 @@ function tableContains(table, value)
     end
     return false
 end
+
+function wait(seconds)
+    local start = os.time()
+    repeat until os.time() > start + seconds
+end
+

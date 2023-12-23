@@ -20,6 +20,7 @@ gameover = {}
 player.bType = "normal"
 player.round = 0
 player.roundactive = true
+player.defcolor = {255, 255, 255, 255}
 player.color = {255, 255, 255, 255}
 player.txt = '0'
 player.bulletAmount = 1
@@ -74,11 +75,15 @@ function player.update(dt)
         removeAbility("fireball")
         removeAbility("lasergun")
         player.abilities[#player.abilities+1] = "firelser"
+        setColor(245, 25, 5, 255)
+        noti = "Flamethrower: Bullets ↑ DMG ↑"
+        noti2 = "'You Feel the POWER'"
+        notiTimerTrigger = true
 
     end
 
 
-    if #enemies == 0 and player.roundactive == true then
+    if #enemies == 0 and #bosses == 0 and player.roundactive == true then
 
         player.round = player.round + 1
         player.roundactive = false

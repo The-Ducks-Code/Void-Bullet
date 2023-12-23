@@ -102,6 +102,48 @@ function createItem(itemType, x, y)
 
             end
             item.type = "bulletup"
+        elseif item.type == "heartsup" or item.type == 5 then
+
+            item.txt = '↑♥↑'
+
+            if b < 12 then
+
+                item.color = {250, 15, 4, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {200, 30, 0, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "heartsup"
+        elseif item.type == "healthup" or item.type == 6 then
+
+            item.txt = '+♥+'
+
+            if b < 12 then
+
+                item.color = {230, 25, 4, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {200, 30, 0, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "healthup"
         end
     end
 

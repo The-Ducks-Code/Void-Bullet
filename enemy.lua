@@ -30,7 +30,12 @@ function createEnemy(x, y, type, damage)
         enemy.x = enemy.x + lengthdir_x(enemy.speed * dt, enemy.dir)
         if enemy.active == true then
             local newX, newY, cols, len = enemyWorld:move(enemy, enemy.x, enemy.y)
-            enemy.x, enemy.y = newX, newY
+
+            if newX > 37 and newX < gameWidth - 5 and newY > 5 and newY < gameHeight - 5 then
+                enemy.x, enemy.y = newX, newY
+            else
+                enemy.active = false
+            end
         end
     end
 

@@ -278,8 +278,21 @@ function input.player(dt)
 
         end
     end
+    
 end
 
+local codes = {}
+codes['{up}{up}{down}{down}{left}{right}{left}{right}ba{return}'] = function() noticolor = {255, 0, 0, 255} noti = 'KONMAI CODE ACTIVATED, 99 HP' notiTimerTrigger = true setColor(255, 255, 255, 255) player.hp = 99 player.totalHp = 99 end
+codes['hl3confirmed'] = function() setColor(255, 165, 0, 255) noti = 'GORDON FREEMAN???' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.txt = "Ồ" end
+codes['r15'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 15' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 15 end
+codes['duck'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, quack quack' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.color = {255,239,1, 255} player.defcolor = {255,239,1, 255} player.txt = 'D' end
+Cheatcode(codes)
+
+
+
+function love.keypressed(key)
+    Cheatcode.handle(key)
+end
 function input.general()
 
     if love.keyboard.isDown("escape") then

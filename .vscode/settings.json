@@ -87,6 +87,21 @@
         "gameHeight",
         "gameCanvas",
         "scaleCanvasToFit",
-        "wait"
+        "wait",
+        "code",
+        "progress",
+        "keypressed",
+        "callback",
+        "kc",
+        "bosses",
+        "createBoss",
+        "enemybullets",
+        "createEnemyBullet",
+        "setColor",
+        "noti",
+        "notiTimer",
+        "notiTimerTrigger",
+        "noti2",
+        "noticolor"
     ]
 }
