@@ -23,7 +23,6 @@ function love.load() -- ran before the first frame
     world = bump.newWorld()
     enemyWorld = bump.newWorld()
 
-
     fonts = {}
 
     fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 30 * (gameWidth / 800), 'normal')
