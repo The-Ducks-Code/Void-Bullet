@@ -52,17 +52,18 @@ function roundStart()
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
             i = i + 1
         end
+        i = 0
         while i < player.round * (3) do
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
             i = i + 1
         end
     elseif player.round < 16 then
-        bosses[#bosses+1] = createBoss(400, 400, "laser")
+        bosses[#bosses+1] = createBoss(400, 400, "omgea")
         noticolor = {150, 15, 195, 255}
         noti = "OMEGA:"
         noti2 = "'THE FIRST DEFENDER'"
         notiTimerTrigger = true
-    else
+    elseif player.round < 75 then
         local i = 0
         local d = math.random(1, 5)
         while i < player.round * d do
@@ -74,7 +75,17 @@ function roundStart()
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
             i = i + 1
         end
+        i = 0
         while i < player.round * (3) do
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
+            i = i + 1
+        end
+        
+    else
+        local i = 0
+        i = 0
+        while i < 50 do
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
             i = i + 1
         end

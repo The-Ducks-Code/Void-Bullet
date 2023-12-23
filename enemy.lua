@@ -17,8 +17,8 @@ function createEnemy(x, y, type, damage)
     enemy.active = true
     enemy.type = type
     enemy.dir = 90
-    enemy.w = 25
-    enemy.h = 25
+    enemy.w = 30
+    enemy.h = 34
     enemy.color = {255, 255, 255, 255}
     enemyWorld:add(enemy, enemy.x, enemy.y, enemy.w, enemy.h)
 
@@ -31,7 +31,7 @@ function createEnemy(x, y, type, damage)
         if enemy.active == true then
             local newX, newY, cols, len = enemyWorld:move(enemy, enemy.x, enemy.y)
 
-            if newX > 37 and newX < gameWidth - 5 and newY > 40 and newY < gameHeight - 5 then
+            if newX > 4 and newX < gameWidth - 5 and newY > 40 and newY < gameHeight - 5 then
                 enemy.x, enemy.y = newX, newY
             else
                 enemy.active = false
