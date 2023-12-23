@@ -75,7 +75,7 @@ function player.update(dt)
         removeAbility("fireball")
         removeAbility("lasergun")
         player.abilities[#player.abilities+1] = "firelser"
-        setColor(245, 25, 5, 255)
+        noticolor = {245, 25, 5, 255}
         noti = "Flamethrower: Bullets ↑ DMG ↑"
         noti2 = "'You Feel the POWER'"
         notiTimerTrigger = true
@@ -90,6 +90,9 @@ function player.update(dt)
         if not player.round == 0 then
             print("ROUND COMPLETE")
         end
+        player.x = gameWidth / 2
+        player.y = gameHeight / 2
+        world:move(player, player.x, player.y, playerFilter)
         print("ROUND " .. player.round)
         level.init("roundEnd")
 
