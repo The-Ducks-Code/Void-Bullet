@@ -30,7 +30,7 @@ function enemybullets.draw()
 
     for k,v in ipairs(enemybullets) do
 
-        love.graphics.setColor(1, 0, 0, 1)
+        love.graphics.setColor(love.math.colorFromBytes(184, 25 , 133, 255))
         love.graphics.print(enemybullets[k].txt, enemybullets[k].x, enemybullets[k].y) -- print enemyenemybullets every frame they are on screen
         love.graphics.setColor(1, 1, 1, 1)
 

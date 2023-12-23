@@ -108,12 +108,12 @@ function createItem(itemType, x, y)
 
             if b < 12 then
 
-                item.color = {250, 15, 4, 255}
+                item.color = {250, 115, 104, 255}
                 b = b + 1 * dt
 
             elseif c < 12 then
 
-                item.color = {200, 30, 0, 255}
+                item.color = {200, 130, 100, 255}
                 c = c + 1 * dt
 
             else

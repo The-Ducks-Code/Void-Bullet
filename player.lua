@@ -40,6 +40,14 @@ function player.update(dt)
 
     end
 
+    if player.score > 9999999 then
+        player.score = 9999999
+        noticolor = {255, 25, 5, 255}
+        noti = "MAX SCORE REACHED"
+        noti2 = "'bro... why???'"
+        notiTimerTrigger = true
+    end
+
     for k,v in ipairs(player.abilities) do
 
         -- Bullet types:

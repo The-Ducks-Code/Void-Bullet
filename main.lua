@@ -71,7 +71,7 @@ function love.update(dt)
 
             bullets[k].update(deltatime)
 
-            if bullets[k].y < 25 or bullets[k].y > gameHeight or bullets[k].x < - 10 or bullets[k].x > gameWidth - 8 then
+            if bullets[k].y < 25 or bullets[k].y > gameHeight - 30 or bullets[k].x < 0 or bullets[k].x > gameWidth - 25 then
 
                 bullets[k].active = false
 
@@ -183,7 +183,7 @@ function love.update(dt)
             print(items[z].type .. " aquired")
             if  items[z].type == "speed up" then
                 player.speed = player.speed + 1
-                noticolor = {25, 0, 164, 255}
+                noticolor = {243, 209, 4, 255}
                 noti = "Speed ↑"
                 notiTimerTrigger = true
             elseif  items[z].type == "bulletup" then
@@ -207,14 +207,21 @@ function love.update(dt)
                     notiTimerTrigger = true
                 end
             elseif  items[z].type == "heartsup" then
-                player.totalHp = player.totalHp + 1
-                noticolor = {255, 0, 0, 255}
-                noti = "Total Hearts ↑"
-                notiTimerTrigger = true
+                if player.totalHp < 18 then
+                        player.totalHp = player.totalHp + 1
+                    noticolor = {250, 115, 104, 255}
+                    noti = "Total Hearts ↑"
+                    notiTimerTrigger = true
+                else
+                    print("already at max heart container")
+                    noticolor = {255, 0, 0, 255}
+                    noti = "You Can only have 18 Hearts"
+                    notiTimerTrigger = true
+                end
             elseif  items[z].type == "lasergun" then
                 player.abilities[#player.abilities+1] = items[z].type
                 if not tableContains(player.abilities, "fireball") then
-                    noticolor = {245, 0, 0, 255}
+                    noticolor = {45, 0, 255, 255}
                     noti = "Laser Gun: Bullets ↑ DMG ↓"
                     noti2 = "'PEW! PEW!'"
                     notiTimerTrigger = true

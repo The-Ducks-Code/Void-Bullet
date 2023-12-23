@@ -5,8 +5,8 @@ function uiDraw()
     love.graphics.setFont(fonts.score)
     love.graphics.setColor(255, 255, 255, 55)
     love.graphics.print(strFPS .. ' FPS', 0, 0, 0)
-    love.graphics.print('Alpha v0.0.3', 100, 0, 0, 0.5, 0.5)
-    love.graphics.print('SCORE: '.. player.score, 0, 15, 0)
+    love.graphics.print('Alpha v0.0.4', 100, 0, 0, 0.5, 0.5)
+    love.graphics.print('SCORE:'.. player.score, 0, 15, 0)
     love.graphics.setFont(fonts.entities)
 
     if player.isAlive == false then
@@ -38,12 +38,12 @@ function uiDraw()
 
             if u < player.hp then
                 love.graphics.setColor(255, 0, 0, 255)
-                love.graphics.print('♥', gameWidth/4 + ioffset, -5, 0, gameWidth/1000, gameHeight/1000)
+                love.graphics.print('♥', 205 + ioffset, -5, 0, gameWidth/1000, gameHeight/1000)
                 u = u + 1
             else
                 love.graphics.setColor(255, 255, 255, 255)
             end
-            love.graphics.print('♥', gameWidth/4 + ioffset, -5, 0, gameWidth/1000, gameHeight/1000)
+            love.graphics.print('♥', 205 + ioffset, -5, 0, gameWidth/1000, gameHeight/1000)
             i = i + 1
             ioffset = ioffset + 35
         end

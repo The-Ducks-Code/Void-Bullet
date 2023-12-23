@@ -99,55 +99,55 @@ function input.player(dt)
         if not bulletcooldown then
 
             if player.bulletAmount == 1 then
-                local bullet = createBullet(player.x, player.y - 10, 180)
+                local bullet = createBullet(player.x - 10, player.y - 10, 180)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 2 then
-                local bullet = createBullet(player.x, player.y - 20, 180)
+                local bullet = createBullet(player.x - 10, player.y - 20, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y, 180)
+                local bullet = createBullet(player.x - 10, player.y, 180)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 3 then
-                local bullet = createBullet(player.x, player.y - 10, 150)
+                local bullet = createBullet(player.x - 10, player.y - 10, 150)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 10, 210)
+                local bullet = createBullet(player.x - 10, player.y - 10, 210)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 10, 180)
+                local bullet = createBullet(player.x - 10, player.y - 10, 180)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 4 then
                 
-                local bullet = createBullet(player.x, player.y - 40, 180)
+                local bullet = createBullet(player.x - 10, player.y - 40, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 20, 180)
+                local bullet = createBullet(player.x - 10, player.y - 20, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y, 180)
+                local bullet = createBullet(player.x - 10, player.y, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y + 20, 180)
+                local bullet = createBullet(player.x - 10, player.y + 20, 180)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 5 then
                 
-                local bullet = createBullet(player.x, player.y - 18, 120)
+                local bullet = createBullet(player.x - 10, player.y - 18, 120)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 150)
+                local bullet = createBullet(player.x - 10, player.y - 18, 150)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 180)
+                local bullet = createBullet(player.x - 10, player.y - 18, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 210)
+                local bullet = createBullet(player.x - 10, player.y - 18, 210)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 240)
+                local bullet = createBullet(player.x - 10, player.y - 18, 240)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 6 then
                 
-                local bullet = createBullet(player.x, player.y - 60, 180)
+                local bullet = createBullet(player.x - 10, player.y - 60, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 40, 180)
+                local bullet = createBullet(player.x - 10, player.y - 40, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 20, 180)
+                local bullet = createBullet(player.x - 10, player.y - 20, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y + 20, 180)
+                local bullet = createBullet(player.x - 10, player.y + 20, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y + 40, 180)
+                local bullet = createBullet(player.x - 10, player.y + 40, 180)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y, 180)
+                local bullet = createBullet(player.x - 10, player.y, 180)
                 bullets[#bullets+1] = bullet
             end
 
@@ -161,55 +161,55 @@ function input.player(dt)
         if not bulletcooldown then
 
             if player.bulletAmount == 1 then
-                local bullet = createBullet(player.x, player.y - 10, 0)
+                local bullet = createBullet(player.x +10, player.y - 10, 0)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 2 then
-                local bullet = createBullet(player.x, player.y - 20, 0)
+                local bullet = createBullet(player.x +10, player.y - 20, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y, 0)
+                local bullet = createBullet(player.x +10, player.y, 0)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 3 then
-                local bullet = createBullet(player.x, player.y - 10, -30)
+                local bullet = createBullet(player.x +10, player.y - 10, -30)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 10, 30)
+                local bullet = createBullet(player.x +10, player.y - 10, 30)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 10, 0)
+                local bullet = createBullet(player.x +10, player.y - 10, 0)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 4 then
                 
-                local bullet = createBullet(player.x, player.y - 40, 0)
+                local bullet = createBullet(player.x +10, player.y - 40, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 20, 0)
+                local bullet = createBullet(player.x +10, player.y - 20, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y, 0)
+                local bullet = createBullet(player.x +10, player.y, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y + 20, 0)
+                local bullet = createBullet(player.x +10, player.y + 20, 0)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 5 then
                 
-                local bullet = createBullet(player.x, player.y - 18, -60)
+                local bullet = createBullet(player.x +10, player.y - 18, -60)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, -30)
+                local bullet = createBullet(player.x +10, player.y - 18, -30)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 0)
+                local bullet = createBullet(player.x +10, player.y - 18, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 30)
+                local bullet = createBullet(player.x +10, player.y - 18, 30)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 60)
+                local bullet = createBullet(player.x +10, player.y - 18, 60)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 6 then
                 
-                local bullet = createBullet(player.x, player.y - 60, 0)
+                local bullet = createBullet(player.x +10, player.y - 60, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 40, 0)
+                local bullet = createBullet(player.x +10, player.y - 40, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 20, 0)
+                local bullet = createBullet(player.x +10, player.y - 20, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y + 20, 0)
+                local bullet = createBullet(player.x +10, player.y + 20, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y + 40, 0)
+                local bullet = createBullet(player.x +10, player.y + 40, 0)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y, 0)
+                local bullet = createBullet(player.x +10, player.y, 0)
                 bullets[#bullets+1] = bullet
             end
             bulletcooldown = true
@@ -222,55 +222,55 @@ function input.player(dt)
         if not bulletcooldown then
 
             if player.bulletAmount == 1 then
-                local bullet = createBullet(player.x, player.y - 18, 270)
+                local bullet = createBullet(player.x, player.y, 270)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 2 then
-                local bullet = createBullet(player.x - 10, player.y - 18, 270)
+                local bullet = createBullet(player.x - 10, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x + 10, player.y - 18, 270)
+                local bullet = createBullet(player.x + 10, player.y, 270)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 3 then
-                local bullet = createBullet(player.x, player.y - 18, 240)
+                local bullet = createBullet(player.x, player.y, 240)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 300)
+                local bullet = createBullet(player.x, player.y, 300)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 270)
+                local bullet = createBullet(player.x, player.y, 270)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 4 then
                 
-                local bullet = createBullet(player.x - 30, player.y - 18, 270)
+                local bullet = createBullet(player.x - 30, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x - 10, player.y - 18, 270)
+                local bullet = createBullet(player.x - 10, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x + 10, player.y - 18, 270)
+                local bullet = createBullet(player.x + 10, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x + 30, player.y - 18, 270)
+                local bullet = createBullet(player.x + 30, player.y, 270)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 5 then
                 
-                local bullet = createBullet(player.x, player.y - 18, 210)
+                local bullet = createBullet(player.x, player.y, 210)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 240)
+                local bullet = createBullet(player.x, player.y, 240)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 270)
+                local bullet = createBullet(player.x, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 300)
+                local bullet = createBullet(player.x, player.y, 300)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x, player.y - 18, 330)
+                local bullet = createBullet(player.x, player.y, 330)
                 bullets[#bullets+1] = bullet
             elseif player.bulletAmount == 6 then
                 
-                local bullet = createBullet(player.x - 50, player.y - 18, 270)
+                local bullet = createBullet(player.x - 50, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x - 30, player.y - 18, 270)
+                local bullet = createBullet(player.x - 30, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x - 10, player.y - 18, 270)
+                local bullet = createBullet(player.x - 10, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x + 10, player.y - 18, 270)
+                local bullet = createBullet(player.x + 10, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x + 30, player.y - 18, 270)
+                local bullet = createBullet(player.x + 30, player.y, 270)
                 bullets[#bullets+1] = bullet
-                local bullet = createBullet(player.x + 50, player.y - 18, 270)
+                local bullet = createBullet(player.x + 50, player.y, 270)
                 bullets[#bullets+1] = bullet
             end
 
@@ -282,10 +282,11 @@ function input.player(dt)
 end
 
 local codes = {}
-codes['{up}{up}{down}{down}{left}{right}{left}{right}ba{return}'] = function() noticolor = {255, 0, 0, 255} noti = 'KONMAI CODE ACTIVATED, 99 HP' notiTimerTrigger = true setColor(255, 255, 255, 255) player.hp = 99 player.totalHp = 99 end
-codes['hl3confirmed'] = function() setColor(255, 165, 0, 255) noti = 'GORDON FREEMAN???' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.txt = "Ồ" end
+codes['{up}{up}{down}{down}{left}{right}{left}{right}ba{return}'] = function() noticolor = {255, 0, 0, 255} noti = 'KONMAI CODE ACTIVATED, 99 HP' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.hp = 99 player.totalHp = 99 end
+codes['hl3confirmed'] = function() noticolor = {255, 165, 0, 255} noti = 'GORDON FREEMAN???' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.txt = "Ồ" end
 codes['r15'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 15' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 15 end
 codes['duck'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, quack quack' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.color = {255,239,1, 255} player.defcolor = {255,239,1, 255} player.txt = 'D' end
+codes['score'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = '1696969 pts added' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.score = player.score + 1696969 end
 Cheatcode(codes)
 
 

@@ -39,7 +39,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.txt = "#"
         bullet.speed = 5
         bullet.color = {255, 0, 0, 255}
-        btTime = 0.02
+        btTime = 0.05
 
     elseif player.bType == "firelser" then
 
@@ -47,7 +47,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.txt = "#"
         bullet.speed = 6
         bullet.color = {255, 0, 0, 255}
-        btTime = 0.01
+        btTime = 0.1
 
     end
 
