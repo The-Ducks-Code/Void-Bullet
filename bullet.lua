@@ -10,6 +10,8 @@ bulletTimer = 0 -- reset the bullet timer
 
 function createBullet(x, y, dir) -- when called creates a bullet in a given location going at a given speed in a given direction
 
+    playershoot:play()
+
     local bullet = {}
     bullet.x = x
     bullet.y = y
@@ -24,22 +26,22 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.txt = "+"
         bullet.speed = 7
         bullet.color = {255, 255, 255, 255}
-        btTime = 0.2
+        btTime = 0.25
 
     elseif player.bType == "fireball" then
 
         bullet.damage = 1
         bullet.txt = "+"
         bullet.speed = 3
-        btTime = 0.4
+        btTime = 0.5
         
     elseif player.bType == "lasergun" then
 
         bullet.damage = 0.2
         bullet.txt = "#"
-        bullet.speed = 5
+        bullet.speed = 7
         bullet.color = {255, 0, 0, 255}
-        btTime = 0.05
+        btTime = 0.1
 
     elseif player.bType == "firelser" then
 
@@ -47,7 +49,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.txt = "#"
         bullet.speed = 6
         bullet.color = {255, 0, 0, 255}
-        btTime = 0.1
+        btTime = 0.3
 
     end
 

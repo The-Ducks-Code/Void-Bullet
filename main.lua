@@ -13,6 +13,7 @@ require("input")
 require("levels")
 require("items")
 require("ui")
+require("plugins.slam")
 bump = require ("plugins.bump")
 function love.load() -- ran before the first frame
 
@@ -28,6 +29,13 @@ function love.load() -- ran before the first frame
     fonts.entities = love.graphics.newFont( 'fonts/joystixmono.ttf', 30 * (gameWidth / 800), 'normal')
     fonts.ui = love.graphics.newFont( 'fonts/joystixmono.ttf', 50 * (gameWidth / 800), 'normal')
     fonts.score = love.graphics.newFont( 'fonts/joystixmono.ttf', 20 * (gameWidth / 800), 'normal')
+
+    bossdeath = love.audio.newSource("sfx/Boss_Death.wav", "static")
+    playershoot = love.audio.newSource("sfx/Laser_Shoot.wav", "static")
+    enemyhurt = love.audio.newSource("sfx/Enemy_Hurt.wav", "static")
+    playerhurt = love.audio.newSource("sfx/Player_Hurt.wav", "static")
+    powerup = love.audio.newSource("sfx/Powerup.wav", "static")
+    endround = love.audio.newSource("sfx/Round_End.wav", "static")
 
     noti = " " -- set the noti text to nothing so it is hidden
     noti2 = " " -- set the noti2 text to nothing so it is hidden
@@ -62,6 +70,10 @@ function love.update(dt)
 
     player.update(deltatime)
     input.general()
+    if player.bType == 'firelser' then
+        math.randomseed(os.time())
+        bulletoffset = math.random(-20, 20)
+    end
 
     if player.isAlive then
         
@@ -126,6 +138,7 @@ function love.update(dt)
             end
 
             if enemies[k].hp <= 0 then
+                enemyhurt:play()
                 enemies[k].active = false
             end
 
@@ -159,6 +172,7 @@ function love.update(dt)
             end
 
             if bosses[k].hp <= 0 then
+                bossdeath:play()
                 bosses[k].active = false
             end
 
@@ -181,6 +195,7 @@ function love.update(dt)
         if items[z].x + 10 > player.x - 1 and items[z].x - 50 < player.x - 1 and items[z].y - 10 < player.y - 5 and items[z].y + 25 > player.y - 5  then
 
             print(items[z].type .. " aquired")
+            powerup:play()
             if  items[z].type == "speed up" then
                 player.speed = player.speed + 1
                 noticolor = {243, 209, 4, 255}
@@ -240,6 +255,7 @@ function love.update(dt)
                 table.remove(items, 3)
                 table.remove(items, 2)
                 table.remove(items, 1)
+                
                 roundStart()
             else
                 table.remove(items, z)

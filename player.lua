@@ -25,7 +25,6 @@ player.color = {255, 255, 255, 255}
 player.txt = '0'
 player.bulletAmount = 1
 
-
 local b = 0
 local c = 0
 
@@ -101,8 +100,14 @@ function player.update(dt)
         player.x = gameWidth / 2
         player.y = gameHeight / 2
         world:move(player, player.x, player.y, playerFilter)
+        for k, l in ipairs(bullets) do
+
+            bullets[k].active = false
+
+        end
         print("ROUND " .. player.round)
         level.init("roundEnd")
+        endround:play()
 
     end
 
@@ -110,7 +115,7 @@ function player.update(dt)
 
 
         if not damagecooldown then
-    
+            playerhurt:play()
             player.hp = player.hp - dmg
             print("player took " .. dmg ..  " damage")
             print("player has " .. player.hp .. "hp left")

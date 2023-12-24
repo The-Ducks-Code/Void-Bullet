@@ -10,6 +10,7 @@ level = {}
 function level.init(levelName)
 
     if levelName == "roundEnd" then
+        
         math.randomseed(os.time())  -- Seed with the current system time
         items[#items+1] = createItem(math.random(3, 4), gameWidth / 5, 200)
         items[#items+1] = createItem(math.random(1, 2), gameWidth / 2 + 5, 200)

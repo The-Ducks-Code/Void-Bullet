@@ -102,6 +102,13 @@
         "notiTimer",
         "notiTimerTrigger",
         "noti2",
-        "noticolor"
+        "noticolor",
+        "bossdeath",
+        "playershoot",
+        "enemyhurt",
+        "playerhurt",
+        "powerup",
+        "endround",
+        "bulletoffset"
     ]
 }
