@@ -5,7 +5,7 @@ function uiDraw()
     love.graphics.setFont(fonts.score)
     love.graphics.setColor(255, 255, 255, 55)
     love.graphics.print(strFPS .. ' FPS', 0, 0, 0)
-    love.graphics.print('Alpha v0.0.4', 100, 0, 0, 0.5, 0.5)
+    love.graphics.print('v0.0.5', 115, 0, 0, 0.5, 0.5)
     love.graphics.print('SCORE:'.. player.score, 0, 15, 0)
     love.graphics.setFont(fonts.entities)
 
@@ -15,7 +15,8 @@ function uiDraw()
         love.graphics.print('GAME OVER', gameWidth/2 - fonts.ui:getWidth('GAME OVER') / 2.5, gameHeight/2 - 50, 0, gameWidth/600, gameHeight/600)
         love.graphics.print('MADE IT TO ROUND: ' .. player.round, gameWidth/2 - fonts.ui:getWidth('MADE IT TO ROUND: ' .. player.round) / 2.5, gameHeight/2, 0, gameWidth/600, gameHeight/600)
         love.graphics.print('FINAL SCORE: ' .. player.score, gameWidth/2 - fonts.ui:getWidth('FINAL SCORE: ' .. player.score) / 2.5, gameHeight/2 + 50, 0, gameWidth/600, gameHeight/600)
-        love.graphics.print('ESC TO QUIT', gameWidth/2 - fonts.ui:getWidth('ESC TO QUIT') / 2.5, gameHeight/2 + 100, 0, gameWidth/600, gameHeight/600)
+        love.graphics.print('R TO RESTART', gameWidth/2 - fonts.ui:getWidth('ESC TO QUIT') / 2.5, gameHeight/2 + 100, 0, gameWidth/600, gameHeight/600)
+        love.graphics.print('ESC TO QUIT', gameWidth/2 - fonts.ui:getWidth('ESC TO QUIT') / 2.5, gameHeight/2 + 150, 0, gameWidth/600, gameHeight/600)
 
     end
 

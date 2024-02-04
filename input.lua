@@ -1,20 +1,21 @@
-
 input = {}
 bulletoffset = 0
 function input.player(dt)
 
-    if love.keyboard.isDown('w') then
-		player.y = player.y - player.speed * dt
-    end
-	if love.keyboard.isDown('s') then
-		player.y = player.y + player.speed * dt
-    end
-	if love.keyboard.isDown('a') then
-		player.x = player.x - player.speed * dt
-    end
-	if love.keyboard.isDown('d') then
-		player.x = player.x + player.speed * dt
+    local dx, dy = 0, 0
+	if love.keyboard.isDown("w") then dy = -1 end
+	if love.keyboard.isDown("a") then dx = -1 end
+	if love.keyboard.isDown("d") then dx = 1 end
+	if love.keyboard.isDown("s") then dy = 1 end
+	if dx ~= 0 or dy ~= 0 then
+		if dx ~= 0 and dy ~= 0 then
+			dx = dx * 0.7071
+			dy = dy * 0.7071
+		end
+		player.x = player.x + dx * player.speed * dt
+		player.y = player.y + dy * player.speed * dt
 	end
+
 
     function playerFilter(item, other)
         if other.isEnemy then return 'cross'
@@ -301,5 +302,13 @@ function input.general()
 
         love.event.quit()
         
+    end
+
+    if player.isAlive == false then
+        if love.keyboard.isDown("r") then
+
+            gameRestart()
+        
+        end
     end
 end

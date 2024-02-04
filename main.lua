@@ -12,6 +12,7 @@ Cheatcode = require('plugins.kc')
 require("input")
 require("levels")
 require("items")
+require("effects")
 require("ui")
 require("plugins.slam")
 bump = require ("plugins.bump")
@@ -75,6 +76,8 @@ function love.update(dt)
         bulletoffset = math.random(-20, 20)
     end
 
+    effects.update(deltatime)
+
     if player.isAlive then
         
         input.player(deltatime)
@@ -132,13 +135,14 @@ function love.update(dt)
                     enemies[k].hp = enemies[k].hp - bullets[b].damage
                     print("bullet hit enemy")
                     bullets[b].active = false
-                    player.score = player.score + enemies[k].pts
                     enemies[k].color = {255, 0, 0, 255}
                 end
             end
 
             if enemies[k].hp <= 0 then
                 enemyhurt:play()
+                startShake(1, 2)
+                player.score = player.score + enemies[k].pts
                 enemies[k].active = false
             end
 
@@ -165,7 +169,6 @@ function love.update(dt)
                     bosses[k].hp = bosses[k].hp - bullets[b].damage
                     print("bullet hit boss")
                     bullets[b].active = false
-                    player.score = player.score + bosses[k].pts
                     bosses[k].color = {255, 0, 0, 255}
                     print(bosses[k].hp)
                 end
@@ -173,6 +176,8 @@ function love.update(dt)
 
             if bosses[k].hp <= 0 then
                 bossdeath:play()
+                startShake(3, 4)
+                player.score = player.score + bosses[k].pts
                 bosses[k].active = false
             end
 
@@ -199,12 +204,12 @@ function love.update(dt)
             if  items[z].type == "speed up" then
                 player.speed = player.speed + 1
                 noticolor = {243, 209, 4, 255}
-                noti = "Speed ↑"
+                noti = "SPD ↑"
                 notiTimerTrigger = true
             elseif  items[z].type == "bulletup" then
                 player.bulletAmount = player.bulletAmount + 1
                 noticolor = {50, 255, 0, 255}
-                noti = "Bullet Streams ↑"
+                noti = "BUL COUNT ↑"
                 notiTimerTrigger = true
                 if player.bulletAmount > 6 then
                     player.bulletAmount = 6
@@ -213,31 +218,31 @@ function love.update(dt)
                 if player.totalHp > player.hp then
                     player.hp = player.hp + 1
                     noticolor = {255, 0, 0, 255}
-                    noti = "Healed"
+                    noti = "HEALED"
                     notiTimerTrigger = true
                 else
                     print("already at full hp")
                     noticolor = {255, 0, 0, 255}
-                    noti = "You Are Already Fully Healed"
+                    noti = "ALREADY AT FULL HP"
                     notiTimerTrigger = true
                 end
             elseif  items[z].type == "heartsup" then
                 if player.totalHp < 18 then
                         player.totalHp = player.totalHp + 1
                     noticolor = {250, 115, 104, 255}
-                    noti = "Total Hearts ↑"
+                    noti = "+1 HEART"
                     notiTimerTrigger = true
                 else
                     print("already at max heart container")
                     noticolor = {255, 0, 0, 255}
-                    noti = "You Can only have 18 Hearts"
+                    noti = "MAX HEARTS REACHED"
                     notiTimerTrigger = true
                 end
             elseif  items[z].type == "lasergun" then
                 player.abilities[#player.abilities+1] = items[z].type
                 if not tableContains(player.abilities, "fireball") then
                     noticolor = {45, 0, 255, 255}
-                    noti = "Laser Gun: Bullets ↑ DMG ↓"
+                    noti = "Laser Gun: BUL ↑ DMG ↓"
                     noti2 = "'PEW! PEW!'"
                     notiTimerTrigger = true
                 end
@@ -245,7 +250,7 @@ function love.update(dt)
                 player.abilities[#player.abilities+1] = items[z].type
                 if not tableContains(player.abilities, "lasergun") then
                     noticolor = {254, 222, 23, 255}
-                    noti = "Fireball: Bullets ↓ DMG ↑"
+                    noti = "Fireball: BUL ↓ DMG ↑"
                     noti2 = "'You Feel the Warmth of Fire'"
                     notiTimerTrigger = true
                 end
@@ -325,6 +330,7 @@ function love.draw()
         love.graphics.print(noti, gameWidth/2 - fonts.ui:getWidth(noti) / 3.4, 100 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
         love.graphics.print(noti2, gameWidth/2 - fonts.ui:getWidth(noti2) / 3.4, 150 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
         love.graphics.setColor(1, 1, 1, 1)
+        effects.draw()
         blocks.draw()
         player.draw()
         bullets.draw()

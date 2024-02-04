@@ -11,7 +11,7 @@ function level.init(levelName)
 
     if levelName == "roundEnd" then
         
-        math.randomseed(os.time())  -- Seed with the current system time
+        math.randomseed(os.time() * os.time() * math.pi)  -- Seed with the current system time
         items[#items+1] = createItem(math.random(3, 4), gameWidth / 5, 200)
         items[#items+1] = createItem(math.random(1, 2), gameWidth / 2 + 5, 200)
         items[#items+1] = createItem(math.random(5, 6), gameWidth - 160, 200)
@@ -20,6 +20,11 @@ end
 
 function roundStart()
 
+    for k, l in ipairs(bullets) do
+
+        bullets[k].active = false
+
+    end
 
     if player.round < 5 then
         local i = 0
@@ -111,4 +116,53 @@ function blocks.draw()
         enemyWorld:update(blocks[i], b.x, b.y, b.w, b.h)
         love.graphics.rectangle(blocks[i].fill, b.x, b.y, b.w, b.h)
       end
+end
+
+function gameRestart()
+
+    player.health = 100
+    player.roundactive = false
+    player.x =  gameWidth/2 - fonts.ui:getWidth("O") / 2 + 8 -- set the players x postition to about the middle of the screen
+    player.y =  gameHeight/2 + 21 -- set the players y postition to about the middle of the screen
+    player.totalHp = 3
+    player.hp = 3
+    player.score = 0
+    player.isAlive = true
+    player.abilities = {}
+    player.speed = 2
+    player.bType = "normal"
+    player.round = 0
+    player.roundactive = true
+    player.defcolor = {255, 255, 255, 255}
+    player.color = {255, 255, 255, 255}
+    player.txt = '0'
+    player.bulletAmount = 1
+
+    if player.roundactive == true then
+        table.remove(items, 3)
+        table.remove(items, 2)
+        table.remove(items, 1)
+        
+    end
+    
+    for k, l in ipairs(bullets) do
+
+        bullets[k].active = false
+
+    end
+
+    for k, l in ipairs(enemies) do
+
+        enemies[k].active = false
+
+    end
+
+    for k, l in ipairs(bosses) do
+
+        bosses[k].active = false
+
+    end
+
+    roundStart()
+
 end

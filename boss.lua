@@ -31,7 +31,7 @@ function createBoss(x, y, type)
         boss.h = 2
         boss.txt = "Ω"
         boss.speed = 1
-        boss.pts = 300
+        boss.pts = 30000
         boss.hp = 300
         boss.color = {150, 15, 175, 255}
     end

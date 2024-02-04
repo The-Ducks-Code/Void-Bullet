@@ -16,7 +16,6 @@ player.score = 0
 player.isAlive = true
 player.abilities = {}
 player.speed = 2
-gameover = {}
 player.bType = "normal"
 player.round = 0
 player.roundactive = true
@@ -83,7 +82,7 @@ function player.update(dt)
         removeAbility("lasergun")
         player.abilities[#player.abilities+1] = "firelser"
         noticolor = {245, 25, 5, 255}
-        noti = "Flamethrower: Bullets ↑ DMG ↑"
+        noti = "Flamethrower: BUL+DMG ↑ ACC ↓"
         noti2 = "'You Feel the POWER'"
         notiTimerTrigger = true
 
@@ -116,6 +115,7 @@ function player.update(dt)
 
         if not damagecooldown then
             playerhurt:play()
+            startShake(2, 10)
             player.hp = player.hp - dmg
             print("player took " .. dmg ..  " damage")
             print("player has " .. player.hp .. "hp left")

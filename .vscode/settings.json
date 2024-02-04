@@ -109,6 +109,12 @@
         "playerhurt",
         "powerup",
         "endround",
-        "bulletoffset"
+        "bulletoffset",
+        "gameRestart",
+        "psystem",
+        "image",
+        "startShake",
+        "shakeDuration",
+        "effects"
     ]
 }
