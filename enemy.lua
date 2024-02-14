@@ -19,6 +19,8 @@ function createEnemy(x, y, type, damage)
     enemy.dir = 90
     enemy.w = 30
     enemy.h = 34
+    enemy.o = 0
+    enemy.hitlist = {"itemsoitdoesntbreakhopefullylol"}
     enemy.color = {255, 255, 255, 255}
     enemyWorld:add(enemy, enemy.x, enemy.y, enemy.w, enemy.h)
 
@@ -35,6 +37,16 @@ function createEnemy(x, y, type, damage)
                 enemy.x, enemy.y = newX, newY
             else
                 enemy.active = false
+            end
+
+            if enemy.type == "gunner" then
+                if enemy.o > 75 then
+                    local enemybullet = createEnemyBullet(enemy.x, enemy.y, 90 * math.random(0, 4))
+                    enemybullets[#enemybullets+1] = enemybullet
+                    enemy.o = 0
+                else
+                    enemy.o = enemy.o + dt
+                end
             end
         end
     end
@@ -59,6 +71,13 @@ function createEnemy(x, y, type, damage)
         enemy.speed = 0.5
         enemy.hp = 4
         enemy.pts = 200
+    
+    elseif enemy.type == "gunner" then
+
+        enemy.txt = "G"
+        enemy.speed = 0.8
+        enemy.hp = 1
+        enemy.pts = 250
     
     end
  

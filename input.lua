@@ -1,5 +1,6 @@
 input = {}
 bulletoffset = 0
+shotdir = 0
 function input.player(dt)
 
     local dx, dy = 0, 0
@@ -28,8 +29,8 @@ function input.player(dt)
     player.x, player.y = newX, newY
 
     if love.keyboard.isDown("up") then
-
         if not bulletcooldown then
+            shotdir = "up"
             if player.bulletAmount == 1 then
                 
                 local bullet = createBullet(player.x, player.y - 18, 90 + bulletoffset)
@@ -95,7 +96,7 @@ function input.player(dt)
     if love.keyboard.isDown("left") then
 
         if not bulletcooldown then
-
+            shotdir = "left"
             if player.bulletAmount == 1 then
                 local bullet = createBullet(player.x - 10, player.y - 10, 180 + bulletoffset)
                 bullets[#bullets+1] = bullet
@@ -157,7 +158,7 @@ function input.player(dt)
     if love.keyboard.isDown("right") then
 
         if not bulletcooldown then
-
+            shotdir = "right"
             if player.bulletAmount == 1 then
                 local bullet = createBullet(player.x +10, player.y - 10, 0 + bulletoffset)
                 bullets[#bullets+1] = bullet
@@ -218,7 +219,7 @@ function input.player(dt)
     if love.keyboard.isDown("down") then
 
         if not bulletcooldown then
-
+            shotdir = "down"
             if player.bulletAmount == 1 then
                 local bullet = createBullet(player.x, player.y, 270 + bulletoffset)
                 bullets[#bullets+1] = bullet
@@ -285,10 +286,12 @@ codes['ggez'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,
 
 codes['hl3confirmed'] = function() noticolor = {255, 165, 0, 255} noti = 'GORDON FREEMAN???' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.txt = "Ồ" end
 codes['r15'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 15' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 15 end
+codes['r30'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 30' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 30 end
 codes['r70'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 70' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 70 end
 codes['r80'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 80' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 80 end
 codes['duck'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, quack quack' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.color = {255,239,1, 255} player.defcolor = {255,239,1, 255} player.txt = 'D' end
 codes['score'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = '1696969 pts added' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.score = player.score + 1696969 end
+codes['railgun'] = function() player.pLvl = 2 player.abilities[#player.abilities+1] = "lasergun" end
 Cheatcode(codes)
 
 

@@ -24,6 +24,7 @@ function love.load() -- ran before the first frame
 
     world = bump.newWorld()
     enemyWorld = bump.newWorld()
+    vol = 0.6
 
     fonts = {}
 
@@ -37,6 +38,7 @@ function love.load() -- ran before the first frame
     playerhurt = love.audio.newSource("sfx/Player_Hurt.wav", "static")
     powerup = love.audio.newSource("sfx/Powerup.wav", "static")
     endround = love.audio.newSource("sfx/Round_End.wav", "static")
+
 
     noti = " " -- set the noti text to nothing so it is hidden
     noti2 = " " -- set the noti2 text to nothing so it is hidden
@@ -131,11 +133,18 @@ function love.update(dt)
 
             for b,l in ipairs(bullets) do
 
-                if enemies[k].x + 22 > bullets[b].x and enemies[k].x - 20 < bullets[b].x and enemies[k].y - 25 < bullets[b].y and enemies[k].y + 25 > bullets[b].y then
-                    enemies[k].hp = enemies[k].hp - bullets[b].damage
-                    print("bullet hit enemy")
-                    bullets[b].active = false
-                    enemies[k].color = {255, 0, 0, 255}
+                if enemies[k].x + 22 > bullets[b].x and enemies[k].x - 20 < bullets[b].x and enemies[k].y - 25 < bullets[b].y and enemies[k].y + 25 > bullets[b].y and bullets[b].active then
+                    if not tableContains(enemies[k].hitlist, bullets[b]) then
+                        print("bullet hit enemy")
+                        bullets[b].piercei = bullets[b].piercei - 1
+                        print(bullets[b].piercei)
+                        enemies[k].hp = enemies[k].hp - bullets[b].damage
+                        enemies[k].hitlist[#enemies[k].hitlist+1] = bullets[b] -- create one enemy
+                        enemies[k].color = {255, 0, 0, 255}
+                        if bullets[b].piercei < 0 then
+                            bullets[b].active = false
+                        end
+                    end
                 end
             end
 
@@ -168,6 +177,8 @@ function love.update(dt)
                 if bosses[k].x + 40 > bullets[b].x and bosses[k].x - 20 < bullets[b].x and bosses[k].y - 5 < bullets[b].y and bosses[k].y + 55 > bullets[b].y then
                     bosses[k].hp = bosses[k].hp - bullets[b].damage
                     print("bullet hit boss")
+                    startShake(0.5, 1)
+                    enemyhurt:play()
                     bullets[b].active = false
                     bosses[k].color = {255, 0, 0, 255}
                     print(bosses[k].hp)
@@ -176,6 +187,8 @@ function love.update(dt)
 
             if bosses[k].hp <= 0 then
                 bossdeath:play()
+                startShake(3, 4)
+                startShake(3, 4)
                 startShake(3, 4)
                 player.score = player.score + bosses[k].pts
                 bosses[k].active = false
@@ -254,6 +267,12 @@ function love.update(dt)
                     noti2 = "'You Feel the Warmth of Fire'"
                     notiTimerTrigger = true
                 end
+            elseif  items[z].type == "piercing" then
+                player.pLvl = player.pLvl + 1
+                noticolor = {130, 75, 255, 255}
+                    noti = "Piercing: PRC ↑"
+                    noti2 = "'Your hands feel sharper'"
+                    notiTimerTrigger = true
             end
 
             if player.roundactive == false then
@@ -267,6 +286,31 @@ function love.update(dt)
             end
         end
     end
+
+    playershoot = love.audio.newSource("sfx/Laser_Shoot".. math.random(1, 6) ..".wav", "static")
+    bossdeath:setVolume(vol * 0.6)
+    enemyhurt:setVolume(vol * 0.6)
+    playerhurt:setVolume(vol * 0.6)
+    powerup:setVolume(vol * 0.5)
+    endround:setVolume(vol * 0.2)
+
+    if player.bulletAmount == 1 then
+        playershoot:setVolume(vol * 0.75)
+    elseif player.bulletAmount == 2 then
+        playershoot:setVolume(vol * 0.5)
+    elseif player.bulletAmount == 3 then
+        playershoot:setVolume(vol * 0.25)
+    elseif player.bulletAmount == 3 then
+        playershoot:setVolume(vol * 0.125)
+    elseif player.bulletAmount == 4 then
+        playershoot:setVolume(vol * 0.0725)
+    elseif player.bulletAmount == 5 then
+        playershoot:setVolume(vol * 0.03725)
+    elseif player.bulletAmount == 6 then
+        playershoot:setVolume(vol * 0.023125)
+    end
+
+
     end
 
 

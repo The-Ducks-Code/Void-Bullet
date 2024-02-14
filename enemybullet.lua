@@ -11,7 +11,7 @@ function createEnemyBullet(x, y, dir) -- when called creates a enemybullet in a 
     enemybullet.color = {255, 255, 255, 255}
     enemybullet.speed = 10
     enemybullet.damage = 0.5
-    enemybullet.txt = "#"
+    enemybullet.txt = "x"
     enemybullet.speed = 5
     enemybullet.color = {255, 0, 0, 255}
     enemybullet.btTime = 0.02
@@ -30,7 +30,7 @@ function enemybullets.draw()
 
     for k,v in ipairs(enemybullets) do
 
-        love.graphics.setColor(love.math.colorFromBytes(184, 25 , 133, 255))
+        love.graphics.setColor(love.math.colorFromBytes(200, 25 , 33, 255))
         love.graphics.print(enemybullets[k].txt, enemybullets[k].x, enemybullets[k].y) -- print enemyenemybullets every frame they are on screen
         love.graphics.setColor(1, 1, 1, 1)
 

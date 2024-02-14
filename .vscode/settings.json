@@ -115,6 +115,8 @@
         "image",
         "startShake",
         "shakeDuration",
-        "effects"
+        "effects",
+        "vol",
+        "shotdir"
     ]
 }

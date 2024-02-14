@@ -12,9 +12,9 @@ function level.init(levelName)
     if levelName == "roundEnd" then
         
         math.randomseed(os.time() * os.time() * math.pi)  -- Seed with the current system time
-        items[#items+1] = createItem(math.random(3, 4), gameWidth / 5, 200)
-        items[#items+1] = createItem(math.random(1, 2), gameWidth / 2 + 5, 200)
-        items[#items+1] = createItem(math.random(5, 6), gameWidth - 160, 200)
+        items[#items+1] = createItem(math.random(4, 5), gameWidth / 5, 200)
+        items[#items+1] = createItem(math.random(1, 3), gameWidth / 2 + 5, 200)
+        items[#items+1] = createItem(math.random(6, 7), gameWidth - 160, 200)
     end
 end
 
@@ -28,9 +28,16 @@ function roundStart()
 
     if player.round < 5 then
         local i = 0
-        while i < player.round * 10 do
+        while i < player.round * 9 do
 
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
+            i = i + 1
+
+        end
+        i = 0
+        while i < player.round * 1 do
+
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
             i = i + 1
 
         end
@@ -42,8 +49,9 @@ function roundStart()
             i = i + 1
         end
         i = 0
-        while i < player.round * (10 - d) do
+        while i < player.round * (5 - d) do
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
             i = i + 1
         end
     elseif player.round < 15 then
@@ -59,8 +67,9 @@ function roundStart()
             i = i + 1
         end
         i = 0
-        while i < player.round * (3) do
+        while i < player.round * (2) do
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
             i = i + 1
         end
     elseif player.round < 16 then
@@ -68,6 +77,12 @@ function roundStart()
         noticolor = {150, 15, 195, 255}
         noti = "OMEGA:"
         noti2 = "'THE FIRST DEFENDER'"
+        notiTimerTrigger = true
+    elseif player.round < 31 then
+        bosses[#bosses+1] = createBoss(400, 400, "phi")
+        noticolor = {150, 165, 75, 255}
+        noti = "PHI:"
+        noti2 = "'THE MASTER OF SPEED'"
         notiTimerTrigger = true
     elseif player.round < 75 then
         local i = 0
@@ -77,8 +92,9 @@ function roundStart()
             i = i + 1
         end
         i = 0
-        while i < player.round * (7 - d) do
+        while i < player.round * (4 - d) do
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
             i = i + 1
         end
         i = 0
@@ -90,9 +106,10 @@ function roundStart()
     else
         local i = 0
         i = 0
-        while i < 50 do
+        while i < 25 do
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
             i = i + 1
         end
         
@@ -137,6 +154,7 @@ function gameRestart()
     player.color = {255, 255, 255, 255}
     player.txt = '0'
     player.bulletAmount = 1
+    player.pLvl = 0
 
     if player.roundactive == true then
         table.remove(items, 3)
@@ -148,6 +166,12 @@ function gameRestart()
     for k, l in ipairs(bullets) do
 
         bullets[k].active = false
+
+    end
+
+    for k, l in ipairs(enemybullets) do
+
+        enemybullets[k].active = false
 
     end
 

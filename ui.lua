@@ -5,7 +5,7 @@ function uiDraw()
     love.graphics.setFont(fonts.score)
     love.graphics.setColor(255, 255, 255, 55)
     love.graphics.print(strFPS .. ' FPS', 0, 0, 0)
-    love.graphics.print('v0.0.5', 115, 0, 0, 0.5, 0.5)
+    love.graphics.print('v0.0.6', 115, 0, 0, 0.5, 0.5)
     love.graphics.print('SCORE:'.. player.score, 0, 15, 0)
     love.graphics.setFont(fonts.entities)
 

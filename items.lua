@@ -60,7 +60,28 @@ function createItem(itemType, x, y)
 
             end
             item.type = "lasergun"
-        elseif item.type == "speed up" or item.type == 3 then
+        elseif item.type == "piercing" or item.type == 3 then
+
+            item.txt = "==>"
+
+            if b < 12 then
+
+                item.color = {130, 75, 255, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {90, 5, 155, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "piercing"
+        elseif item.type == "speed up" or item.type == 4 then
 
             item.txt = ">>>"
 
@@ -81,7 +102,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "speed up"
-        elseif item.type == "bulletup" or item.type == 4 then
+        elseif item.type == "bulletup" or item.type == 5 then
 
             item.txt = '|||'
 
@@ -102,7 +123,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "bulletup"
-        elseif item.type == "heartsup" or item.type == 5 then
+        elseif item.type == "heartsup" or item.type == 6 then
 
             item.txt = '↑♥↑'
 
@@ -123,7 +144,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "heartsup"
-        elseif item.type == "healthup" or item.type == 6 then
+        elseif item.type == "healthup" or item.type == 7 then
 
             item.txt = '+♥+'
 

@@ -23,6 +23,7 @@ player.defcolor = {255, 255, 255, 255}
 player.color = {255, 255, 255, 255}
 player.txt = '0'
 player.bulletAmount = 1
+player.pLvl = 0
 
 local b = 0
 local c = 0
@@ -61,6 +62,14 @@ function player.update(dt)
 
             player.bType = "firelser"
 
+        elseif player.abilities[k] == "railgun" then -- laser bullet
+
+            player.bType = "railgun"
+
+        elseif player.abilities[k] == "srailgun" then -- laser bullet
+
+            player.bType = "srailgun"
+
         end
     end
 
@@ -86,6 +95,28 @@ function player.update(dt)
         noti2 = "'You Feel the POWER'"
         notiTimerTrigger = true
 
+    end
+
+    if player.pLvl >= 2 and tableContains(player.abilities, "lasergun") then
+        removeAbility("lasergun")
+        player.abilities[#player.abilities+1] = "railgun"
+        noticolor = {205, 55, 35, 255}
+        noti = "Railgun: BUL ↓ DMG ↑"
+        noti2 = "'The result is worth the wait'"
+        notiTimerTrigger = true
+        player.pLvl = 999
+    end
+
+    if player.pLvl >= 2 and tableContains(player.abilities, "firelsr") or tableContains(player.abilities, "railgun") and tableContains(player.abilities, "fireball") then
+        removeAbility("firelsr")
+        removeAbility("fireball")
+        removeAbility("railgun")
+        player.abilities[#player.abilities+1] = "srailgun"
+        noticolor = {205, 55, 35, 255}
+        noti = "SUPER Railgun: BUL ↓ DMG ↑↑"
+        noti2 = "'It almost hurts to fire'"
+        notiTimerTrigger = true
+        player.pLvl = 999
     end
 
 

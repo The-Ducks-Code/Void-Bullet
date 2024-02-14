@@ -16,6 +16,7 @@ function createBoss(x, y, type)
     boss.active = true
     boss.type = type
     boss.dir = 90
+    boss.randir = 0
     boss.d = 1 -- which attack
     boss.r = 0
 
@@ -30,10 +31,21 @@ function createBoss(x, y, type)
         boss.w = 2
         boss.h = 2
         boss.txt = "Ω"
-        boss.speed = 1
+        boss.speed = 0.75
         boss.pts = 30000
-        boss.hp = 300
+        boss.hp = 150
         boss.color = {150, 15, 175, 255}
+    end
+
+    if boss.type == "phi" then
+        -- moves
+        boss.w = 2
+        boss.h = 2
+        boss.txt = "φ"
+        boss.speed = 0.9
+        boss.pts = 50000
+        boss.hp = 200
+        boss.color = {150, 165, 75, 255}
     end
 
 
@@ -85,8 +97,8 @@ function createBoss(x, y, type)
 
             elseif boss.d == 4 then -- dash towards player
                 boss.r = 0
-                boss.y = boss.y + lengthdir_y(boss.speed * 2.7 * dt, boss.dir)
-                boss.x = boss.x + lengthdir_x(boss.speed * 2.7 * dt, boss.dir)
+                boss.y = boss.y + lengthdir_y(boss.speed * 1.7 * dt, boss.dir)
+                boss.x = boss.x + lengthdir_x(boss.speed * 1.7 * dt, boss.dir)
                 if boss.active == true then 
                     if boss.dash > 200 then
                     local newX, newY, cols, len = enemyWorld:move(boss, boss.x, boss.y)
@@ -144,7 +156,110 @@ function createBoss(x, y, type)
                         boss.t = boss.t + dt
                     end
                 end
-        end
+            elseif boss.type == "phi" then
+                -- moves
+                
+                if boss.i > 200 then
+                    boss.d = math.random(1, 5)
+                    boss.i = 0
+                end
+                boss.i = boss.i + dt
+                boss.color = {150, 165, 75, 255}
+                
+                boss.dir = radtodeg(math.atan2((boss.y - player.y + 13), (player.x - boss.x - 13)))
+    
+                if boss.d == 1 then -- move towards player
+                    boss.y = boss.y + lengthdir_y(boss.speed * dt, boss.dir)
+                    boss.x = boss.x + lengthdir_x(boss.speed * dt, boss.dir)
+                    if boss.active == true then 
+                        local newX, newY, cols, len = enemyWorld:move(boss, boss.x, boss.y)
+                        boss.x, boss.y = newX, newY
+                    end
+                elseif boss.d == 2 then -- random bullets
+                    boss.r = 0
+                    if boss.dash > 2 then
+                        local enemybullet = createEnemyBullet(boss.x + 13, boss.y + 16, boss.dir - math.random(0, 360))
+                        enemybullets[#enemybullets+1] = enemybullet                        
+                        boss.dash = 0
+                    else
+                        boss.dash = boss.dash + dt
+                    end
+                elseif boss.d == 3 then -- move in a random direction
+                    boss.r = 0
+                    boss.y = boss.y + lengthdir_y(boss.speed * 5 * dt, boss.randir)
+                    boss.x = boss.x + lengthdir_x(boss.speed * 5 * dt, boss.randir)
+                    if boss.active == true then 
+                        local newX, newY, cols, len = enemyWorld:move(boss, boss.x, boss.y)
+                        boss.x, boss.y = newX, newY
+                    end
+                    if boss.dash > 60 then
+                        boss.randir = math.random(0, 360)
+                        boss.dash = 0
+                    else
+                        boss.dash = boss.dash + dt
+                    end
+                elseif boss.d == 4 then -- dash towards player
+                    boss.r = 0
+                    boss.y = boss.y + lengthdir_y(boss.speed * 2.7 * dt, boss.dir)
+                    boss.x = boss.x + lengthdir_x(boss.speed * 2.7 * dt, boss.dir)
+                    if boss.active == true then 
+                        if boss.dash > 200 then
+                        local newX, newY, cols, len = enemyWorld:move(boss, boss.x, boss.y)
+                        boss.x, boss.y = newX, newY 
+                        boss.dash = 0
+                        else
+                            boss.dash = boss.dash + dt
+                        end
+                    end
+                    elseif boss.d == 5 then -- 4 way burst attack
+                        boss.r = 0
+                        if boss.t > 30 then
+                            local enemybullet = createEnemyBullet(boss.x, boss.y, 90)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y, 90)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 20, boss.y, 90)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 30, boss.y, 90)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 30, boss.y, 90)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x , boss.y- 10, 180)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y, 180)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y + 10, 180)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y+ 20, 180)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y+ 30, 180)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y- 10, 0)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y, 0)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y+ 10, 0)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y+ 20, 0)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y+ 30, 0)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x, boss.y, 270)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 10, boss.y, 270)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 20, boss.y, 270)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 30, boss.y, 270)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            local enemybullet = createEnemyBullet(boss.x + 40, boss.y, 270)
+                            enemybullets[#enemybullets+1] = enemybullet
+                            boss.t = 0
+                        else
+                            boss.t = boss.t + dt
+                        end
+                    end
+            end
         
     end
  

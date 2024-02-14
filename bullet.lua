@@ -19,6 +19,8 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
     bullet.active = true
     bullet.color = {255, 255, 255, 255}
     bullet.speed = 10
+    bullet.piercei = player.pLvl
+    bullet.lasthit = -1
 
     if player.bType == "normal" then
 
@@ -50,6 +52,22 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
         bullet.speed = 6
         bullet.color = {255, 0, 0, 255}
         btTime = 0.3
+
+    elseif player.bType == "railgun" then
+
+        bullet.damage = 1.2
+        bullet.txt = shotdir
+        bullet.speed = 8
+        bullet.color = {255, 25, 25, 255}
+        btTime = 0.8
+
+    elseif player.bType == "srailgun" then
+
+        bullet.damage = 2.4
+        bullet.txt = "█"
+        bullet.speed = 9
+        bullet.color = {255, 0, 100, 255}
+        btTime = 0.9
 
     end
 
@@ -99,6 +117,14 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
                     c = 0
 
                 end
+            elseif player.bType == "railgun" then
+
+                if shotdir == "up" or shotdir == "down" then
+                    bullet.txt = "Ӏ"
+                elseif shotdir == "left" or shotdir == "right" then
+                    bullet.txt = "—"
+                end
+
             end
     end
 
