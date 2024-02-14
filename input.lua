@@ -1,13 +1,29 @@
-input = {}
 bulletoffset = 0
 shotdir = 0
+
+input = baton.new {
+    controls = {
+        left = {'key:a', 'axis:leftx-', 'button:dpleft'},
+        right = {'key:d', 'axis:leftx+', 'button:dpright'},
+        up = {'key:w', 'axis:lefty-', 'button:dpup'},
+        down = {'key:s', 'axis:lefty+', 'button:dpdown'},
+        shootl = {'key:left', 'axis:rightx-', 'button:x'},
+        shootr = {'key:right', 'axis:rightx+', 'button:b'},
+        shootu = {'key:up', 'axis:righty-', 'button:y'},
+        shootd = {'key:down','axis:righty+', 'button:a'},
+        restart = {'key:r', 'button:start'},
+        quit = {'key:escape', 'button:back'}
+      },
+      joystick = love.joystick.getJoysticks()[1],
+  }
+
 function input.player(dt)
 
     local dx, dy = 0, 0
-	if love.keyboard.isDown("w") then dy = -1 end
-	if love.keyboard.isDown("a") then dx = -1 end
-	if love.keyboard.isDown("d") then dx = 1 end
-	if love.keyboard.isDown("s") then dy = 1 end
+    if input:down 'up' then dy = -1 end
+	if input:down 'left' then dx = -1 end
+	if input:down 'right' then dx = 1 end
+	if input:down 'down' then dy = 1 end
 	if dx ~= 0 or dy ~= 0 then
 		if dx ~= 0 and dy ~= 0 then
 			dx = dx * 0.7071
@@ -28,7 +44,7 @@ function input.player(dt)
     local newX, newY, cols, len = world:move(player, player.x, player.y, playerFilter)
     player.x, player.y = newX, newY
 
-    if love.keyboard.isDown("up") then
+    if input:down 'shootu' then
         if not bulletcooldown then
             shotdir = "up"
             if player.bulletAmount == 1 then
@@ -93,7 +109,7 @@ function input.player(dt)
 
     end
 
-    if love.keyboard.isDown("left") then
+    if input:down 'shootl' then
 
         if not bulletcooldown then
             shotdir = "left"
@@ -155,7 +171,7 @@ function input.player(dt)
         end
 
     end
-    if love.keyboard.isDown("right") then
+    if input:down 'shootr' then
 
         if not bulletcooldown then
             shotdir = "right"
@@ -216,7 +232,7 @@ function input.player(dt)
         end
 
     end
-    if love.keyboard.isDown("down") then
+    if input:down 'shootd' then
 
         if not bulletcooldown then
             shotdir = "down"
@@ -301,14 +317,14 @@ function love.keypressed(key)
 end
 function input.general()
 
-    if love.keyboard.isDown("escape") then
+    if input:pressed 'quit' then
 
         love.event.quit()
         
     end
 
     if player.isAlive == false then
-        if love.keyboard.isDown("r") then
+        if input:pressed 'restart' then
 
             gameRestart()
         

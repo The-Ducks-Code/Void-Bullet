@@ -1,5 +1,4 @@
 -- MAIN CODEBASE 
-
 -- lovec "C:\Users\decla\github\love2droguelike"
 require("windowlock")
 require("xtramath")
@@ -9,19 +8,17 @@ require("boss")
 require("enemybullet")
 require("betterdrawing")
 Cheatcode = require('plugins.kc')
+baton = require ("plugins.baton")
 require("input")
 require("levels")
 require("items")
 require("effects")
 require("ui")
-require("plugins.slam")
 bump = require ("plugins.bump")
 function love.load() -- ran before the first frame
 
     -- define variables and arrays
-    window = {} -- window object
-    window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
-
+   
     world = bump.newWorld()
     enemyWorld = bump.newWorld()
     vol = 0.6
@@ -64,8 +61,7 @@ function love.load() -- ran before the first frame
 end
 
 function love.update(dt)
-
-    window.width, window.height = love.graphics.getDimensions() -- set window.width and window.height to the width and height of the window respectively
+    input:update()
 
     fps = love.timer.getFPS()
     strFPS = tostring(love.timer.getFPS())
@@ -227,7 +223,7 @@ function love.update(dt)
                 if player.bulletAmount > 6 then
                     player.bulletAmount = 6
                 end
-            elseif  items[z].type == "healthup" then
+            elseif  items[z].type == "heal kit" then
                 if player.totalHp > player.hp then
                     player.hp = player.hp + 1
                     noticolor = {255, 0, 0, 255}
@@ -242,6 +238,7 @@ function love.update(dt)
             elseif  items[z].type == "heartsup" then
                 if player.totalHp < 18 then
                         player.totalHp = player.totalHp + 1
+                        player.hp = player.hp + 1
                     noticolor = {250, 115, 104, 255}
                     noti = "+1 HEART"
                     notiTimerTrigger = true
@@ -370,7 +367,6 @@ function love.draw()
     love.graphics.clear()
         love.graphics.setFont(fonts.entities)
         love.graphics.setColor(love.math.colorFromBytes(noticolor[1], noticolor[2], noticolor[3], noticolor[4]))
-        
         love.graphics.print(noti, gameWidth/2 - fonts.ui:getWidth(noti) / 3.4, 100 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
         love.graphics.print(noti2, gameWidth/2 - fonts.ui:getWidth(noti2) / 3.4, 150 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
         love.graphics.setColor(1, 1, 1, 1)

@@ -144,7 +144,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "heartsup"
-        elseif item.type == "healthup" or item.type == 7 then
+        elseif item.type == "heal kit" or item.type == 7 then
 
             item.txt = '+♥+'
 
@@ -164,7 +164,7 @@ function createItem(itemType, x, y)
                 c = 0
 
             end
-            item.type = "healthup"
+            item.type = "heal kit"
         end
     end
 

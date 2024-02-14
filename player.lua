@@ -35,6 +35,12 @@ function player.update(dt)
 
     if player.hp <= 0 then
 
+        for b, n in ipairs(enemybullets) do
+
+            enemybullets[b].active = false
+    
+        end
+
         player.isAlive = false
 
     end
