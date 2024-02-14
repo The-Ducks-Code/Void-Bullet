@@ -308,6 +308,7 @@ codes['r80'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, 
 codes['duck'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, quack quack' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.color = {255,239,1, 255} player.defcolor = {255,239,1, 255} player.txt = 'D' end
 codes['score'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = '1696969 pts added' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.score = player.score + 1696969 end
 codes['railgun'] = function() player.pLvl = 2 player.abilities[#player.abilities+1] = "lasergun" end
+codes['firelaser'] = function() player.abilities[#player.abilities+1] = "lasergun" player.abilities[#player.abilities+1] = "fireball" end
 Cheatcode(codes)
 
 

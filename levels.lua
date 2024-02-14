@@ -173,6 +173,7 @@ function gameRestart()
     player.txt = '0'
     player.bulletAmount = 1
     player.pLvl = 0
+    bulletoffset = 0
 
     if player.roundactive == true then
         table.remove(items, 3)
