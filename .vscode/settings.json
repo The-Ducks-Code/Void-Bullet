@@ -119,6 +119,19 @@
         "vol",
         "shotdir",
         "baton",
-        "controls"
+        "controls",
+        "deathmarkers",
+        "createDeathMarker",
+        "joystick",
+        "productVersion",
+        "productID",
+        "vendorID",
+        "itempool",
+        "banneditems",
+        "itempoola",
+        "itempoolb",
+        "itempoolc",
+        "tableItemPlace",
+        "itempoolupdate"
     ]
 }

@@ -6,6 +6,23 @@ This handles all of item creation and other item related things
 
 items = {}
 
+itempoola = {4, 5}
+itempoolb = {1, 2, 3}
+itempoolc = {6, 7}
+
+function itempoolupdate()
+
+    if #itempoola == 0 then
+        itempoola[#itempoola+1] = 7
+    end
+
+    if #itempoolb == 0 then
+        itempoolb[#itempoolb+1] = 7
+    end
+
+end
+
+
 function createItem(itemType, x, y)
 
     local item = {}

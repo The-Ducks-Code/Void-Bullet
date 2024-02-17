@@ -69,7 +69,7 @@ function love.update(dt)
 
     player.update(deltatime)
     input.general()
-    if player.bType == 'firelser' then
+    if player.bType == 'firelser' or player.bType == 'srailgun' then
         math.randomseed(os.time())
         bulletoffset = math.random(-20, 20)
     end
@@ -77,8 +77,12 @@ function love.update(dt)
     effects.update(deltatime)
 
     if player.isAlive then
+
+        
         
         input.player(deltatime)
+
+        itempoolupdate()
 
         for k,v in ipairs(bullets) do
 
@@ -146,7 +150,7 @@ function love.update(dt)
 
             if enemies[k].hp <= 0 then
                 enemyhurt:play()
-                startShake(1, 2)
+                startShake(1, 1.5)
                 player.score = player.score + enemies[k].pts
                 enemies[k].active = false
             end
@@ -211,17 +215,20 @@ function love.update(dt)
             print(items[z].type .. " aquired")
             powerup:play()
             if  items[z].type == "speed up" then
-                player.speed = player.speed + 1
+                player.speed = player.speed + 0.5
                 noticolor = {243, 209, 4, 255}
                 noti = "SPD ↑"
                 notiTimerTrigger = true
+                if player.speed == 5.5 then
+                    table.remove(itempoola, tableItemPlace(itempoola, 4))
+                end
             elseif  items[z].type == "bulletup" then
                 player.bulletAmount = player.bulletAmount + 1
                 noticolor = {50, 255, 0, 255}
                 noti = "BUL COUNT ↑"
                 notiTimerTrigger = true
-                if player.bulletAmount > 6 then
-                    player.bulletAmount = 6
+                if player.bulletAmount == 6 then
+                    table.remove(itempoola, tableItemPlace(itempoola, 5))
                 end
             elseif  items[z].type == "heal kit" then
                 if player.totalHp > player.hp then
@@ -236,17 +243,13 @@ function love.update(dt)
                     notiTimerTrigger = true
                 end
             elseif  items[z].type == "heartsup" then
-                if player.totalHp < 18 then
-                        player.totalHp = player.totalHp + 1
-                        player.hp = player.hp + 1
+                    player.totalHp = player.totalHp + 1
+                    player.hp = player.hp + 1
                     noticolor = {250, 115, 104, 255}
                     noti = "+1 HEART"
                     notiTimerTrigger = true
-                else
-                    print("already at max heart container")
-                    noticolor = {255, 0, 0, 255}
-                    noti = "MAX HEARTS REACHED"
-                    notiTimerTrigger = true
+                if player.totalHp == 17 then
+                    table.remove(itempoolc, tableItemPlace(itempoolc, 6))
                 end
             elseif  items[z].type == "lasergun" then
                 player.abilities[#player.abilities+1] = items[z].type
@@ -256,6 +259,7 @@ function love.update(dt)
                     noti2 = "'PEW! PEW!'"
                     notiTimerTrigger = true
                 end
+                table.remove(itempoolb, tableItemPlace(itempoolb, 2))
             elseif  items[z].type == "fireball" then
                 player.abilities[#player.abilities+1] = items[z].type
                 if not tableContains(player.abilities, "lasergun") then
@@ -264,12 +268,18 @@ function love.update(dt)
                     noti2 = "'You Feel the Warmth of Fire'"
                     notiTimerTrigger = true
                 end
+                table.remove(itempoolb, tableItemPlace(itempoolb, 1))
             elseif  items[z].type == "piercing" then
                 player.pLvl = player.pLvl + 1
                 noticolor = {130, 75, 255, 255}
                     noti = "Piercing: PRC ↑"
                     noti2 = "'Your hands feel sharper'"
                     notiTimerTrigger = true
+
+                if player.pLvl == 2 then
+                    table.remove(itempoolb, tableItemPlace(itempoolb, 3))
+                end
+
             end
 
             if player.roundactive == false then
@@ -284,6 +294,8 @@ function love.update(dt)
         end
     end
 
+    
+
     playershoot = love.audio.newSource("sfx/Laser_Shoot".. math.random(1, 6) ..".wav", "static")
     bossdeath:setVolume(vol * 0.6)
     enemyhurt:setVolume(vol * 0.6)
@@ -294,17 +306,15 @@ function love.update(dt)
     if player.bulletAmount == 1 then
         playershoot:setVolume(vol * 0.75)
     elseif player.bulletAmount == 2 then
-        playershoot:setVolume(vol * 0.5)
+        playershoot:setVolume(vol * 0.75 / 1.3)
     elseif player.bulletAmount == 3 then
-        playershoot:setVolume(vol * 0.25)
-    elseif player.bulletAmount == 3 then
-        playershoot:setVolume(vol * 0.125)
+        playershoot:setVolume(vol * 0.75 / 1.47)
     elseif player.bulletAmount == 4 then
-        playershoot:setVolume(vol * 0.0725)
+        playershoot:setVolume(vol * 0.75 / 1.6)
     elseif player.bulletAmount == 5 then
-        playershoot:setVolume(vol * 0.03725)
+        playershoot:setVolume(vol * 0.75 / 1.69)
     elseif player.bulletAmount == 6 then
-        playershoot:setVolume(vol * 0.023125)
+        playershoot:setVolume(vol * 0.75 / 1.77)
     end
 
 

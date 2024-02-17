@@ -1,23 +1,49 @@
 bulletoffset = 0
 shotdir = 0
 
-input = baton.new {
-    controls = {
-        left = {'key:a', 'axis:leftx-', 'button:dpleft'},
-        right = {'key:d', 'axis:leftx+', 'button:dpright'},
-        up = {'key:w', 'axis:lefty-', 'button:dpup'},
-        down = {'key:s', 'axis:lefty+', 'button:dpdown'},
-        shootl = {'key:left', 'axis:rightx-', 'button:x'},
-        shootr = {'key:right', 'axis:rightx+', 'button:b'},
-        shootu = {'key:up', 'axis:righty-', 'button:y'},
-        shootd = {'key:down','axis:righty+', 'button:a'},
-        restart = {'key:r', 'button:start'},
-        quit = {'key:escape', 'button:back'}
-      },
-      joystick = love.joystick.getJoysticks()[1],
-  }
+joystick = love.joystick.getJoysticks()[1]
+
+vendorID, productID, productVersion = joystick:getDeviceInfo()
+
+
+if vendorID == 1406 then -- check if a nintendo controller is being used and will adjust the key bindings to work
+
+    input = baton.new {
+        controls = {
+            left = {'key:a', 'axis:leftx-', 'button:dpleft'},
+            right = {'key:d', 'axis:leftx+', 'button:dpright'},
+            up = {'key:w', 'axis:lefty-', 'button:dpup'},
+            down = {'key:s', 'axis:lefty+', 'button:dpdown'},
+            shootl = {'key:left', 'axis:rightx-', 'button:y'},
+            shootr = {'key:right', 'axis:rightx+', 'button:a'},
+            shootu = {'key:up', 'axis:righty-', 'button:x'},
+            shootd = {'key:down','axis:righty+', 'button:b'},
+            restart = {'key:r', 'button:start'},
+            quit = {'key:escape', 'button:back'}
+        },
+        joystick = love.joystick.getJoysticks()[1],
+    }
+else 
+
+    input = baton.new {
+        controls = {
+            left = {'key:a', 'axis:leftx-', 'button:dpleft'},
+            right = {'key:d', 'axis:leftx+', 'button:dpright'},
+            up = {'key:w', 'axis:lefty-', 'button:dpup'},
+            down = {'key:s', 'axis:lefty+', 'button:dpdown'},
+            shootl = {'key:left', 'axis:rightx-', 'button:x'},
+            shootr = {'key:right', 'axis:rightx+', 'button:b'},
+            shootu = {'key:up', 'axis:righty-', 'button:y'},
+            shootd = {'key:down','axis:righty+', 'button:a'},
+            restart = {'key:r', 'button:start'},
+            quit = {'key:escape', 'button:back'}
+        },
+        joystick = love.joystick.getJoysticks()[1],
+    }
+end
 
 function input.player(dt)
+
 
     local dx, dy = 0, 0
     if input:down 'up' then dy = -1 end
@@ -307,6 +333,7 @@ codes['r70'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, 
 codes['r80'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 80' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 80 end
 codes['duck'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, quack quack' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.color = {255,239,1, 255} player.defcolor = {255,239,1, 255} player.txt = 'D' end
 codes['score'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = '1696969 pts added' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.score = player.score + 1696969 end
+codes['medic'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = 'Full Health' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.hp = 17 player.totalHp = 17 end
 codes['railgun'] = function() player.pLvl = 2 player.abilities[#player.abilities+1] = "lasergun" end
 codes['firelaser'] = function() player.abilities[#player.abilities+1] = "lasergun" player.abilities[#player.abilities+1] = "fireball" end
 Cheatcode(codes)

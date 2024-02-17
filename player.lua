@@ -15,7 +15,7 @@ player.hp = 3
 player.score = 0
 player.isAlive = true
 player.abilities = {}
-player.speed = 2
+player.speed = 3
 player.bType = "normal"
 player.round = 0
 player.roundactive = true
@@ -113,8 +113,8 @@ function player.update(dt)
         player.pLvl = 999
     end
 
-    if player.pLvl >= 2 and tableContains(player.abilities, "firelsr") or tableContains(player.abilities, "railgun") and tableContains(player.abilities, "fireball") then
-        removeAbility("firelsr")
+    if player.pLvl >= 2 and tableContains(player.abilities, "firelser") or tableContains(player.abilities, "railgun") and tableContains(player.abilities, "fireball") then
+        removeAbility("firelser")
         removeAbility("fireball")
         removeAbility("railgun")
         player.abilities[#player.abilities+1] = "srailgun"

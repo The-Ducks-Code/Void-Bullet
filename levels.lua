@@ -10,11 +10,22 @@ level = {}
 function level.init(levelName)
 
     if levelName == "roundEnd" then
-        
+
         math.randomseed(os.time() * os.time() * math.pi)  -- Seed with the current system time
-        items[#items+1] = createItem(math.random(4, 5), gameWidth / 5, 200)
-        items[#items+1] = createItem(math.random(1, 3), gameWidth / 2 + 5, 200)
-        items[#items+1] = createItem(math.random(6, 7), gameWidth - 160, 200)
+
+        local itema = itempoola[math.random(1, #itempoola)]
+        local itemb = itempoolb[math.random(1, #itempoolb)]
+        local itemc = itempoolc[math.random(1, #itempoolc)]
+        
+        items[#items+1] = createItem(itema, gameWidth / 5, 200)
+        items[#items+1] = createItem(itemb, gameWidth / 2 + 5, 200)
+        items[#items+1] = createItem(itemc, gameWidth - 160, 200)
+
+        for k, l in ipairs(enemybullets) do
+
+            enemybullets[k].active = false
+    
+        end
     end
 end
 

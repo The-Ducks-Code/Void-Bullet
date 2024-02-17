@@ -87,8 +87,8 @@ function createEnemy(x, y, type, damage)
 
 end
 
-
 function enemies.draw()
+
 
     for k,v in ipairs(enemies) do
         love.graphics.setColor(love.math.colorFromBytes(enemies[k].color[1], enemies[k].color[2], enemies[k].color[3], enemies[k].color[4]))
@@ -96,4 +96,7 @@ function enemies.draw()
         love.graphics.setColor(255, 255, 255, 255)
     end
 
+    
+
 end
+
