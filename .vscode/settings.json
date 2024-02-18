@@ -132,6 +132,7 @@
         "itempoolb",
         "itempoolc",
         "tableItemPlace",
-        "itempoolupdate"
+        "itempoolupdate",
+        "joystickcount"
     ]
 }

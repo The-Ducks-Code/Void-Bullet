@@ -48,6 +48,19 @@ function createEnemy(x, y, type, damage)
                     enemy.o = enemy.o + dt
                 end
             end
+
+            if enemy.type == "mirrorer" then
+                if player.isShooting then
+                    if enemy.o > 1 then
+                        enemy.o = 0
+                    else
+                        local enemybullet = createEnemyBullet(enemy.x, enemy.y, enemy.dir)
+                        enemybullets[#enemybullets+1] = enemybullet
+                        enemy.o = enemy.o + dt
+                    end
+                end
+                
+            end
         end
     end
 
@@ -77,6 +90,13 @@ function createEnemy(x, y, type, damage)
         enemy.txt = "G"
         enemy.speed = 0.8
         enemy.hp = 1
+        enemy.pts = 250
+    
+    elseif enemy.type == "mirrorer" then
+
+        enemy.txt = "M"
+        enemy.speed = 0.7
+        enemy.hp = 2
         enemy.pts = 250
     
     end

@@ -1,9 +1,17 @@
 bulletoffset = 0
 shotdir = 0
 
-joystick = love.joystick.getJoysticks()[1]
 
-vendorID, productID, productVersion = joystick:getDeviceInfo()
+joystickcount = love.joystick.getJoystickCount( )
+
+if joystickcount > 0 then
+
+    joystick = love.joystick.getJoysticks()[1]
+    vendorID, productID, productVersion = joystick:getDeviceInfo()
+
+else
+    vendorID, productID, productVersion = 0, 0, 0
+end
 
 
 if vendorID == 1406 then -- check if a nintendo controller is being used and will adjust the key bindings to work
@@ -69,6 +77,15 @@ function input.player(dt)
     -- update the player associated bounding box in the world
     local newX, newY, cols, len = world:move(player, player.x, player.y, playerFilter)
     player.x, player.y = newX, newY
+
+    if input:down 'shootu' or input:down 'shootd' or input:down 'shootl' or input:down 'shootr' then
+        if not bulletcooldown then
+            player.isShooting = true
+        else
+            player.isShooting = false
+        end
+    
+    end
 
     if input:down 'shootu' then
         if not bulletcooldown then
@@ -319,6 +336,10 @@ function input.player(dt)
 
         end
     end
+
+    
+
+    print(player.isShooting)
     
 end
 
