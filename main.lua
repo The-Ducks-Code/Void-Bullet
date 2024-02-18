@@ -12,6 +12,7 @@ baton = require ("plugins.baton")
 require("input")
 require("levels")
 require("items")
+require("particle")
 require("effects")
 require("ui")
 bump = require ("plugins.bump")
@@ -35,6 +36,15 @@ function love.load() -- ran before the first frame
     playerhurt = love.audio.newSource("sfx/Player_Hurt.wav", "static")
     powerup = love.audio.newSource("sfx/Powerup.wav", "static")
     endround = love.audio.newSource("sfx/Round_End.wav", "static")
+
+    enemydeath1 = love.graphics.newImage("sprites/enemydeath1.png")
+    enemydeath2 = love.graphics.newImage("sprites/enemydeath2.png")
+    enemydeath3 = love.graphics.newImage("sprites/enemydeath3.png")
+    enemydeath4 = love.graphics.newImage("sprites/enemydeath4.png")
+    enemydeath5 = love.graphics.newImage("sprites/enemydeath5.png")
+    enemydeath6 = love.graphics.newImage("sprites/enemydeath6.png")
+    enemydeath7 = love.graphics.newImage("sprites/enemydeath7.png")
+    enemydeath8 = love.graphics.newImage("sprites/enemydeath8.png")
 
 
     noti = " " -- set the noti text to nothing so it is hidden
@@ -122,6 +132,17 @@ function love.update(dt)
             end
         end
 
+        for k,v in ipairs(enemydeaths) do
+
+            enemydeaths[k].update(deltatime)
+
+            if enemydeaths[k].active == false then
+                table.remove(enemydeaths, k)
+            end
+
+        end
+
+
         for k,v in ipairs(enemies) do
 
             enemies[k].update(deltatime)
@@ -149,6 +170,7 @@ function love.update(dt)
             end
 
             if enemies[k].hp <= 0 then
+                enemydeaths[#enemydeaths+1] = enemyDeath(enemies[k].x, enemies[k].y)
                 enemyhurt:play()
                 startShake(1, 1.5)
                 player.score = player.score + enemies[k].pts
@@ -187,6 +209,16 @@ function love.update(dt)
 
             if bosses[k].hp <= 0 then
                 bossdeath:play()
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                
+                
                 startShake(3, 4)
                 startShake(3, 4)
                 startShake(3, 4)
@@ -385,6 +417,7 @@ function love.draw()
         player.draw()
         bullets.draw()
         enemybullets.draw()
+        enemydeaths.draw()
         enemies.draw()
         bosses.draw()
         items.draw()

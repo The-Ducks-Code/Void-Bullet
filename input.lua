@@ -336,10 +336,6 @@ function input.player(dt)
 
         end
     end
-
-    
-
-    print(player.isShooting)
     
 end
 

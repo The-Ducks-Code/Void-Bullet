@@ -6,8 +6,8 @@ This handles all the player outside of the update and draw functions
 
 -- player variables
 player = {} -- create the player object
-player.x =  gameWidth/2 - fonts.ui:getWidth("O") / 2 + 8 -- set the players x postition to about the middle of the screen
-player.y =  gameHeight/2 + 21 -- set the players y postition to about the middle of the screen
+player.x =  gameWidth/2 -- set the players x postition to about the middle of the screen
+player.y =  gameHeight/2 -- set the players y postition to about the middle of the screen
 player.w = 24
 player.h = 20
 player.totalHp = 3

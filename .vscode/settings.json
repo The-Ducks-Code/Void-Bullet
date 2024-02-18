@@ -133,6 +133,17 @@
         "itempoolc",
         "tableItemPlace",
         "itempoolupdate",
-        "joystickcount"
+        "joystickcount",
+        "enemyDeathDraw",
+        "enemyDeath",
+        "enemydeath1",
+        "enemydeath2",
+        "enemydeath3",
+        "enemydeath4",
+        "enemydeath5",
+        "enemydeath6",
+        "enemydeath7",
+        "enemydeath8",
+        "enemydeaths"
     ]
 }

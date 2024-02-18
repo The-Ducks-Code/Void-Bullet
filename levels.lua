@@ -47,13 +47,6 @@ function roundStart()
                 i = i + 1
 
             end
-            i = 0
-            while i < player.round * 1 do
-
-                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
-                i = i + 1
-
-            end
 
         elseif player.round < 10 then
             local i = 0
@@ -65,7 +58,6 @@ function roundStart()
             i = 0
             while i < player.round * (5 - d) do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
-                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
                 i = i + 1
             end
         elseif player.round < 15 then
@@ -83,7 +75,6 @@ function roundStart()
             i = 0
             while i < player.round * (2) do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
-                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
                 i = i + 1
             end
         elseif player.round < 16 then
@@ -95,17 +86,17 @@ function roundStart()
         elseif player.round < 30 then
             local i = 0
             local d = math.random(1, 5)
-            while i < player.round * d do
+            while i < 5 * d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < player.round * (7 - d) do
+            while i < 5 * (7 - d) do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < player.round * (2) do
+            while i < 5 do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
                 i = i + 1
@@ -119,7 +110,7 @@ function roundStart()
         else
             local i = 0
             i = 0
-            while i < 25 do
+            while i < 20 do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
@@ -127,6 +118,13 @@ function roundStart()
             end
             enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "mirrorer", 40) -- create one enemy
 
+            local ran = math.random(1, 20)
+
+            if ran == 10 then
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "omega", 40) -- create one enemy
+            elseif ran == 20 then
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "phi", 40) -- create one enemy
+            end
             
         end
     end
@@ -200,6 +198,10 @@ function gameRestart()
 
     end
     player.hp = 3
+    
+    itempoola = {4, 5}
+    itempoolb = {1, 2, 3}
+    itempoolc = {6, 7}
 
 
     roundStart()
