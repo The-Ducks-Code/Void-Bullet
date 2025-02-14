@@ -6,29 +6,32 @@ This handles all of item creation and other item related things
 
 items = {}
 
-itempoola = {4, 5}
-itempoolb = {1, 2, 3}
-itempoolc = {6, 7}
+itempoolERa = {4, 6, 7, 9}
+itempoolERb = {4, 6, 7, 9}
+itempoolSHOPa = {1, 2, 3, 8}
+itempoolSHOPb = {4, 5}
+itempoolSHOPc = {6, 7}
 
 function itempoolupdate()
 
-    if #itempoola == 0 then
-        itempoola[#itempoola+1] = 7
+    if #itempoolERa == 0 then
+        itempoolERa[#itempoolERa+1] = 7
     end
 
-    if #itempoolb == 0 then
-        itempoolb[#itempoolb+1] = 7
+    if #itempoolERb == 0 then
+        itempoolERb[#itempoolERb+1] = 7
     end
 
 end
 
 
-function createItem(itemType, x, y)
+function createItem(itemType, x, y, shopornot)
 
     local item = {}
     item.x = x
     item.y = y
     item.type = itemType
+    item.isInShop = shopornot
 
     local b = 0
     local c = 0
@@ -56,6 +59,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "fireball"
+            item.cost = 15
         elseif item.type == "lasergun" or item.type == 2 then
 
             item.txt = "/=="
@@ -77,6 +81,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "lasergun"
+            item.cost = 15
         elseif item.type == "piercing" or item.type == 3 then
 
             item.txt = "==>"
@@ -98,6 +103,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "piercing"
+            item.cost = 2 * player.pLvl
         elseif item.type == "speed up" or item.type == 4 then
 
             item.txt = ">>>"
@@ -119,6 +125,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "speed up"
+            item.cost = 2 * player.speed - 4
         elseif item.type == "bulletup" or item.type == 5 then
 
             item.txt = '|||'
@@ -140,6 +147,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "bulletup"
+            item.cost = 3 * player.bulletAmount
         elseif item.type == "heartsup" or item.type == 6 then
 
             item.txt = '↑♥↑'
@@ -161,6 +169,7 @@ function createItem(itemType, x, y)
 
             end
             item.type = "heartsup"
+            item.cost = 2 * player.totalHp - 4
         elseif item.type == "heal kit" or item.type == 7 then
 
             item.txt = '+♥+'
@@ -182,6 +191,57 @@ function createItem(itemType, x, y)
 
             end
             item.type = "heal kit"
+            item.cost = 1
+        elseif item.type == "thirdeye" or item.type == 8 then
+
+            item.txt = '·◊·'
+
+            if b < 12 then
+
+                item.color = {25, 25, 254, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {20, 30, 264, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "thirdeye"
+            item.cost = 15
+        elseif item.type == "goldcoin" or item.type == 9 then
+
+            item.txt = '($)'
+
+            if b < 12 then
+
+                item.color = {255, 235, 0, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {235, 255, 264, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "goldcoin"
+        elseif item.type == "exitshop" or item.type == 10000 then
+
+            item.color = {255, 255, 255, 255}
+            item.txt = "-->"
+            b = b + 1 * dt
+            item.type = "exitshop"
+            item.cost = 0
         end
     end
 
@@ -189,13 +249,20 @@ function createItem(itemType, x, y)
 
 end
 
+local graphics = love.graphics
+local math = love.math
+
 function items.draw()
 
     for k,v in ipairs(items) do
 
-        love.graphics.setColor(love.math.colorFromBytes(items[k].color[1], items[k].color[2], items[k].color[3], items[k].color[4]))
-        love.graphics.print(items[k].type, items[k].x - 164 / 1.57, items[k].y - 30) -- print items every frame they are on screen
-        love.graphics.print(items[k].txt, items[k].x - fonts.ui:getWidth(items[k].txt) / 3, items[k].y) -- print items every frame they are on screen
-        love.graphics.setColor(1, 1, 1, 1)
+        graphics.setColor(love.math.colorFromBytes(items[k].color[1], items[k].color[2], items[k].color[3], items[k].color[4]))
+        graphics.print(items[k].type, items[k].x - 164 / 1.57, items[k].y - 30) -- print items every frame they are on screen
+        graphics.print(items[k].txt, items[k].x - fonts.ui:getWidth(items[k].txt) / 3, items[k].y) -- print items every frame they are on screen
+        if items[k].isInShop == true then
+            graphics.setColor(love.math.colorFromBytes(255, 235, 0, 255))
+            graphics.print("$" .. tostring(items[k].cost), items[k].x - fonts.ui:getWidth(items[k].txt) / 3, items[k].y + 30) -- print items every frame they are on screen
+        end
+        graphics.setColor(1, 1, 1, 1)
     end
 end

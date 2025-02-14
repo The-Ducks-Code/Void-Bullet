@@ -144,6 +144,21 @@
         "enemydeath6",
         "enemydeath7",
         "enemydeath8",
-        "enemydeaths"
+        "enemydeaths",
+        "bossdir",
+        "itempoolSHOPa",
+        "itempoolSHOPb",
+        "itempoolERa",
+        "itempoolERb",
+        "itempoolSHOPc",
+        "coinpickup",
+        "bossbars",
+        "createBossbar",
+        "bossbaranim",
+        "bossbarhitanims",
+        "bossbarHit",
+        "enemyhit",
+        "enemyhitanims",
+        "enemyHit"
     ]
 }

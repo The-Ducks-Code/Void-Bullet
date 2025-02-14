@@ -71,9 +71,13 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
 
     end
 
+    
+
     local b = 0
     local c = 0
-
+    local i = 0
+    local lengthdir_y = lengthdir_y
+    local lengthdir_x = lengthdir_x
     function bullet.update(dt)
                 bullet.y = bullet.y + lengthdir_y(bullet.speed * dt, dir)
                 bullet.x = bullet.x + lengthdir_x(bullet.speed * dt, dir)
@@ -126,6 +130,61 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
                 end
 
             end
+
+            if player.telknsis == true then
+                bullet.color[1] = 100
+                bullet.color[3] = 200
+                bullet.color[4] = 200
+
+                if #enemies > 0 then
+                    local initialdiff = 1000000000000
+                    local selectedkey = -1
+                    local abs = math.abs
+                    local atan2 = math.atan2
+                    local sqrt = math.sqrt
+                    if i > 8 and bullet.active == true then
+                        for key, val in ipairs (enemies) do
+                            if abs(sqrt((bullet.x - enemies[key].x)^2 + (bullet.y - enemies[key].y)^2)) < 200 then
+                                local currentdiff = abs(sqrt((bullet.x - enemies[key].x)^2 + (bullet.y - enemies[key].y)^2))
+                                if (currentdiff < initialdiff) then
+                                    initialdiff = currentdiff
+                                    selectedkey = key
+                                    dir = -radtodeg(atan2((enemies[selectedkey].y - bullet.y), (enemies[selectedkey].x - bullet.x)))
+
+                                end
+                            end
+                            i = 0
+                        end
+                    else
+                        i = i + 1
+                    end
+
+                end
+                if #bosses > 0 then
+                    local initialdiff = 1000000000000
+                    local selectedkey = -1
+                    local abs = math.abs
+                    local atan2 = math.atan2
+                    local sqrt = math.sqrt
+                    if i > 8 and bullet.active == true then
+                        for key, val in ipairs (bosses) do
+                            if abs(sqrt((bullet.x - bosses[key].x)^2 + (bullet.y - bosses[key].y)^2)) < 200 then
+                                local currentdiff = abs(sqrt((bullet.x - bosses[key].x)^2 + (bullet.y - bosses[key].y)^2))
+                                if (currentdiff < initialdiff) then
+                                    initialdiff = currentdiff
+                                    selectedkey = key
+                                    dir = -radtodeg(atan2((bosses[selectedkey].y - bullet.y), (bosses[selectedkey].x - bullet.x)))
+
+                                end
+                            end
+                            i = 0
+                        end
+                    else
+                        i = i + 1
+                    end
+
+                end
+            end
     end
 
     print("bullet created")
@@ -133,14 +192,14 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
     return bullet
 
 end
-
+local graphics = love.graphics
+local math = love.math
 function bullets.draw()
 
     for k,v in ipairs(bullets) do
-
-        love.graphics.setColor(love.math.colorFromBytes(bullets[k].color[1], bullets[k].color[2], bullets[k].color[3], bullets[k].color[4]))
-        love.graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y, bullets[k].r) -- print bullets every frame they are on screen
-        love.graphics.setColor(1, 1, 1, 1)
+        graphics.setColor(math.colorFromBytes(bullets[k].color[1], bullets[k].color[2], bullets[k].color[3], bullets[k].color[4]))
+        graphics.print(bullets[k].txt, bullets[k].x, bullets[k].y, bullets[k].r) -- print bullets every frame they are on screen
+        graphics.setColor(1, 1, 1, 1)
 
     end
 

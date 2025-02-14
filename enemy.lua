@@ -72,7 +72,7 @@ function createEnemy(x, y, type, damage)
                 
             end
 
-            if enemy.type == "omega" then
+            if enemy.type == "alpha" then
                 -- moves
                 enemy.dir = radtodeg(math.atan2((enemy.y - player.y), (player.x - enemy.x)))
 
@@ -247,9 +247,9 @@ function createEnemy(x, y, type, damage)
         enemy.hp = 2
         enemy.pts = 250
     
-    elseif enemy.type == "omega" then
+    elseif enemy.type == "alpha" then
 
-        enemy.txt = "Ω"
+        enemy.txt = "α"
         enemy.speed = 0.4
         enemy.hp = 7
         enemy.pts = 400
@@ -269,16 +269,16 @@ function createEnemy(x, y, type, damage)
 
 end
 
+local graphics = love.graphics
+local math = love.math
+
 function enemies.draw()
 
-
     for k,v in ipairs(enemies) do
-        love.graphics.setColor(love.math.colorFromBytes(enemies[k].color[1], enemies[k].color[2], enemies[k].color[3], enemies[k].color[4]))
-        love.graphics.print(enemies[k].txt, enemies[k].x, enemies[k].y) -- print enemies every frame they are on screen
-        love.graphics.setColor(255, 255, 255, 255)
+        graphics.setColor(math.colorFromBytes(enemies[k].color[1], enemies[k].color[2], enemies[k].color[3], enemies[k].color[4]))
+        graphics.print(enemies[k].txt, enemies[k].x, enemies[k].y) -- print enemies every frame they are on screen
+        graphics.setColor(255, 255, 255, 255)
     end
-
-    
 
 end
 

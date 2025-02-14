@@ -1,4 +1,7 @@
-love.graphics.setDefaultFilter('nearest', 'nearest') -- Keeps those crispy pixels
+local graphics = love.graphics
+local math = math
+
+graphics.setDefaultFilter('nearest', 'nearest') -- Keeps those crispy pixels
 
 gameWidth, gameHeight = 800, 800
 
@@ -11,10 +14,10 @@ end
 function scaleCanvasToFit(windowWidth, windowHeight)
     -- Preserves aspect ratio when resizing the game
     local scaleAmount = math.min(windowWidth / gameWidth, windowHeight / gameHeight)    
-    love.graphics.scale(scaleAmount, scaleAmount)
+    graphics.scale(scaleAmount, scaleAmount)
     return scaleAmount
 end
 
 initWindow()
 
-gameCanvas = love.graphics.newCanvas(gameWidth, gameHeight)
+gameCanvas = graphics.newCanvas(gameWidth, gameHeight)

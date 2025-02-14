@@ -4,6 +4,8 @@ This has all custom made math and calculation functions
 
 ]]--
 
+local math = math
+
 --Returns the x vector from {len} and {dir}
 
 function lengthdir_x(len, dir)

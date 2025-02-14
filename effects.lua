@@ -12,12 +12,13 @@ function effects.update(dt)
         t = t + dt
     end
 end
-
+local graphics = love.graphics
+local math = love.math
 function effects.draw()
 
     if t < shakeDuration then
-        local dx = love.math.random(-shakeMagnitude, shakeMagnitude)
-        local dy = love.math.random(-shakeMagnitude, shakeMagnitude)
-        love.graphics.translate(dx, dy)
+        local dx = math.random(-shakeMagnitude, shakeMagnitude)
+        local dy = math.random(-shakeMagnitude, shakeMagnitude)
+        graphics.translate(dx, dy)
     end
 end

@@ -13,13 +13,30 @@ function level.init(levelName)
 
         math.randomseed(os.time() * os.time() * math.pi)  -- Seed with the current system time
 
-        local itema = itempoola[math.random(1, #itempoola)]
-        local itemb = itempoolb[math.random(1, #itempoolb)]
-        local itemc = itempoolc[math.random(1, #itempoolc)]
+        local itema = itempoolERa[math.random(1, #itempoolERa)]
+        local itemb = itempoolERb[math.random(1, #itempoolERb)]
         
-        items[#items+1] = createItem(itema, gameWidth / 5, 200)
-        items[#items+1] = createItem(itemb, gameWidth / 2 + 5, 200)
-        items[#items+1] = createItem(itemc, gameWidth - 160, 200)
+        items[#items+1] = createItem(itema, gameWidth / 3, 200, false)
+        items[#items+1] = createItem(itemb, 2* gameWidth / 3 + 5, 200, false)
+
+        for k, l in ipairs(enemybullets) do
+
+            enemybullets[k].active = false
+    
+        end
+    elseif levelName == "shop" then
+
+        math.randomseed(os.time() * os.time() * math.pi)  -- Seed with the current system time
+
+        local itema = itempoolSHOPa[math.random(1, #itempoolSHOPa)]
+        local itemb = itempoolSHOPb[math.random(1, #itempoolSHOPb)]
+        local itemc = itempoolSHOPc[math.random(1, #itempoolSHOPc)]
+        
+        items[#items+1] = createItem(itema, gameWidth / 5, 200, true)
+        items[#items+1] = createItem(itemb, gameWidth / 2 + 5, 200, true)
+        items[#items+1] = createItem(itemc, gameWidth - 160, 200, true)
+        items[#items+1] = createItem(10000, gameWidth / 2 + 5, 700, true)
+
 
         for k, l in ipairs(enemybullets) do
 
@@ -78,9 +95,9 @@ function roundStart()
                 i = i + 1
             end
         elseif player.round < 16 then
-            bosses[#bosses+1] = createBoss(400, 400, "omgea")
+            bosses[#bosses+1] = createBoss(400, 400, "alpha")
             noticolor = {150, 15, 195, 255}
-            noti = "OMEGA:"
+            noti = "ALPHA:"
             noti2 = "'THE FIRST DEFENDER'"
             notiTimerTrigger = true
         elseif player.round < 30 then
@@ -107,7 +124,7 @@ function roundStart()
             noti = "PHI:"
             noti2 = "'THE MASTER OF SPEED'"
             notiTimerTrigger = true
-        else
+        elseif player.round < 45 then
             local i = 0
             i = 0
             while i < 20 do
@@ -121,11 +138,35 @@ function roundStart()
             local ran = math.random(1, 20)
 
             if ran == 10 then
-                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "omega", 40) -- create one enemy
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "alpha", 40) -- create one enemy
             elseif ran == 20 then
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "phi", 40) -- create one enemy
             end
-            
+        elseif player.round < 46 then
+            bosses[#bosses+1] = createBoss(400, 400, "xi")
+            noticolor = {225, 30, 15, 255}
+            noti = "XI:"
+            noti2 = "'WAVE OF DEATH'"
+            notiTimerTrigger = true  
+        else
+            local i = 0
+            i = 0
+            while i < 20 do
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
+                i = i + 1
+            end
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "mirrorer", 40) -- create one enemy
+            enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "mirrorer", 40) -- create one enemy
+
+            local ran = math.random(1, 20)
+
+            if ran == 10 or ran == 5 then
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "alpha", 40) -- create one enemy
+            elseif ran == 20 or ran == 15 then
+                enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "phi", 40) -- create one enemy
+            end
         end
     end
     player.roundactive = true
@@ -151,17 +192,18 @@ end
 
 function gameRestart()
 
-    player.health = 100
-    player.roundactive = false
-    player.x =  gameWidth/2 - fonts.ui:getWidth("O") / 2 + 8 -- set the players x postition to about the middle of the screen
-    player.y =  gameHeight/2 + 21 -- set the players y postition to about the middle of the screen
+    player.w = 24
+    player.h = 20
+    player.x =  gameWidth/2 -- set the players x postition to about the middle of the screen
+    player.y =  gameHeight/2 -- set the players y postition to about the middle of the screen
     player.totalHp = 3
     player.hp = 3
     player.score = 0
     player.isAlive = true
     player.abilities = {}
-    player.speed = 2
+    player.speed = 3
     player.bType = "normal"
+    player.bSize = 1
     player.round = 0
     player.roundactive = true
     player.defcolor = {255, 255, 255, 255}
@@ -169,7 +211,11 @@ function gameRestart()
     player.txt = '0'
     player.bulletAmount = 1
     player.pLvl = 0
+    player.coins = 0
+    player.telknsis = false
     bulletoffset = 0
+    player.thirdeye = false
+    player.thirdeyeCounter = 0
 
     if player.roundactive == true then
         table.remove(items, 3)
@@ -184,7 +230,11 @@ function gameRestart()
 
     end
 
+    for k, l in ipairs(bossbars) do
 
+        bossbars[k].active = false
+
+    end
 
     for k, l in ipairs(enemies) do
 

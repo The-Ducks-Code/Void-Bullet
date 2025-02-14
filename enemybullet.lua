@@ -1,7 +1,7 @@
 enemybullets = {} -- create the array of enemybullet objects
 
 
-function createEnemyBullet(x, y, dir) -- when called creates a enemybullet in a given location going at a given speed in a given direction
+function createEnemyBullet(x, y, dir, speed) -- when called creates a enemybullet in a given location going at a given speed in a given direction
 
     local enemybullet = {}
     enemybullet.x = x
@@ -12,7 +12,7 @@ function createEnemyBullet(x, y, dir) -- when called creates a enemybullet in a 
     enemybullet.speed = 10
     enemybullet.damage = 0.5
     enemybullet.txt = "x"
-    enemybullet.speed = 5
+    enemybullet.speed = speed or 5
     enemybullet.color = {255, 0, 0, 255}
     enemybullet.btTime = 0.02
 
@@ -26,13 +26,16 @@ function createEnemyBullet(x, y, dir) -- when called creates a enemybullet in a 
 
 end
 
+local graphics = love.graphics
+local math = love.math
+
 function enemybullets.draw()
 
     for k,v in ipairs(enemybullets) do
 
-        love.graphics.setColor(love.math.colorFromBytes(200, 25 , 33, 255))
-        love.graphics.print(enemybullets[k].txt, enemybullets[k].x, enemybullets[k].y) -- print enemyenemybullets every frame they are on screen
-        love.graphics.setColor(1, 1, 1, 1)
+        graphics.setColor(love.math.colorFromBytes(200, 25 , 33, 255))
+        graphics.print(enemybullets[k].txt, enemybullets[k].x, enemybullets[k].y) -- print enemyenemybullets every frame they are on screen
+        graphics.setColor(1, 1, 1, 1)
 
     end
 

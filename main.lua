@@ -36,6 +36,7 @@ function love.load() -- ran before the first frame
     playerhurt = love.audio.newSource("sfx/Player_Hurt.wav", "static")
     powerup = love.audio.newSource("sfx/Powerup.wav", "static")
     endround = love.audio.newSource("sfx/Round_End.wav", "static")
+    coinpickup = love.audio.newSource("sfx/Pickup_Coin.wav", "static")
 
     enemydeath1 = love.graphics.newImage("sprites/enemydeath1.png")
     enemydeath2 = love.graphics.newImage("sprites/enemydeath2.png")
@@ -46,6 +47,21 @@ function love.load() -- ran before the first frame
     enemydeath7 = love.graphics.newImage("sprites/enemydeath7.png")
     enemydeath8 = love.graphics.newImage("sprites/enemydeath8.png")
 
+    bossbaranim = {}
+
+    local i = 1
+    while i < 11 do
+        bossbaranim[i] = love.graphics.newImage("sprites/bossbaranim" .. i .. ".png")
+        i = i + 1
+    end
+
+    enemyhit = {}
+
+    local i = 1
+    while i < 4 do
+        enemyhit[i] = love.graphics.newImage("sprites/enemyhit" .. i .. ".png")
+        i = i + 1
+    end
 
     noti = " " -- set the noti text to nothing so it is hidden
     noti2 = " " -- set the noti2 text to nothing so it is hidden
@@ -142,6 +158,26 @@ function love.update(dt)
 
         end
 
+        for k,v in ipairs(bossbarhitanims) do
+
+            bossbarhitanims[k].update(deltatime)
+
+            if bossbarhitanims[k].active == false then
+                table.remove(bossbarhitanims, k)
+            end
+
+        end
+
+        for k,v in ipairs(enemyhitanims) do
+
+            enemyhitanims[k].update(deltatime)
+
+            if enemyhitanims[k].active == false then
+                table.remove(enemyhitanims, k)
+            end
+
+        end
+
 
         for k,v in ipairs(enemies) do
 
@@ -157,6 +193,7 @@ function love.update(dt)
                 if enemies[k].x + 22 > bullets[b].x and enemies[k].x - 20 < bullets[b].x and enemies[k].y - 25 < bullets[b].y and enemies[k].y + 25 > bullets[b].y and bullets[b].active then
                     if not tableContains(enemies[k].hitlist, bullets[b]) then
                         print("bullet hit enemy")
+                        enemyhitanims[#enemyhitanims+1] = enemyHit(bullets[b].x, bullets[b].y)
                         bullets[b].piercei = bullets[b].piercei - 1
                         print(bullets[b].piercei)
                         enemies[k].hp = enemies[k].hp - bullets[b].damage
@@ -198,12 +235,17 @@ function love.update(dt)
 
                 if bosses[k].x + 40 > bullets[b].x and bosses[k].x - 20 < bullets[b].x and bosses[k].y - 5 < bullets[b].y and bosses[k].y + 55 > bullets[b].y then
                     bosses[k].hp = bosses[k].hp - bullets[b].damage
+                    for a,c in ipairs(bossbars) do
+                        bossbars[a].bosshit()
+                    end
                     print("bullet hit boss")
                     startShake(0.5, 1)
                     enemyhurt:play()
+                    enemyhitanims[#enemyhitanims+1] = enemyHit(bullets[b].x - 5, bullets[b].y)
                     bullets[b].active = false
                     bosses[k].color = {255, 0, 0, 255}
                     print(bosses[k].hp)
+
                 end
             end
 
@@ -217,11 +259,18 @@ function love.update(dt)
                 enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
                 enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
                 enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
+                enemydeaths[#enemydeaths+1] = enemyDeath(bosses[k].x + math.random(-10,10), bosses[k].y + math.random(-10,10))
                 
-                
-                startShake(3, 4)
-                startShake(3, 4)
-                startShake(3, 4)
+                startShake(6, 4)
+                startShake(6, 7)
+                startShake(6, 4)
                 player.score = player.score + bosses[k].pts
                 bosses[k].active = false
             end
@@ -234,7 +283,11 @@ function love.update(dt)
         end
     
 
-    
+        for l,k in ipairs(bossbars) do
+            
+            bossbars[l].update(deltatime)
+
+        end
     
 
     for z,x in ipairs(items) do
@@ -245,84 +298,107 @@ function love.update(dt)
         if items[z].x + 10 > player.x - 1 and items[z].x - 50 < player.x - 1 and items[z].y - 10 < player.y - 5 and items[z].y + 25 > player.y - 5  then
 
             print(items[z].type .. " aquired")
-            powerup:play()
-            if  items[z].type == "speed up" then
-                player.speed = player.speed + 0.5
-                noticolor = {243, 209, 4, 255}
-                noti = "SPD ↑"
-                notiTimerTrigger = true
-                if player.speed == 5.5 then
-                    table.remove(itempoola, tableItemPlace(itempoola, 4))
-                end
-            elseif  items[z].type == "bulletup" then
-                player.bulletAmount = player.bulletAmount + 1
-                noticolor = {50, 255, 0, 255}
-                noti = "BUL COUNT ↑"
-                notiTimerTrigger = true
-                if player.bulletAmount == 6 then
-                    table.remove(itempoola, tableItemPlace(itempoola, 5))
-                end
-            elseif  items[z].type == "heal kit" then
-                if player.totalHp > player.hp then
-                    player.hp = player.hp + 1
-                    noticolor = {255, 0, 0, 255}
-                    noti = "HEALED"
-                    notiTimerTrigger = true
-                else
-                    print("already at full hp")
-                    noticolor = {255, 0, 0, 255}
-                    noti = "ALREADY AT FULL HP"
-                    notiTimerTrigger = true
-                end
-            elseif  items[z].type == "heartsup" then
-                    player.totalHp = player.totalHp + 1
-                    player.hp = player.hp + 1
-                    noticolor = {250, 115, 104, 255}
-                    noti = "+1 HEART"
-                    notiTimerTrigger = true
-                if player.totalHp == 17 then
-                    table.remove(itempoolc, tableItemPlace(itempoolc, 6))
-                end
-            elseif  items[z].type == "lasergun" then
-                player.abilities[#player.abilities+1] = items[z].type
-                if not tableContains(player.abilities, "fireball") then
-                    noticolor = {45, 0, 255, 255}
-                    noti = "Laser Gun: BUL ↑ DMG ↓"
-                    noti2 = "'PEW! PEW!'"
-                    notiTimerTrigger = true
-                end
-                table.remove(itempoolb, tableItemPlace(itempoolb, 2))
-            elseif  items[z].type == "fireball" then
-                player.abilities[#player.abilities+1] = items[z].type
-                if not tableContains(player.abilities, "lasergun") then
-                    noticolor = {254, 222, 23, 255}
-                    noti = "Fireball: BUL ↓ DMG ↑"
-                    noti2 = "'You Feel the Warmth of Fire'"
-                    notiTimerTrigger = true
-                end
-                table.remove(itempoolb, tableItemPlace(itempoolb, 1))
-            elseif  items[z].type == "piercing" then
-                player.pLvl = player.pLvl + 1
-                noticolor = {130, 75, 255, 255}
-                    noti = "Piercing: PRC ↑"
-                    noti2 = "'Your hands feel sharper'"
-                    notiTimerTrigger = true
-
-                if player.pLvl == 2 then
-                    table.remove(itempoolb, tableItemPlace(itempoolb, 3))
-                end
-
-            end
-
-            if player.roundactive == false then
-                table.remove(items, 3)
-                table.remove(items, 2)
-                table.remove(items, 1)
-                
-                roundStart()
+            if items[z].type == "goldcoin" then
+                coinpickup:play()
             else
-                table.remove(items, z)
+                powerup:play()
             end
+            if items[z].isInShop == true and (player.coins - items[z].cost) > 0 then
+                player.cangetitem = true
+                player.coins = player.coins - items[z].cost
+            elseif items[z].isInShop == false then
+                player.cangetitem = true
+            end
+            if player.cangetitem == true then
+                if  items[z].type == "speed up" then
+                    player.speed = player.speed + 0.5
+                    noticolor = {243, 209, 4, 255}
+                    noti = "SPD ↑"
+                    notiTimerTrigger = true
+                    if player.speed == 5.5 then
+                        table.remove(itempoola, tableItemPlace(itempoola, 4))
+                    end
+                elseif  items[z].type == "bulletup" then
+                    player.bulletAmount = player.bulletAmount + 1
+                    noticolor = {50, 255, 0, 255}
+                    noti = "BUL COUNT ↑"
+                    notiTimerTrigger = true
+                elseif  items[z].type == "heal kit" then
+                    if player.totalHp > player.hp then
+                        player.hp = player.hp + 1
+                        noticolor = {255, 0, 0, 255}
+                        noti = "HEALED"
+                        notiTimerTrigger = true
+                    else
+                        print("already at full hp")
+                        noticolor = {255, 0, 0, 255}
+                        noti = "ALREADY AT FULL HP"
+                        notiTimerTrigger = true
+                    end
+                elseif  items[z].type == "heartsup" then
+                        player.totalHp = player.totalHp + 1
+                        player.hp = player.hp + 1
+                        noticolor = {250, 115, 104, 255}
+                        noti = "+1 HEART"
+                        notiTimerTrigger = true
+                    if player.totalHp == 17 then
+                        table.remove(itempoolc, tableItemPlace(itempoolc, 6))
+                    end
+                elseif  items[z].type == "lasergun" then
+                    player.abilities[#player.abilities+1] = items[z].type
+                    if not tableContains(player.abilities, "fireball") then
+                        noticolor = {45, 0, 255, 255}
+                        noti = "Laser Gun: BUL ↑ DMG ↓"
+                        noti2 = "'PEW! PEW!'"
+                        notiTimerTrigger = true
+                    end
+                    table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 2))
+                elseif  items[z].type == "fireball" then
+                    player.abilities[#player.abilities+1] = items[z].type
+                    if not tableContains(player.abilities, "lasergun") then
+                        noticolor = {254, 222, 23, 255}
+                        noti = "Fireball: BUL ↓ DMG ↑"
+                        noti2 = "'You Feel the Warmth of Fire'"
+                        notiTimerTrigger = true
+                    end
+                    table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 1))
+                elseif  items[z].type == "piercing" then
+                    player.pLvl = player.pLvl + 1
+                    noticolor = {130, 75, 255, 255}
+                        noti = "Piercing: PRC ↑"
+                        noti2 = "'Your hands feel sharper'"
+                        notiTimerTrigger = true
+
+                    if player.pLvl == 2 then
+                        table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 3))
+                    end
+                elseif  items[z].type == "thirdeye" then
+                    player.abilities[#player.abilities+1] = items[z].type
+                    noticolor = {45, 0, 255, 255}
+                    noti = "Third Eye"
+                    noti2 = "'Extra Bullets?'"
+                    notiTimerTrigger = true
+                    table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 8))
+                elseif  items[z].type == "goldcoin" then
+                    noticolor = {255, 255, 0, 255}
+                    player.coins = player.coins + 5
+                    noti = "Gold Coin"
+                    noti2 = "'Cha-Ching'"
+                    notiTimerTrigger = true
+                end
+                player.cangetitem = false
+                if player.roundactive == false then
+                    table.remove(items, 3)
+                    table.remove(items, 2)
+                    table.remove(items, 1)
+                    
+                    roundStart()
+                else
+                    table.remove(items, z)
+                end
+            end
+            
+            
         end
     end
 
@@ -333,6 +409,7 @@ function love.update(dt)
     enemyhurt:setVolume(vol * 0.6)
     playerhurt:setVolume(vol * 0.6)
     powerup:setVolume(vol * 0.5)
+    coinpickup:setVolume(vol * 0.5)
     endround:setVolume(vol * 0.2)
 
     if player.bulletAmount == 1 then
@@ -393,43 +470,47 @@ function love.focus(f)
 
     if not f then
 
-      noti = "LOST FOCUS" -- change the on screen lost and gained noti text to 'LOST FOCUS'
-      love.window.setTitle("Void Bullet ALPHA (FOCUS LOST)") -- set the program window to 'roguelike (FOCUS LOST)'
+      noti = "LOST FOCUS" 
+      love.window.setTitle("Void Bullet ALPHA (FOCUS LOST)")
     else
 
-      noti = "GAINED FOCUS" -- change the on screen lost and gained focus text to 'GAINED FOCUS'
+      noti = "GAINED FOCUS" 
       notiTimerTrigger = true
-      love.window.setTitle("Void Bullet ALPHA") -- set the program window to 'roguelike'
+      love.window.setTitle("Void Bullet ALPHA")
     end
 end
-
+    local graphics = love.graphics
 function love.draw()
 
-    love.graphics.setCanvas(gameCanvas)
-    love.graphics.clear()
-        love.graphics.setFont(fonts.entities)
-        love.graphics.setColor(love.math.colorFromBytes(noticolor[1], noticolor[2], noticolor[3], noticolor[4]))
-        love.graphics.print(noti, gameWidth/2 - fonts.ui:getWidth(noti) / 3.4, 100 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
-        love.graphics.print(noti2, gameWidth/2 - fonts.ui:getWidth(noti2) / 3.4, 150 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
-        love.graphics.setColor(1, 1, 1, 1)
-        effects.draw()
-        blocks.draw()
-        player.draw()
-        bullets.draw()
-        enemybullets.draw()
-        enemydeaths.draw()
-        enemies.draw()
-        bosses.draw()
-        items.draw()
-        uiDraw()
-    love.graphics.setCanvas()
+    graphics.setCanvas(gameCanvas)
+    graphics.clear()
+    graphics.setFont(fonts.entities)
+    graphics.setColor(love.math.colorFromBytes(noticolor[1], noticolor[2], noticolor[3], noticolor[4]))
+    graphics.print(noti, gameWidth/2 - fonts.ui:getWidth(noti) / 3.4, 100 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
+    graphics.print(noti2, gameWidth/2 - fonts.ui:getWidth(noti2) / 3.4, 150 - fonts.ui:getHeight()) -- print the lost and gained noti text when needed
+    graphics.setColor(1, 1, 1, 1)
+    effects.draw()
+    blocks.draw()
+    player.draw()
+    bullets.draw()
+    enemies.draw()
+    bosses.draw()
+    items.draw()
+    enemydeaths.draw()
+    enemyhitanims.draw()
+    enemybullets.draw()
 
-    local windowWidth, windowHeight = love.graphics.getDimensions()
+    uiDraw()
+    bossbarhitanims.draw()
+
+    graphics.setCanvas()
+
+    local windowWidth, windowHeight = graphics.getDimensions()
 
     local scaleAmount = scaleCanvasToFit(windowWidth, windowHeight)
 
     local horizontalPadding = ((windowWidth - (gameWidth * scaleAmount)) / 2) / scaleAmount
     local verticalPadding = ((windowHeight - (gameHeight * scaleAmount)) / 2) / scaleAmount
 
-    love.graphics.draw(gameCanvas, horizontalPadding, verticalPadding) 
+    graphics.draw(gameCanvas, horizontalPadding, verticalPadding)
 end

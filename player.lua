@@ -3,13 +3,14 @@
 This handles all the player outside of the update and draw functions
 
 ]]--
-
+local graphics = love.graphics
+local math = love.math
 -- player variables
 player = {} -- create the player object
-player.x =  gameWidth/2 -- set the players x postition to about the middle of the screen
-player.y =  gameHeight/2 -- set the players y postition to about the middle of the screen
 player.w = 24
 player.h = 20
+player.x =  gameWidth/2 -- set the players x postition to about the middle of the screen
+player.y =  gameHeight/2 -- set the players y postition to about the middle of the screen
 player.totalHp = 3
 player.hp = 3
 player.score = 0
@@ -17,6 +18,7 @@ player.isAlive = true
 player.abilities = {}
 player.speed = 3
 player.bType = "normal"
+player.bSize = 1
 player.round = 0
 player.roundactive = true
 player.defcolor = {255, 255, 255, 255}
@@ -24,7 +26,11 @@ player.color = {255, 255, 255, 255}
 player.txt = '0'
 player.bulletAmount = 1
 player.pLvl = 0
+player.coins = 0
 
+player.telknsis = true
+player.thirdeye = false
+player.thirdeyeCounter = 0
 local b = 0
 local c = 0
 
@@ -76,6 +82,14 @@ function player.update(dt)
 
             player.bType = "srailgun"
 
+        elseif player.abilities[k] == "thirdeye" then
+            
+            player.thirdeye = true
+
+        elseif player.abilities[k] == "telknsis" then
+            
+            player.telknsis = true
+
         end
     end
 
@@ -125,6 +139,8 @@ function player.update(dt)
         player.pLvl = 999
     end
 
+    if player.coins > 99 then player.coins = 99 end
+
 
     if #enemies == 0 and #bosses == 0 and player.roundactive == true then
 
@@ -133,8 +149,8 @@ function player.update(dt)
         if not player.round == 0 then
             print("ROUND COMPLETE")
         end
-        player.x = gameWidth / 2
-        player.y = gameHeight / 2
+        player.x = gameWidth / 2 - 20
+        player.y = gameHeight / 2 - 20
         world:move(player, player.x, player.y, playerFilter)
         for k, l in ipairs(bullets) do
 
@@ -142,7 +158,11 @@ function player.update(dt)
 
         end
         print("ROUND " .. player.round)
-        level.init("roundEnd")
+        if player.round % 5 == 0 then
+            level.init("shop")
+        else
+            level.init("roundEnd")
+        end
         endround:play()
 
     end
@@ -163,11 +183,44 @@ function player.update(dt)
         end
     end
 
+    function player.shoot(bulnum, buldir, xoffset, yoffset, bulperside)
+
+        if player.bulletAmount == 1 then
+            bulperside = 1
+            local bullet = createBullet(player.x + xoffset, player.y + yoffset, buldir + bulletoffset)
+            bullets[#bullets+1] = bullet
+        else
+            bulperside = bulnum / 2
+            if player.bulletAmount % 2 == 0 then
+                local i = 0
+                while i <= bulperside do
+                    local bullet = createBullet(player.x + xoffset, player.y + yoffset, buldir + (bulperside / i * 5) + bulletoffset)
+                    bullets[#bullets+1] = bullet
+                    local bullet = createBullet(player.x + xoffset, player.y + yoffset, buldir - (bulperside / i * 5) + bulletoffset)
+                    bullets[#bullets+1] = bullet
+                    i = i + 1
+                end
+            else
+                local i = 0
+                while i <= bulperside do
+                    local bullet = createBullet(player.x + xoffset, player.y + yoffset, buldir + (bulperside / i * 5) + bulletoffset)
+                    bullets[#bullets+1] = bullet
+                    local bullet = createBullet(player.x + xoffset, player.y + yoffset, buldir - (bulperside / i * 5) + bulletoffset)
+                    bullets[#bullets+1] = bullet
+                    i = i + 1
+                end
+                local bullet = createBullet(player.x + xoffset, player.y + yoffset, buldir + bulletoffset)
+                    bullets[#bullets+1] = bullet
+            end
+        end
+    
+    end
+
     function player.draw()
-        love.graphics.setFont(fonts.entities)
-        love.graphics.setColor(love.math.colorFromBytes(player.color[1], player.color[2], player.color[3], player.color[4]))
-        love.graphics.print(player.txt, player.x, player.y - 10) -- print player every frame
-        love.graphics.setColor(1, 1, 1, 1)
+        graphics.setFont(fonts.entities)
+        graphics.setColor(math.colorFromBytes(player.color[1], player.color[2], player.color[3], player.color[4]))
+        graphics.print(player.txt, player.x, player.y - 10) -- print player every frame
+        graphics.setColor(1, 1, 1, 1)
 
     end
 end
