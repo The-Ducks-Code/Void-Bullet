@@ -15,6 +15,10 @@ function level.init(levelName)
 
         local itema = itempoolERa[math.random(1, #itempoolERa)]
         local itemb = itempoolERb[math.random(1, #itempoolERb)]
+
+        if itema == itemb then
+            itemb = itempoolERb[math.random(1, #itempoolERb)]
+        end
         
         items[#items+1] = createItem(itema, gameWidth / 3, 200, false)
         items[#items+1] = createItem(itemb, 2* gameWidth / 3 + 5, 200, false)

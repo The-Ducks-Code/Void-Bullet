@@ -28,7 +28,7 @@ player.bulletAmount = 1
 player.pLvl = 0
 player.coins = 0
 
-player.telknsis = true
+player.telknsis = false
 player.thirdeye = false
 player.thirdeyeCounter = 0
 local b = 0

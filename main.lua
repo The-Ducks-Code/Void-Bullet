@@ -178,7 +178,6 @@ function love.update(dt)
 
         end
 
-
         for k,v in ipairs(enemies) do
 
             enemies[k].update(deltatime)
@@ -303,7 +302,7 @@ function love.update(dt)
             else
                 powerup:play()
             end
-            if items[z].isInShop == true and (player.coins - items[z].cost) > 0 then
+            if items[z].isInShop == true and (player.coins - items[z].cost) >= 0 then
                 player.cangetitem = true
                 player.coins = player.coins - items[z].cost
             elseif items[z].isInShop == false then
@@ -385,9 +384,16 @@ function love.update(dt)
                     noti = "Gold Coin"
                     noti2 = "'Cha-Ching'"
                     notiTimerTrigger = true
+                elseif  items[z].type == "telknsis" then
+                    noticolor = {25, 200, 255, 255}
+                    player.telknsis = true
+                    noti = "Telekinesis"
+                    noti2 = "'You feel humming in your hands'"
+                    notiTimerTrigger = true
                 end
                 player.cangetitem = false
                 if player.roundactive == false then
+                    table.remove(items, 4)
                     table.remove(items, 3)
                     table.remove(items, 2)
                     table.remove(items, 1)

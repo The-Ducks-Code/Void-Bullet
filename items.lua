@@ -8,14 +8,14 @@ items = {}
 
 itempoolERa = {4, 6, 7, 9}
 itempoolERb = {4, 6, 7, 9}
-itempoolSHOPa = {1, 2, 3, 8}
+itempoolSHOPa = {1, 2, 3, 8, 10}
 itempoolSHOPb = {4, 5}
 itempoolSHOPc = {6, 7}
 
 function itempoolupdate()
 
     if #itempoolERa == 0 then
-        itempoolERa[#itempoolERa+1] = 7
+        itempoolERa[#itempoolERa+1] = 9
     end
 
     if #itempoolERb == 0 then
@@ -242,6 +242,28 @@ function createItem(itemType, x, y, shopornot)
             b = b + 1 * dt
             item.type = "exitshop"
             item.cost = 0
+        elseif item.type == "telknsis" or item.type == 10 then
+
+            item.txt = '⁰†⁰'
+
+            if b < 12 then
+
+                item.color = {25, 200, 255, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {200, 30, 255, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "telknsis"
+            item.cost = 30
         end
     end
 
