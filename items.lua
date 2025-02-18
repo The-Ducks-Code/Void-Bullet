@@ -263,7 +263,7 @@ function createItem(itemType, x, y, shopornot)
 
             end
             item.type = "telknsis"
-            item.cost = 30
+            item.cost = 45
         end
     end
 

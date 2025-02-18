@@ -197,7 +197,6 @@ function love.update(dt)
                         print(bullets[b].piercei)
                         enemies[k].hp = enemies[k].hp - bullets[b].damage
                         enemies[k].hitlist[#enemies[k].hitlist+1] = bullets[b] -- create one enemy
-                        enemies[k].color = {255, 0, 0, 255}
                         if bullets[b].piercei < 0 then
                             bullets[b].active = false
                         end
@@ -210,6 +209,7 @@ function love.update(dt)
                 enemyhurt:play()
                 startShake(1, 1.5)
                 player.score = player.score + enemies[k].pts
+                if enemies[k].gold == 1 then player.coins = player.coins + 2 coinpickup:play() end
                 enemies[k].active = false
             end
 

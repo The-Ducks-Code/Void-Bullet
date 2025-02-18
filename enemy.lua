@@ -28,6 +28,11 @@ function createEnemy(x, y, type, damage)
     enemy.hitlist = {"itemsoitdoesntbreakhopefullylol"}
     enemy.color = {255, 255, 255, 255}
     enemyWorld:add(enemy, enemy.x, enemy.y, enemy.w, enemy.h)
+    enemy.gold = math.random(1,20)
+
+    if enemy.gold == 1 then
+        enemy.color = {255, 235, 0, 255}
+    end
 
     function enemy.update(dt)
 
