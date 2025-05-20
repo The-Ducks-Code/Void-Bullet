@@ -220,6 +220,8 @@ function gameRestart()
     bulletoffset = 0
     player.thirdeye = false
     player.thirdeyeCounter = 0
+    player.damageMultiplier = 1
+
 
     if player.roundactive == true then
         table.remove(items, 3)

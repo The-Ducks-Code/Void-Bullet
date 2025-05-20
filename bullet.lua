@@ -71,6 +71,8 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
 
     end
 
+    bullet.damage = bullet.damage * player.damageMultiplier
+
     
 
     local b = 0
@@ -187,7 +189,7 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
             end
     end
 
-    print("bullet created")
+    print("bullet created with" .. bullet.damage .. "damage")
 
     return bullet
 

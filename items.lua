@@ -8,7 +8,7 @@ items = {}
 
 itempoolERa = {4, 6, 7, 9}
 itempoolERb = {4, 6, 7, 9}
-itempoolSHOPa = {1, 2, 3, 8, 10}
+itempoolSHOPa = {1, 2, 3, 8, 10, 11}
 itempoolSHOPb = {4, 5}
 itempoolSHOPc = {6, 7}
 
@@ -264,6 +264,27 @@ function createItem(itemType, x, y, shopornot)
             end
             item.type = "telknsis"
             item.cost = 45
+        elseif item.type == "purerage" or item.type == 11 then
+        item.txt = '>:('
+
+            if b < 12 then
+
+                item.color = {225, 20, 50, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {200, 50, 20, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "purerage"
+            item.cost = 30
         end
     end
 

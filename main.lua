@@ -390,6 +390,15 @@ function love.update(dt)
                     noti = "Telekinesis"
                     noti2 = "'You feel humming in your hands'"
                     notiTimerTrigger = true
+                    table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 10))
+                elseif  items[z].type == "purerage" then
+                    noticolor = {225, 20, 50, 255}
+                    player.abilities[#player.abilities+1] = items[z].type
+                    player.damageMultiplier = player.damageMultiplier * 2
+                    noti = "Pure Rage"
+                    noti2 = "'Anger hijacks your body'"
+                    notiTimerTrigger = true
+                    table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 11))
                 end
                 player.cangetitem = false
                 if player.roundactive == false then

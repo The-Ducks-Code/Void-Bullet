@@ -27,6 +27,7 @@ player.txt = '0'
 player.bulletAmount = 1
 player.pLvl = 0
 player.coins = 0
+player.damageMultiplier = 1
 
 player.telknsis = false
 player.thirdeye = false
