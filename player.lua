@@ -17,6 +17,7 @@ player.score = 0
 player.isAlive = true
 player.abilities = {}
 player.speed = 3
+player.brake = 6
 player.bType = "normal"
 player.bSize = 1
 player.round = 0
@@ -39,7 +40,7 @@ damageTimer = 0 -- reset the damage timer
 damagecooldown = false -- reset the damage cooldown
 
 function player.update(dt)
-
+    
     if player.hp <= 0 then
 
         for b, n in ipairs(enemybullets) do

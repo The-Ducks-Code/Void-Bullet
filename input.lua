@@ -50,33 +50,84 @@ else
     }
 end
 
+
 function input.player(dt)
 
 
     local dx, dy = 0, 0
-    if input:down 'up' then dy = -1 end
-	if input:down 'left' then dx = -1 end
-	if input:down 'right' then dx = 1 end
-	if input:down 'down' then dy = 1 end
+   
+    if input:down 'right' and not input:down 'left' then
+        dx = dx + (player.speed * dt)
+    elseif input:down 'left' and not input:down 'right' then
+        dx = dx - (player.speed * dt)
+    end
+    if input:down 'up' and not input:down 'down' then
+        dy = dy - (player.speed * dt)
+    elseif input:down 'down' and not input:down 'up' then
+        dy = dy + (player.speed * dt)
+    end
+
+
+    if dx > 0 then
+        dx = dx -(player.brake/2) * dt 
+        if dx <= 0 then dx = 0 end
+    elseif dx < 0 then
+        dx = dx + (player.brake/2) * dt
+        if dx >= 0 then dx = 0 end
+    end
+    if dy > 0 then
+        dy = dy -(player.brake/2) * dt 
+        if dy <= 0 then dy = 0 end
+    elseif dy < 0 then
+        dy = dy + (player.brake/2) * dt
+        if dy >= 0 then dy = 0 end
+    end
 	if dx ~= 0 or dy ~= 0 then
 		if dx ~= 0 and dy ~= 0 then
 			dx = dx * 0.7071
 			dy = dy * 0.7071
 		end
-		player.x = player.x + dx * player.speed * dt
-		player.y = player.y + dy * player.speed * dt
+		player.x = player.x + dx * dt
+		player.y = player.y + dy * dt
 	end
 
+    if dx > player.speed then dx = player.speed end
+    if dx < -player.speed then dx = -player.speed end
+    if dy > player.speed then dy = player.speed end
+    if dy < -player.speed then dy = -player.speed end
+    local goalX, goalY = player.x + dx * dt, player.y + dy * dt
+    local actualX, actualY, cols, len = world:move(player, goalX, goalY, playerFilter)
+    
+    player.x, player.y = actualX, actualY
 
+    for i =1, len do
+
+        local normal = cols[i].normal
+        if normal.y == -1 then 
+
+            dy = 0
+
+        end
+
+        if normal.y == 1 then
+
+            dy = 0
+
+        end
+
+        if normal.x == -1 or normal.x == 1 then 
+
+            dx = 0
+
+        end
+    end
     function playerFilter(item, other)
         if other.isEnemy then return 'cross'
         elseif other.isWall then return "slide"
         end
     end
 
-    -- update the player associated bounding box in the world
-    local newX, newY, cols, len = world:move(player, player.x, player.y, playerFilter)
-    player.x, player.y = newX, newY
+    
 
     if input:down 'shootu' or input:down 'shootd' or input:down 'shootl' or input:down 'shootr' then
         if not bulletcooldown then
@@ -161,6 +212,7 @@ codes['ba4'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, 
 codes['ba5'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BUL AMNT 5' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 5 end
 codes['ba6'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BUL AMNT 6' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 6 end
 codes['ba7'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BUL AMNT 7' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 7 end
+codes['speed10'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, SPEED 10' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.speed = 10 end
 codes['duck'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, quack quack' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.color = {255,239,1, 255} player.defcolor = {255,239,1, 255} player.txt = 'D' end
 codes['score'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = '999999999 pts added' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.score = player.score + 999999999 end
 codes['medic'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED,' noti2 = 'Full Health' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.hp = 17 player.totalHp = 17 end
