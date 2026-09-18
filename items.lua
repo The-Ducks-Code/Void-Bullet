@@ -6,8 +6,8 @@ This handles all of item creation and other item related things
 
 items = {}
 
-itempoolERa = {4, 6, 7, 9}
-itempoolERb = {4, 6, 7, 9}
+itempoolERa = {4, 6, 7}
+itempoolERb = {9}
 itempoolSHOPa = {1, 2, 3, 8, 10, 11}
 itempoolSHOPb = {4, 5}
 itempoolSHOPc = {6, 7}

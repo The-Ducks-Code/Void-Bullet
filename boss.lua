@@ -54,7 +54,7 @@ function createBoss(x, y, type)
         boss.txt = "Ξ"
         boss.speed = 0.5
         boss.pts = 70000
-        boss.hp = 250
+        boss.hp = 450
         boss.color = {15, 30, 165, 255}
     end
 
@@ -414,7 +414,7 @@ function createBossbar(boss)
 
         bossbar.health = boss.hp/bossbar.proportion
 
-        if boss.hp < 0 then bossbar.active = false end
+        if boss.hp <= 0 then bossbar.active = false end
 
         if player.x > 80 and player.x < 720 and player.y > 730 then
             bossbar.color[4] = 100

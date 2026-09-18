@@ -299,14 +299,14 @@ function love.update(dt)
             print(items[z].type .. " aquired")
             if items[z].type == "goldcoin" then
                 coinpickup:play()
-            else
-                powerup:play()
             end
             if items[z].isInShop == true and (player.coins - items[z].cost) >= 0 then
                 player.cangetitem = true
                 player.coins = player.coins - items[z].cost
+                powerup:play()
             elseif items[z].isInShop == false then
                 player.cangetitem = true
+                powerup:play()
             end
             if player.cangetitem == true then
                 if  items[z].type == "speed up" then
@@ -338,7 +338,7 @@ function love.update(dt)
                         noti = "+1 HEART"
                         notiTimerTrigger = true
                     if player.totalHp == 17 then
-                        table.remove(itempoolc, tableItemPlace(itempoolc, 6))
+                        table.remove(itempoolERa, tableItemPlace(itempoolERa, 6))
                     end
                 elseif  items[z].type == "lasergun" then
                     player.abilities[#player.abilities+1] = items[z].type

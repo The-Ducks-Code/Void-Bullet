@@ -65,16 +65,15 @@ function createEnemy(x, y, type, damage)
             end
 
             if enemy.type == "mirrorer" then
-                if player.isShooting then
-                    if enemy.o > 1 then
-                        enemy.o = 0
-                    else
+                if enemy.o > 1 then
+                    enemy.o = 0
+                else
+                    if player.isShooting then
                         local enemybullet = createEnemyBullet(enemy.x, enemy.y, enemy.dir)
                         enemybullets[#enemybullets+1] = enemybullet
                         enemy.o = enemy.o + dt
                     end
                 end
-                
             end
 
             if enemy.type == "alpha" then
@@ -220,50 +219,50 @@ function createEnemy(x, y, type, damage)
     if enemy.type == "normal" then
 
         enemy.txt = "E"
-        enemy.speed = 1
-        enemy.hp = 2
+        enemy.speed = 1.25
+        enemy.hp = 3
         enemy.pts = 100
 
     elseif enemy.type == "fast" then
 
         enemy.txt = "F"
-        enemy.speed = 2
-        enemy.hp = 1
+        enemy.speed = 2.25
+        enemy.hp = 1.5
         enemy.pts = 150
     
     elseif enemy.type == "heavy" then
 
         enemy.txt = "H"
-        enemy.speed = 0.5
-        enemy.hp = 4
+        enemy.speed = 0.75
+        enemy.hp = 5
         enemy.pts = 200
     
     elseif enemy.type == "gunner" then
 
         enemy.txt = "G"
-        enemy.speed = 0.8
-        enemy.hp = 1
+        enemy.speed = 1.05
+        enemy.hp = 2
         enemy.pts = 250
     
     elseif enemy.type == "mirrorer" then
 
         enemy.txt = "M"
-        enemy.speed = 0.7
-        enemy.hp = 2
+        enemy.speed = 0.95
+        enemy.hp = 3
         enemy.pts = 250
     
     elseif enemy.type == "alpha" then
 
         enemy.txt = "α"
-        enemy.speed = 0.4
-        enemy.hp = 7
+        enemy.speed = 0.65
+        enemy.hp = 20
         enemy.pts = 400
     
     elseif enemy.type == "phi" then
 
         enemy.txt = "φ"
-        enemy.speed = 0.7
-        enemy.hp = 4
+        enemy.speed = 0.95
+        enemy.hp = 5
         enemy.pts = 400
     
     end

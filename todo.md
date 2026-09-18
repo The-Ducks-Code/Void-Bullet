@@ -8,3 +8,20 @@
 * Freeze enemies in place special ability item
 * Dashing enemy
 * Lifesteal item
+* Enemies randomly roam and follow and switch every so often
+* Enemy that circles the walls
+* Spider that creates webs that slow the player
+* Enemy that creates walls to make more variation in the terrain
+* lower enemy count and make individual enemies more deadly
+* Animation for when items combine
+* 2nd round on some rounds
+* boss that steals your ability to shoot and you have to run into things it throws or something to hit the boss with them
+* Make Phi harder
+* Pure rage tints bullets red
+* Xi wavy attacks more wavy
+* diagonal attack item
+
+## BUGS
+* Shop needs to warp to top at beginning of round if you exit the shop
+* M shoots a lot at start of rounds sometimes
+* Walls of bullets some bullets are offset
