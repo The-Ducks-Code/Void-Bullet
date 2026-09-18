@@ -310,13 +310,10 @@ function love.update(dt)
             end
             if player.cangetitem == true then
                 if  items[z].type == "speed up" then
-                    player.speed = player.speed + 0.5
+                    player.speed = player.speed + 0.3
                     noticolor = {243, 209, 4, 255}
                     noti = "SPD ↑"
                     notiTimerTrigger = true
-                    if player.speed == 5.5 then
-                        table.remove(itempoola, tableItemPlace(itempoola, 4))
-                    end
                 elseif  items[z].type == "bulletup" then
                     player.bulletAmount = player.bulletAmount + 1
                     noticolor = {50, 255, 0, 255}
