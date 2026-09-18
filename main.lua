@@ -21,7 +21,7 @@ function love.load() -- ran before the first frame
     -- define variables and arrays
    
     world = bump.newWorld()
-    enemyWorld = bump.newWorld()
+    enemyWorld = bump.newWorld() 
     vol = 0.6
 
     fonts = {}
