@@ -286,4 +286,3 @@ function enemies.draw()
     end
 
 end
-
