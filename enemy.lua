@@ -220,49 +220,49 @@ function createEnemy(x, y, type, damage)
 
         enemy.txt = "E"
         enemy.speed = 1.25
-        enemy.hp = 3
+        enemy.hp = 4
         enemy.pts = 100
 
     elseif enemy.type == "fast" then
 
         enemy.txt = "F"
         enemy.speed = 2.25
-        enemy.hp = 1.5
+        enemy.hp = 2.5
         enemy.pts = 150
     
     elseif enemy.type == "heavy" then
 
         enemy.txt = "H"
         enemy.speed = 0.75
-        enemy.hp = 5
+        enemy.hp = 6
         enemy.pts = 200
     
     elseif enemy.type == "gunner" then
 
         enemy.txt = "G"
         enemy.speed = 1.05
-        enemy.hp = 2
+        enemy.hp = 3
         enemy.pts = 250
     
     elseif enemy.type == "mirrorer" then
 
         enemy.txt = "M"
         enemy.speed = 0.95
-        enemy.hp = 3
+        enemy.hp = 4
         enemy.pts = 250
     
     elseif enemy.type == "alpha" then
 
         enemy.txt = "α"
         enemy.speed = 0.65
-        enemy.hp = 20
+        enemy.hp = 30
         enemy.pts = 400
     
     elseif enemy.type == "phi" then
 
         enemy.txt = "φ"
         enemy.speed = 0.95
-        enemy.hp = 5
+        enemy.hp = 20
         enemy.pts = 400
     
     end

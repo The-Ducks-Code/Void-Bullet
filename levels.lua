@@ -65,7 +65,7 @@ function roundStart()
 
         if player.round < 5 then
             local i = 0
-            while i < player.round * 9 do
+            while i < player.round * 5 do
 
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
@@ -74,7 +74,7 @@ function roundStart()
 
         elseif player.round < 10 then
             local i = 0
-            local d = math.random(1, 10)
+            local d = math.random(1, 7)
             while i < player.round * d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
@@ -87,17 +87,17 @@ function roundStart()
         elseif player.round < 15 then
             local i = 0
             local d = math.random(1, 5)
-            while i < player.round * d do
+            while i < player.round * d/2 do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < player.round * (7 - d) do
+            while i < d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < player.round * (2) do
+            while i < player.round do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
                 i = i + 1
             end
@@ -110,17 +110,17 @@ function roundStart()
         elseif player.round < 30 then
             local i = 0
             local d = math.random(1, 5)
-            while i < 5 * d do
+            while i < 2 * d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < 5 * (7 - d) do
+            while i < 2 * (7 - d) do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < 5 do
+            while i < d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
                 i = i + 1
@@ -134,7 +134,8 @@ function roundStart()
         elseif player.round < 45 then
             local i = 0
             i = 0
-            while i < 20 do
+            local d = math.random(1, 10)
+            while i < d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy
@@ -158,7 +159,8 @@ function roundStart()
         else
             local i = 0
             i = 0
-            while i < 20 do
+            local d = math.random(10, 20)
+            while i < d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "heavy", 40) -- create one enemy
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "gunner", 40) -- create one enemy

@@ -22,5 +22,4 @@
 * diagonal attack item
 
 ## BUGS
-* Shop needs to warp to top at beginning of round if you exit the shop
 * Walls of bullets some bullets are offset
