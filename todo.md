@@ -23,5 +23,4 @@
 
 ## BUGS
 * Shop needs to warp to top at beginning of round if you exit the shop
-* M shoots a lot at start of rounds sometimes
 * Walls of bullets some bullets are offset

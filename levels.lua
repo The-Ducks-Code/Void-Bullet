@@ -47,6 +47,9 @@ function level.init(levelName)
             enemybullets[k].active = false
     
         end
+        noticolor = {255, 100, 100, 255}
+        noti = "WELCOME TO"
+        noti2 = "'█████'s SHOP'"
     end
 end
 

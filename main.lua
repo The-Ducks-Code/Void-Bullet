@@ -396,6 +396,12 @@ function love.update(dt)
                     noti2 = "'Anger hijacks your body'"
                     notiTimerTrigger = true
                     table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 11))
+                elseif  items[z].type == "exitshop" then
+                    noticolor = {255, 255, 255, 255}
+                    noti = "You Left The Shop"
+                    noti2 = "'Cheapskate...'"
+                    player.x, player.y = gameWidth / 2 + 5, 200
+                    notiTimerTrigger = true
                 end
                 player.cangetitem = false
                 if player.roundactive == false then
