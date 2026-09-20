@@ -189,7 +189,6 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
             end
     end
 
-    print("bullet created with" .. bullet.damage .. "damage")
 
     return bullet
 

@@ -103,7 +103,7 @@ function createItem(itemType, x, y, shopornot)
 
             end
             item.type = "piercing"
-            item.cost = 2 * player.pLvl
+            item.cost = math.floor((2 * player.pLvl + 0.5))
         elseif item.type == "speed up" or item.type == 4 then
 
             item.txt = ">>>"
@@ -125,7 +125,7 @@ function createItem(itemType, x, y, shopornot)
 
             end
             item.type = "speed up"
-            item.cost = 2 * player.speed - 4
+            item.cost = math.floor((2 * player.speed - 4) + 0.5)
         elseif item.type == "bulletup" or item.type == 5 then
 
             item.txt = '|||'
@@ -169,7 +169,7 @@ function createItem(itemType, x, y, shopornot)
 
             end
             item.type = "heartsup"
-            item.cost = 2 * player.totalHp - 4
+            item.cost = math.floor((2 * player.totalHp - 4) + 0.5)
         elseif item.type == "heal kit" or item.type == 7 then
 
             item.txt = '+♥+'

@@ -117,6 +117,7 @@ function love.update(dt)
             if bullets[k].y < 25 or bullets[k].y > gameHeight - 30 or bullets[k].x < 0 or bullets[k].x > gameWidth - 25 then
 
                 bullets[k].active = false
+                collectgarbage()
 
             end
 
@@ -134,6 +135,7 @@ function love.update(dt)
             if enemybullets[k].y < 25 or enemybullets[k].y > gameHeight or enemybullets[k].x < - 10 or enemybullets[k].x > gameWidth - 8 then
     
                 enemybullets[k].active = false
+                collectgarbage()
     
             end
     
@@ -199,6 +201,7 @@ function love.update(dt)
                         enemies[k].hitlist[#enemies[k].hitlist+1] = bullets[b] -- create one enemy
                         if bullets[b].piercei < 0 then
                             bullets[b].active = false
+                            collectgarbage()
                         end
                     end
                 end
@@ -211,6 +214,7 @@ function love.update(dt)
                 player.score = player.score + enemies[k].pts
                 if enemies[k].gold == 1 then player.coins = player.coins + 2 coinpickup:play() end
                 enemies[k].active = false
+                collectgarbage()
             end
 
             if enemies[k].active == false then
@@ -272,6 +276,7 @@ function love.update(dt)
                 startShake(6, 4)
                 player.score = player.score + bosses[k].pts
                 bosses[k].active = false
+                collectgarbage()
             end
 
             if bosses[k].active == false then

@@ -65,7 +65,8 @@ function roundStart()
 
         if player.round < 5 then
             local i = 0
-            while i < player.round * 5 do
+            local d = math.random(1, 3)
+            while i < player.round * d do
 
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
@@ -74,13 +75,13 @@ function roundStart()
 
         elseif player.round < 10 then
             local i = 0
-            local d = math.random(1, 7)
-            while i < player.round * d do
+            local d = math.random(1, 5)
+            while i < player.round/3 * d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "normal", 40) -- create one enemy
                 i = i + 1
             end
             i = 0
-            while i < player.round * (5 - d) do
+            while i < 5 - d do
                 enemies[#enemies+1] = createEnemy(love.math.random(100, gameWidth - 120), love.math.random(250, gameHeight - 60), "fast", 40) -- create one enemy
                 i = i + 1
             end

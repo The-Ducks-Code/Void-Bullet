@@ -20,6 +20,7 @@
 * Pure rage tints bullets red
 * Xi wavy attacks more wavy
 * diagonal attack item
+* Snake game-like boss
 
 ## BUGS
 * Walls of bullets some bullets are offset

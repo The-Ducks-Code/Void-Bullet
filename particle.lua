@@ -33,6 +33,7 @@ function enemyDeath(ex, ey)
             this.img = enemydeath8
         else
             this.active = false
+            collectgarbage()
         end
     end
 
@@ -87,6 +88,7 @@ function bossbarHit(ex, ey)
             this.img = bossbaranim[10]
         else
             this.active = false
+            collectgarbage()
         end
     end
 
@@ -127,6 +129,7 @@ function enemyHit(ex, ey)
             this.img = enemyhit[3]
         else
             this.active = false
+            collectgarbage()
         end
     end
 

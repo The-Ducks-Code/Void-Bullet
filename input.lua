@@ -155,6 +155,7 @@ codes['r35'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, 
 codes['r45'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 45' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 45 end
 codes['r70'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 70' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 70 end
 codes['r80'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 80' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 80 end
+codes['r1000'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 1000' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 1000 end
 codes['ba2'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BUL AMNT 2' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 2 end
 codes['ba3'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BUL AMNT 3' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 3 end
 codes['ba4'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BUL AMNT 4' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 4 end
