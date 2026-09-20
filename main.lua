@@ -1,5 +1,4 @@
 -- MAIN CODEBASE 
--- lovec "C:\Users\decla\github\love2droguelike"
 require("windowlock")
 require("xtramath")
 require("bullet")
