@@ -103,7 +103,7 @@ function createItem(itemType, x, y, shopornot)
 
             end
             item.type = "piercing"
-            item.cost = math.floor((2 * player.pLvl + 0.5))
+            item.cost = 5 + math.floor((2 * player.pLvl + 0.5))
         elseif item.type == "speed up" or item.type == 4 then
 
             item.txt = ">>>"
