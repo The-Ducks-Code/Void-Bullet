@@ -34,7 +34,7 @@ function createBoss(x, y, type)
         boss.txt = "α"
         boss.speed = 0.75
         boss.pts = 30000
-        boss.hp = 150
+        boss.hp = 200
         boss.color = {150, 15, 175, 255}
     end
 
@@ -42,9 +42,9 @@ function createBoss(x, y, type)
         boss.w = 2
         boss.h = 2
         boss.txt = "φ"
-        boss.speed = 0.9
+        boss.speed = 1.1
         boss.pts = 50000
-        boss.hp = 200
+        boss.hp = 400
         boss.color = {150, 165, 75, 255}
     end
 
@@ -54,7 +54,7 @@ function createBoss(x, y, type)
         boss.txt = "Ξ"
         boss.speed = 0.5
         boss.pts = 70000
-        boss.hp = 450
+        boss.hp = 700
         boss.color = {15, 30, 165, 255}
     end
 
@@ -208,7 +208,22 @@ function createBoss(x, y, type)
                         boss.x, boss.y = newX, newY
                     end
                     if boss.dash > 60 then
-                        boss.randir = math.random(0, 360)
+                        if boss.y < 75 then
+                            boss.randir = math.random(90, 270)
+                        elseif boss.y > gameHeight - 75 then
+                            local r = math.random(0,1)
+                            if r == 0 then
+                                boss.randir = math.random(0, 90)
+                            else
+                                boss.randir = math.random(270, 180)
+                            end
+                        elseif boss.x < 75 then
+                            boss.randir = math.random(0, 180)
+                        elseif boss.x > gameWidth - 75 then
+                            boss.randir = math.random(180, 360)
+                        else
+                            boss.randir = math.random(0, 360)
+                        end
                         boss.dash = 0
                     else
                         boss.dash = boss.dash + dt
@@ -320,9 +335,23 @@ function createBoss(x, y, type)
                             boss.x, boss.y = newX, newY
                         end
                         if boss.dash > 60 then
-                            boss.randir = math.random(0, 360)
+                            if boss.y < 75 then
+                                boss.randir = math.random(90, 270)
+                            elseif boss.y > gameHeight - 75 then
+                                local r = math.random(0,1)
+                                if r == 0 then
+                                    boss.randir = math.random(0, 90)
+                                else
+                                    boss.randir = math.random(270, 180)
+                                end
+                            elseif boss.x < 75 then
+                                boss.randir = math.random(0, 180)
+                            elseif boss.x > gameWidth - 75 then
+                                boss.randir = math.random(180, 360)
+                            else
+                                boss.randir = math.random(0, 360)
+                            end
                             boss.dash = 0
-                            boss.t = 0
                         else
                             boss.dash = boss.dash + dt
                         end

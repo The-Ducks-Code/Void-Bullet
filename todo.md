@@ -7,7 +7,6 @@
 * Rocket Launcher items
 * Freeze enemies in place special ability item
 * Dashing enemy
-* Lifesteal item
 * Enemies randomly roam and follow and switch every so often
 * Enemy that circles the walls
 * Spider that creates webs that slow the player
