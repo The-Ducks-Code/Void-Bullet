@@ -324,23 +324,27 @@ function love.update(dt)
                     player.bulletAmount = player.bulletAmount + 1
                     noticolor = {50, 255, 0, 255}
                     noti = "BUL COUNT ↑"
+                    noti2 = "'More power??'"
                     notiTimerTrigger = true
                 elseif  items[z].type == "heal kit" then
                     if player.totalHp > player.hp then
                         player.hp = player.hp + 1
                         noticolor = {255, 0, 0, 255}
                         noti = "HEALED"
+                        noti2 = "'More power??'"
                         notiTimerTrigger = true
                     else
                         noticolor = {255, 0, 0, 255}
                         noti = "ALREADY AT FULL HP"
+                        noti2 = "'Well that was a waste...'"
                         notiTimerTrigger = true
                     end
                 elseif  items[z].type == "heartsup" then
                         player.totalHp = player.totalHp + 1
                         player.hp = player.hp + 1
                         noticolor = {250, 115, 104, 255}
-                        noti = "+1 HEART"
+                        noti = "MAX HRT COUNT ↑"
+                        noti2 = "'You feel healthier'"
                         notiTimerTrigger = true
                     if player.totalHp == 17 then
                         table.remove(itempoolERa, tableItemPlace(itempoolERa, 6))
@@ -359,7 +363,7 @@ function love.update(dt)
                     if not tableContains(player.abilities, "lasergun") then
                         noticolor = {254, 222, 23, 255}
                         noti = "Fireball: BUL ↓ DMG ↑"
-                        noti2 = "'You Feel the Warmth of Fire'"
+                        noti2 = "'You feel the warmth of fire'"
                         notiTimerTrigger = true
                     end
                     table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 1))
@@ -369,7 +373,6 @@ function love.update(dt)
                         noti = "Piercing: PRC ↑"
                         noti2 = "'Your hands feel sharper'"
                         notiTimerTrigger = true
-
                     if player.pLvl == 2 then
                         table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 3))
                     end
@@ -377,14 +380,14 @@ function love.update(dt)
                     player.abilities[#player.abilities+1] = items[z].type
                     noticolor = {45, 0, 255, 255}
                     noti = "Third Eye"
-                    noti2 = "'Extra Bullets?'"
+                    noti2 = "'Your awareness feels heightened'"
                     notiTimerTrigger = true
                     table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 8))
                 elseif  items[z].type == "goldcoin" then
                     noticolor = {255, 255, 0, 255}
                     player.coins = player.coins + 5
                     noti = "Gold Coin"
-                    noti2 = "'Cha-Ching'"
+                    noti2 = "'Cha-ching!!'"
                     notiTimerTrigger = true
                 elseif  items[z].type == "telknsis" then
                     noticolor = {25, 200, 255, 255}
@@ -411,7 +414,7 @@ function love.update(dt)
                 elseif  items[z].type == "exitshop" then
                     noticolor = {255, 255, 255, 255}
                     noti = "You Left The Shop"
-                    noti2 = "'You Cheapskate...'"
+                    noti2 = "'You cheapskate...'"
                     player.x, player.y = gameWidth / 2 + 5, 200
                     notiTimerTrigger = true
                 end
