@@ -15,7 +15,6 @@
 * Animation for when items combine
 * 2nd round on some rounds
 * boss that steals your ability to shoot and you have to run into things it throws or something to hit the boss with them
-* Make Phi harder
 * Pure rage tints bullets red
 * Xi wavy attacks more wavy
 * diagonal attack item

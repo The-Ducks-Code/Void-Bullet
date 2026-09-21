@@ -74,10 +74,10 @@ function love.load() -- ran before the first frame
     -- initiate collisions
     world:add(player, player.x, player.y, player.w, player.h)
     
-    createBlock(0, 37, 5, gameHeight - 37, "fill") -- left wall
-    createBlock(gameWidth - 5, 37, 5, gameHeight - 37, "fill") -- right wall
-    createBlock(0, 37, gameWidth, 5, "fill") -- top wall
-    createBlock(0, gameHeight - 5, gameWidth, 5, "fill") -- bottom wall
+    createBlock(-45, 37, 50, gameHeight - 37, "fill") -- left wall
+    createBlock(gameWidth - 5, 37, 50, gameHeight - 37, "fill") -- right wall
+    createBlock(0, 37-50, gameWidth, 50, "fill") -- top wall
+    createBlock(0, gameHeight - 5, gameWidth, 50, "fill") -- bottom wall
 
     -- set window title
     love.window.setTitle("Void Bullet ALPHA")

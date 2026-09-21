@@ -143,7 +143,7 @@ function player.update(dt)
         player.pLvl = 999
     end
 
-    if player.coins > 99 then player.coins = 99 end
+    if player.coins > 9999 then player.coins = 9999 end
 
 
     if #enemies == 0 and #bosses == 0 and player.roundactive == true then

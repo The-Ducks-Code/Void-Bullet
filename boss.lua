@@ -312,7 +312,7 @@ function createBoss(x, y, type)
                         boss.r = 0
                         boss.y = boss.y + lengthdir_y(boss.speed * 5 * dt, boss.randir)
                         boss.x = boss.x + lengthdir_x(boss.speed * 5 * dt, boss.randir)
-                        if boss.dash > 2 then
+                        if boss.dash > 4 then
                             local enemybullet = createEnemyBullet(boss.x + 13, boss.y + 16, 0)
                             enemybullets[#enemybullets+1] = enemybullet
                             local enemybullet = createEnemyBullet(boss.x + 13, boss.y + 16, 90)

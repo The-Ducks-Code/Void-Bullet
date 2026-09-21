@@ -5,11 +5,14 @@ bossdir = ""
 function uiDraw()
 
     graphics.setFont(fonts.score)
-    graphics.setColor(255, 255, 255, 55)
-    graphics.print(strFPS .. ' FPS', 0, 0, 0, 0.45, 0.45)
-    graphics.print('v0.1.3', 55, 0, 0, 0.45, 0.45)
+    drawRect(0, 0, 0, 255, "fill", 0, 0, gameWidth, 32)
+    graphics.setColor(255, 255, 255, 255)
+    graphics.print(strFPS .. ' FPS', 0, 3, 0, 0.55, 0.55)
+    graphics.print('v0.1.4', 67, 3, 0, 0.55, 0.55)
     graphics.print('SCORE:'.. player.score, 0, 15, 0, 0.75, 0.75)
-    graphics.print('COINS:'.. player.coins, 105, 0, 0, 0.75, 0.75)
+    graphics.setColor(255, 235, 0, 255)
+    graphics.print('$:'.. player.coins, 125, 0, 0, 0.75, 0.75)
+    graphics.setColor(255, 255, 255, 255)
     graphics.setFont(fonts.entities)
     
     bossbars.draw()
@@ -44,12 +47,12 @@ function uiDraw()
 
             if u < player.hp then
                 graphics.setColor(255, 0, 0, 255)
-                graphics.print('♥', 205 + ioffset, -5, 0, gameWidth/1000, gameHeight/1000)
+                graphics.print('♥', 205 + ioffset, -8, 0, gameWidth/1000, gameHeight/1000)
                 u = u + 1
             else
                 graphics.setColor(255, 255, 255, 255)
             end
-            graphics.print('♥', 205 + ioffset, -5, 0, gameWidth/1000, gameHeight/1000)
+            graphics.print('♥', 205 + ioffset, -8, 0, gameWidth/1000, gameHeight/1000)
             i = i + 1
             ioffset = ioffset + 35
         end
