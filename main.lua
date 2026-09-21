@@ -36,6 +36,7 @@ function love.load() -- ran before the first frame
     powerup = love.audio.newSource("sfx/Powerup.wav", "static")
     endround = love.audio.newSource("sfx/Round_End.wav", "static")
     coinpickup = love.audio.newSource("sfx/Pickup_Coin.wav", "static")
+    vamp = love.audio.newSource("sfx/vamp.wav", "static")
 
     enemydeath1 = love.graphics.newImage("sprites/enemydeath1.png")
     enemydeath2 = love.graphics.newImage("sprites/enemydeath2.png")
@@ -123,7 +124,6 @@ function love.update(dt)
             if bullets[k].active == false then
 
                 table.remove(bullets, k)
-                print("bullet destroyed")
             end
         end
 
@@ -192,10 +192,8 @@ function love.update(dt)
 
                 if enemies[k].x + 22 > bullets[b].x and enemies[k].x - 20 < bullets[b].x and enemies[k].y - 25 < bullets[b].y and enemies[k].y + 25 > bullets[b].y and bullets[b].active then
                     if not tableContains(enemies[k].hitlist, bullets[b]) then
-                        print("bullet hit enemy")
                         enemyhitanims[#enemyhitanims+1] = enemyHit(bullets[b].x, bullets[b].y)
                         bullets[b].piercei = bullets[b].piercei - 1
-                        print(bullets[b].piercei)
                         enemies[k].hp = enemies[k].hp - bullets[b].damage
                         enemies[k].hitlist[#enemies[k].hitlist+1] = bullets[b] -- create one enemy
                         if bullets[b].piercei < 0 then
@@ -211,13 +209,22 @@ function love.update(dt)
                 enemyhurt:play()
                 startShake(1, 1.5)
                 player.score = player.score + enemies[k].pts
+                if player.vamprism == true then
+                    player.vamprismCounter = player.vamprismCounter + 1
+                    if player.vamprismCounter == 10 then
+                        player.vamprismCounter = 0
+                        if player.totalHp > player.hp then
+                            player.hp = player.hp + 1
+                            vamp:play()
+                        end
+                    end
+                end
                 if enemies[k].gold == 1 then player.coins = player.coins + 2 coinpickup:play() end
                 enemies[k].active = false
                 collectgarbage()
             end
 
             if enemies[k].active == false then
-                print(enemies[k].type ..  " enemy destroyed at (" .. enemies[k].x .. ", " .. enemies [k].y .. ")")
                 enemyWorld:remove(enemies[k])
                 table.remove(enemies, k)
             end
@@ -240,14 +247,11 @@ function love.update(dt)
                     for a,c in ipairs(bossbars) do
                         bossbars[a].bosshit()
                     end
-                    print("bullet hit boss")
                     startShake(0.5, 1)
                     enemyhurt:play()
                     enemyhitanims[#enemyhitanims+1] = enemyHit(bullets[b].x - 5, bullets[b].y)
                     bullets[b].active = false
                     bosses[k].color = {255, 0, 0, 255}
-                    print(bosses[k].hp)
-
                 end
             end
 
@@ -279,7 +283,6 @@ function love.update(dt)
             end
 
             if bosses[k].active == false then
-                print(bosses[k].type ..  " enemy destroyed at (" .. bosses[k].x .. ", " .. bosses [k].y .. ")")
                 enemyWorld:remove(bosses[k])
                 table.remove(bosses, k)
             end
@@ -300,7 +303,6 @@ function love.update(dt)
         
         if items[z].x + 10 > player.x - 1 and items[z].x - 50 < player.x - 1 and items[z].y - 10 < player.y - 5 and items[z].y + 25 > player.y - 5  then
 
-            print(items[z].type .. " aquired")
             if items[z].type == "goldcoin" then
                 coinpickup:play()
             end
@@ -330,7 +332,6 @@ function love.update(dt)
                         noti = "HEALED"
                         notiTimerTrigger = true
                     else
-                        print("already at full hp")
                         noticolor = {255, 0, 0, 255}
                         noti = "ALREADY AT FULL HP"
                         notiTimerTrigger = true
@@ -396,14 +397,21 @@ function love.update(dt)
                     noticolor = {225, 20, 50, 255}
                     player.abilities[#player.abilities+1] = items[z].type
                     player.damageMultiplier = player.damageMultiplier * 2
-                    noti = "Pure Rage"
+                    noti = "Pure Rage: DMG X2"
                     noti2 = "'Anger hijacks your body'"
                     notiTimerTrigger = true
                     table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 11))
+                elseif  items[z].type == "vamprism" then
+                    noticolor = {255, 0, 0, 255}
+                    player.abilities[#player.abilities+1] = items[z].type
+                    noti = "Vampirism: LIFESTEAL"
+                    noti2 = "'The lust for blood overtakes you'"
+                    notiTimerTrigger = true
+                    table.remove(itempoolSHOPa, tableItemPlace(itempoolSHOPa, 12))
                 elseif  items[z].type == "exitshop" then
                     noticolor = {255, 255, 255, 255}
                     noti = "You Left The Shop"
-                    noti2 = "'Cheapskate...'"
+                    noti2 = "'You Cheapskate...'"
                     player.x, player.y = gameWidth / 2 + 5, 200
                     notiTimerTrigger = true
                 end

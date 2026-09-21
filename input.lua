@@ -146,7 +146,7 @@ end
 
 local codes = {}
 codes['{up}{up}{down}{down}{left}{right}{left}{right}ba{return}'] = function() noticolor = {255, 0, 0, 255} noti = 'KONAMI CODE ACTIVATED, 99 HP' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.hp = 99 player.totalHp = 99 end
-codes['ggez'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BEST LOOT' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 6 player.abilities[#player.abilities+1] = 'fireball' player.abilities[#player.abilities+1] = 'lasergun'  player.pLvl = 2 end
+codes['ggez'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, BEST LOOT' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.bulletAmount = 6 player.abilities[#player.abilities+1] = 'fireball' player.abilities[#player.abilities+1] = 'lasergun' player.abilities[#player.abilities+1] = 'vamprism'  player.pLvl = 2 end
 codes['hl3confirmed'] = function() noticolor = {255, 165, 0, 255} noti = 'GORDON FREEMAN???' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.txt = "Ồ" end
 codes['shoptest'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, shop test' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 4 player.coins = 99 end
 codes['r15'] = function() noticolor = {255, 0, 0, 255} noti = 'CHEAT ACTIVATED, ROUND 15' notiTimerTrigger = true noticolor = {255, 255, 255, 255} player.round = 15 end

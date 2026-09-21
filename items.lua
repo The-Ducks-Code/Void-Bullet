@@ -8,7 +8,7 @@ items = {}
 
 itempoolERa = {4, 6, 7}
 itempoolERb = {9}
-itempoolSHOPa = {1, 2, 3, 8, 10, 11}
+itempoolSHOPa = {1, 2, 3, 8, 10, 11, 12}
 itempoolSHOPb = {4, 5}
 itempoolSHOPc = {6, 7}
 
@@ -285,6 +285,27 @@ function createItem(itemType, x, y, shopornot)
             end
             item.type = "purerage"
             item.cost = 30
+        elseif item.type == "vamprism" or item.type == 12 then
+        item.txt = '-Ж-'
+
+            if b < 12 then
+
+                item.color = {225, 0, 0, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {255, 50, 20, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "vamprism"
+            item.cost = 35
         end
     end
 

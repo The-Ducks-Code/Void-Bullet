@@ -267,7 +267,6 @@ function createEnemy(x, y, type, damage)
     
     end
  
-    print("enemy created")
 
     return enemy
 

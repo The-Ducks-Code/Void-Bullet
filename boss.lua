@@ -393,8 +393,6 @@ function createBoss(x, y, type)
         
     end
  
-    print("boss created - " .. boss.type)
-
     return boss
 
 end

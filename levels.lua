@@ -225,7 +225,9 @@ function gameRestart()
     player.telknsis = false
     bulletoffset = 0
     player.thirdeye = false
+    player.vamprism = false
     player.thirdeyeCounter = 0
+    player.vamprismCounter = 0
     player.damageMultiplier = 1
 
 

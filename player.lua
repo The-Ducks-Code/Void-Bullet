@@ -28,10 +28,10 @@ player.bulletAmount = 1
 player.pLvl = 0
 player.coins = 0
 player.damageMultiplier = 1
-
 player.telknsis = false
 player.thirdeye = false
 player.thirdeyeCounter = 0
+player.vamprismCounter = 0
 local b = 0
 local c = 0
 
@@ -91,6 +91,10 @@ function player.update(dt)
             
             player.telknsis = true
 
+        elseif player.abilities[k] == "vamprism" then
+            
+            player.vamprism = true
+
         end
     end
 
@@ -107,7 +111,6 @@ function player.update(dt)
     end
 
     if tableContains(player.abilities, "fireball") and tableContains(player.abilities, "lasergun") then
-        print("firelser")
         removeAbility("fireball")
         removeAbility("lasergun")
         player.abilities[#player.abilities+1] = "firelser"
@@ -148,7 +151,6 @@ function player.update(dt)
         player.round = player.round + 1
         player.roundactive = false
         if not player.round == 0 then
-            print("ROUND COMPLETE")
         end
         player.x = gameWidth / 2 - 20
         player.y = gameHeight / 2 - 20
@@ -158,7 +160,6 @@ function player.update(dt)
             bullets[k].active = false
 
         end
-        print("ROUND " .. player.round)
         if player.round % 5 == 0 then
             level.init("shop")
         else
@@ -175,8 +176,6 @@ function player.update(dt)
             playerhurt:play()
             startShake(2, 10)
             player.hp = player.hp - dmg
-            print("player took " .. dmg ..  " damage")
-            print("player has " .. player.hp .. "hp left")
             player.color = {255, 100, 25, 155}
             damagecooldown = true
             player.y = player.y + lengthdir_y(10 * dt, enemydir)
