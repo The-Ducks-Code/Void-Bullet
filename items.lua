@@ -306,6 +306,28 @@ function createItem(itemType, x, y, shopornot)
             end
             item.type = "vamprism"
             item.cost = 35
+        elseif item.type == "bulspdup" or item.type == 13 then
+
+            item.txt = '↑#↑'
+
+            if b < 12 then
+
+                item.color = {23, 205, 4, 255}
+                b = b + 1 * dt
+
+            elseif c < 12 then
+
+                item.color = {20, 300, 0, 255}
+                c = c + 1 * dt
+
+            else
+
+                b = 0
+                c = 0
+
+            end
+            item.type = "bulspdup"
+            item.cost = 3 + math.floor((2 * player.bulSpdMod + 0.5))
         end
     end
 

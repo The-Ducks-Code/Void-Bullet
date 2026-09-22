@@ -81,8 +81,8 @@ function createBullet(x, y, dir) -- when called creates a bullet in a given loca
     local lengthdir_y = lengthdir_y
     local lengthdir_x = lengthdir_x
     function bullet.update(dt)
-                bullet.y = bullet.y + lengthdir_y(bullet.speed * dt, dir)
-                bullet.x = bullet.x + lengthdir_x(bullet.speed * dt, dir)
+                bullet.y = bullet.y + lengthdir_y(bullet.speed + player.bulSpdMod * dt, dir)
+                bullet.x = bullet.x + lengthdir_x(bullet.speed + player.bulSpdMod * dt, dir)
 
 
             if player.bType == "fireball" then

@@ -32,6 +32,7 @@ player.telknsis = false
 player.thirdeye = false
 player.thirdeyeCounter = 0
 player.vamprismCounter = 0
+player.bulSpdMod = 0
 local b = 0
 local c = 0
 

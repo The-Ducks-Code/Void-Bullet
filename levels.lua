@@ -229,7 +229,7 @@ function gameRestart()
     player.thirdeyeCounter = 0
     player.vamprismCounter = 0
     player.damageMultiplier = 1
-
+    player.bulSpdMod = 0
 
     if player.roundactive == true then
         table.remove(items, 3)
